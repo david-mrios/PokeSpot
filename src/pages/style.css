@@ -61,8 +61,8 @@ body {
 }
 .column-img {
   display: flex;
-  position:static;
-  justify-content:flex-end;
+  position: static;
+  justify-content: flex-end;
   flex: 3;
   padding: 10px;
   margin: 0 0;
@@ -70,7 +70,7 @@ body {
   img {
     width: 60%;
     padding: 10px 70px 30px;
-    margin: 0 0 0 0 ;
+    margin: 0 0 0 0;
   }
 }
 
@@ -83,7 +83,7 @@ body {
   ul {
     display: flex;
     position: relative;
-    justify-content:start;
+    justify-content: start;
     list-style: none;
     padding: 0;
     li {
@@ -111,14 +111,13 @@ body {
   outline-color: #e7ad5a;
 }
 
-
 button {
   background-color: #eee;
-    border: none;
-    padding: 9px;
-    font-size: 1rem;
-    border-radius: 1rem;
-    color: #e7ad5a;
-    box-shadow: 0 0.4rem #dfd9d9;
-    cursor: pointer;
+  border: none;
+  padding: 9px;
+  font-size: 1rem;
+  border-radius: 1rem;
+  color: #e7ad5a;
+  box-shadow: 0 0.4rem #dfd9d9;
+  cursor: pointer;
 }
