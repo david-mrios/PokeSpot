@@ -41,7 +41,7 @@ body {
   div {
     background: linear-gradient(#f4bd6c, #dc9f4b);
     text-align: center;
-    padding: 0 0;
+    padding: 0 0px;
     font-size: 30px;
   }
 }
@@ -51,4 +51,26 @@ body {
   padding: 0 0px;
   max-width: 1300;
   width: 100%;
+}
+.row {
+  content: "";
+  display: flex;
+  clear: both;
+}  
+.column-img {
+  display: flex;
+  justify-content: center;
+  flex: 3;
+  padding: 10px;
+  margin: 10px;
+
+ 
+}
+
+.column-text {
+  display: block;
+  flex: 1;
+  padding: 10px;
+  margin: 10px;
+  
 }
