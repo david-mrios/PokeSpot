@@ -56,33 +56,36 @@ body {
   content: "";
   display: flex;
   clear: both;
+  padding: 0;
+  margin: 0;
 }
 .column-img {
   display: flex;
-  justify-content: center;
+  position:static;
+  justify-content:flex-end;
   flex: 3;
   padding: 10px;
-  margin: 10px;
+  margin: 0 0;
 
   img {
-    width: 40%;
-    padding: 10px;
-    margin: 5px;
+    width: 60%;
+    padding: 10px 70px 30px;
+    margin: 0 0 0 0 ;
   }
 }
 
 .column-text {
   display: block;
-  flex: 1;
-  padding: 10px;
-  margin: 10px;
+  flex: 3;
+  padding: 0;
+  margin: 0;
 
   ul {
     display: flex;
     position: relative;
-    justify-content: center;
+    justify-content:start;
     list-style: none;
-    padding: 2rem;
+    padding: 0;
     li {
       margin: 10px;
     }
@@ -96,7 +99,7 @@ body {
     border: none;
     padding: 1rem;
     font-size: 1rem;
-    width: 13em;
+    width: 13rem;
     border-radius: 1rem;
     color: #e7ad5a;
     box-shadow: 0 0.4rem #dfd9d9;
@@ -106,4 +109,16 @@ body {
 
 .input-wrapper input:focus {
   outline-color: #e7ad5a;
+}
+
+
+button {
+  background-color: #eee;
+    border: none;
+    padding: 9px;
+    font-size: 1rem;
+    border-radius: 1rem;
+    color: #e7ad5a;
+    box-shadow: 0 0.4rem #dfd9d9;
+    cursor: pointer;
 }
