@@ -63,6 +63,12 @@ body {
   flex: 3;
   padding: 10px;
   margin: 10px;
+
+  img {
+    width: 40%;
+    padding: 10px;
+    margin: 5px;
+  }
 }
 
 .column-text {
@@ -70,4 +76,34 @@ body {
   flex: 1;
   padding: 10px;
   margin: 10px;
+
+  ul {
+    display: flex;
+    position: relative;
+    justify-content: center;
+    list-style: none;
+    padding: 2rem;
+    li {
+      margin: 10px;
+    }
+  }
+}
+
+.input-wrapper {
+  display: contents;
+  input {
+    background-color: #eee;
+    border: none;
+    padding: 1rem;
+    font-size: 1rem;
+    width: 13em;
+    border-radius: 1rem;
+    color: #e7ad5a;
+    box-shadow: 0 0.4rem #dfd9d9;
+    cursor: pointer;
+  }
+}
+
+.input-wrapper input:focus {
+  outline-color: #e7ad5a;
 }
