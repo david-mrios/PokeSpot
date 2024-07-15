@@ -31,24 +31,24 @@ body {
   display: grid;
   grid-template-areas: "header header header header header header";
   gap: 10px;
-  background-color: #2196f3;
-  padding: 10px;
+
+  padding: 0;
   margin: 0;
+  border: none;
 }
 
 .grid-container {
-    div {
-        background-color: #e1e1e1;
-        text-align: center;
-        padding: 20px 0;
-        font-size: 30px;
-      }
+  div {
+    background: linear-gradient(#f4bd6c, #dc9f4b);
+    text-align: center;
+    padding: 0 0;
+    font-size: 30px;
+  }
 }
 
 .container {
   margin: 0;
-  padding: 0 16px;
-  background-color: #2196F3;
+  padding: 0 0px;
   max-width: 1300;
   width: 100%;
 }
