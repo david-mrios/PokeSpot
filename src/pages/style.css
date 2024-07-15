@@ -56,15 +56,13 @@ body {
   content: "";
   display: flex;
   clear: both;
-}  
+}
 .column-img {
   display: flex;
   justify-content: center;
   flex: 3;
   padding: 10px;
   margin: 10px;
-
- 
 }
 
 .column-text {
@@ -72,5 +70,4 @@ body {
   flex: 1;
   padding: 10px;
   margin: 10px;
-  
 }
