@@ -134,3 +134,22 @@ button {
 }
 
 
+
+.nav-item {
+  border: none;
+  padding: 9px;
+  font-size: 1rem;
+  border-radius: 1rem;
+  color: #ffffff;
+  box-shadow: 0 0.4rem #dfd9d9;
+  background: transparent;
+  cursor: pointer;
+  content: "";
+
+  h2 {
+    font-size: 20px;
+    display: inline;
+    padding: 0 0 0 10px;
+    margin: 0 0 0 0;
+  }
+}
