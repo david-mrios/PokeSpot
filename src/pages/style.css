@@ -52,9 +52,11 @@ body {
 
 .main-div {
   div {
-    text-align: center;
-    padding: 0 40px;
-    margin: 5px 0 0 0;
+    display: flex;
+    justify-content: center;
+    flex-wrap: wrap;
+    padding: 0 20px 10px 20px;
+    margin: 0 0 0 0;
     background-color: #ffffff;
   }
 }
