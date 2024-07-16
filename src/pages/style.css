@@ -199,3 +199,10 @@ div.desc {
   background: #212121;
   color: #ccc;
 }
+
+
+.clearfix:after {
+  content: "";
+  display: table;
+  clear: both;
+}
