@@ -29,9 +29,11 @@ body {
 
 .grid-container {
   display: grid;
-  grid-template-areas: "header header header header header header";
+  grid-template-areas:
+    "header header header header header header"
+    "main main main main main main"
+    "menu footer footer footer footer footer";
   gap: 10px;
-
   padding: 0;
   margin: 0;
   border: none;
@@ -47,11 +49,22 @@ body {
   }
 }
 
+.main-div {
+  div {
+    /* background: linear-gradient(#f4bd6c, #dc9f4b); */
+    background: #ffffff;
+    text-align: center;
+    padding: 0 0px;
+    font-size: 30px;
+  }
+}
+
 .container {
   margin: 0;
   padding: 0 0px;
   max-width: 1300;
   width: 100%;
+  background-color: #ffffff;
 }
 .row {
   content: "";
@@ -132,8 +145,6 @@ button {
   box-shadow: 0 0.4rem #dfd9d9;
   cursor: pointer;
 }
-
-
 
 .nav-item {
   border: none;
