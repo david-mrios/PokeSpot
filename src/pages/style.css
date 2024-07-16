@@ -32,11 +32,12 @@ body {
   grid-template-areas:
     "header header header header header header"
     "main main main main main main"
-    "menu footer footer footer footer footer";
+    "footer footer footer footer footer footer";
   gap: 10px;
-  padding: 0;
-  margin: 0;
+  padding: 0 0 0 0;
+  margin: 0 0 0 0;
   border: none;
+  background-color: #ffffff;
 }
 
 .grid-container {
@@ -44,18 +45,17 @@ body {
     /* background: linear-gradient(#f4bd6c, #dc9f4b); */
     background: #3a2939;
     text-align: center;
-    padding: 0 0px;
+    padding: 0 0 0 0;
     font-size: 30px;
   }
 }
 
 .main-div {
   div {
-    /* background: linear-gradient(#f4bd6c, #dc9f4b); */
-    background: #ffffff;
     text-align: center;
-    padding: 0 0px;
-    font-size: 30px;
+    padding: 0 40px;
+    margin: 5px 0 0 0;
+    background-color: #ffffff;
   }
 }
 
@@ -69,6 +69,7 @@ body {
 .row {
   content: "";
   display: flex;
+  flex-wrap: wrap;
   clear: both;
   padding: 0;
   margin: 0;
@@ -100,10 +101,10 @@ body {
 }
 
 .column-text {
-  display: block;
   flex: 2;
-  padding: 0;
-  margin: 0;
+  padding: 0 0 0;
+  margin: 0 15px 0 15px;
+
   ul {
     display: flex;
     position: relative;
@@ -112,6 +113,7 @@ body {
     padding: 0;
     li {
       margin: 10px;
+      padding: 0 0 10px 0;
     }
   }
 }
@@ -141,7 +143,7 @@ button {
   padding: 9px;
   font-size: 1rem;
   border-radius: 1rem;
-  color: #e7ad5a;
+  color: #3a2939;
   box-shadow: 0 0.4rem #dfd9d9;
   cursor: pointer;
 }
@@ -163,4 +165,11 @@ button {
     padding: 0 0 0 10px;
     margin: 0 0 0 0;
   }
+}
+
+.responsive {
+  padding: 0 0;
+  margin: 0 0 0 0;
+  float: left;
+  width: 24.99999%;
 }
