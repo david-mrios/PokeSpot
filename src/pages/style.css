@@ -173,3 +173,22 @@ button {
   float: left;
   width: 24.99999%;
 }
+
+
+div.card {
+  border: 1px solid #212121;
+  background: #212121;
+  box-shadow: 0px 0px 0px rgb(25, 25, 25), -10px -10px 30px rgb(60, 60, 60);
+}
+
+
+div.card:hover {
+  border: 1px solid #777;
+}
+
+div.card img {
+  width: 100%;
+  height: auto;
+  padding: 15px 0 0 0;
+  margin: 0 0 0 0;
+}
