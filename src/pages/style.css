@@ -39,7 +39,8 @@ body {
 
 .grid-container {
   div {
-    background: linear-gradient(#f4bd6c, #dc9f4b);
+    /* background: linear-gradient(#f4bd6c, #dc9f4b); */
+    background: #3a2939;
     text-align: center;
     padding: 0 0px;
     font-size: 30px;
@@ -62,28 +63,38 @@ body {
 .column-img {
   display: flex;
   position: static;
-  justify-content: flex-end;
+  justify-content: flex-start;
   flex: 3;
-  padding: 10px;
+  padding: 5px;
   margin: 0 0;
 
   img {
-    width: 60%;
-    padding: 10px 70px 30px;
-    margin: 0 0 0 0;
+    width: 20%;
+    padding: 0 0 0;
+    margin: 0 15px 0 15px;
+  }
+
+  ul {
+    display: flex;
+    position: relative;
+    justify-content: end;
+    list-style: none;
+    padding: 0;
+    li {
+      margin: 10px;
+    }
   }
 }
 
 .column-text {
   display: block;
-  flex: 3;
+  flex: 2;
   padding: 0;
   margin: 0;
-
   ul {
     display: flex;
     position: relative;
-    justify-content: start;
+    justify-content: end;
     list-style: none;
     padding: 0;
     li {
@@ -121,3 +132,5 @@ button {
   box-shadow: 0 0.4rem #dfd9d9;
   cursor: pointer;
 }
+
+
