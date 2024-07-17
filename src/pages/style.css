@@ -213,9 +213,7 @@ div.desc {
     float: left;
     width: 50%;
   }
-  
 }
-
 
 @media (max-width: 650px) {
   .responsive {
