@@ -207,3 +207,19 @@ div.desc {
   display: table;
   clear: both;
 }
+
+@media (max-width: 400px) {
+  .responsive {
+    float: left;
+    width: 50%;
+  }
+  
+}
+
+
+@media (max-width: 650px) {
+  .responsive {
+    float: left;
+    width: 50%;
+  }
+}
