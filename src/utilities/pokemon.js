@@ -1,5 +1,6 @@
-const max_pokemon = 10;
+const max_pokemon = 20;
 const listDisplay = document.querySelector(".list-display");
+const main = document.querySelector(".main");
 
 let pokemons = [];
 
@@ -21,22 +22,25 @@ async function fetchData() {
 fetchData();
 
 function displayPokemons(pokemon) {
-  listDisplay.innerHTML = "";
+  main.innerHTML = "";
 
   pokemon.forEach((pokemon) => {
     const pokemonID = pokemon.url.split("/")[6];
-    const listItem = document.createElement("div");
-    listItem.className = "list-item";
-    listItem.innerHTML = `
-  
-            <div class="img-wrap">
-                <img src="https://raw.githubusercontent.com/pokeapi/sprites/master/sprites/pokemon/other/dream-world/${pokemonID}.svg" alt="${pokemon.name}" />
+    const card = document.createElement("div");
+    card.className = "responsive";
+    card.innerHTML = `
+            <div class="card">
+              <a target="_blank" href="#">
+                <img
+                  src="https://raw.githubusercontent.com/pokeapi/sprites/master/sprites/pokemon/other/dream-world/${pokemonID}.svg"
+                  alt="Cinque Terre"
+                  width="600"
+                  height="400"
+                />
+              </a>
+              <div class="desc">${pokemon.name}</div>
             </div>
-            <div class="name-wrap">
-                <p class="body3-fonts">${pokemon.name}</p>
-            </div>
-        `;
-
-    listDisplay.appendChild(listItem);
+     `;
+    main.appendChild(card);
   });
 }
