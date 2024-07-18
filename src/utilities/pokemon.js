@@ -34,8 +34,6 @@ function displayPokemons(pokemon) {
                 <img
                   src="https://raw.githubusercontent.com/pokeapi/sprites/master/sprites/pokemon/other/dream-world/${pokemonID}.svg"
                   alt="Cinque Terre"
-                  width="600"
-                  height="400"
                 />
               </a>
               <div class="desc">${pokemon.name}</div>
