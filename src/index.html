@@ -22,15 +22,11 @@
               <img src="assets/icons/logo.svg" alt="PokeSpot logo" />
               <ul>
                 <li>
-                  <button>
+                  <button class="button-search">
                     <i class="fas fa-search"></i>
                   </button>
                 </li>
-                <li>
-                  <button>
-                    <i class="fas fa-sliders-h"></i>
-                  </button>
-                </li>
+
                 <li>
                   <div class="input-wrapper">
                     <input
@@ -75,9 +71,30 @@
     <!-- main-card -->
     <main class="container">
       <div class="main-div">
-        <div class="main"></div>
+        <div class="main">
+          <div class="responsive">
+            <div class="card">
+              <button id="myBtn">
+                <img
+                  src="https://raw.githubusercontent.com/pokeapi/sprites/master/sprites/pokemon/other/dream-world/1.svg"
+                  alt="Cinque Terre"
+                />
+              </button>
+              <div class="desc">pokemon name</div>
+            </div>
+          </div>
+        </div>
       </div>
       <!-- card -->
+
+      <!-- The Modal -->
+      <div id="myModal" class="modal">
+        <!-- Modal content -->
+        <div class="modal-content">
+          <span class="close">&times;</span>
+          <p>Some text in the Modal..</p>
+        </div>
+      </div>
     </main>
   </body>
 </html>
