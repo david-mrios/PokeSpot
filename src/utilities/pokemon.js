@@ -30,7 +30,7 @@ function displayPokemons(pokemon) {
     card.className = "responsive";
     card.innerHTML = `
             <div class="card">
-              <button id="myBtn">
+              <button id="myBtn" class="modal-btn">
                 <img
                   src="https://raw.githubusercontent.com/pokeapi/sprites/master/sprites/pokemon/other/dream-world/${pokemonID}.svg"
                   alt="Cinque Terre"
