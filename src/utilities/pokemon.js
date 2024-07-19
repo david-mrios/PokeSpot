@@ -1,4 +1,4 @@
-const max_pokemon = 20;
+const max_pokemon = 5;
 const listDisplay = document.querySelector(".list-display");
 const main = document.querySelector(".main");
 
@@ -26,7 +26,7 @@ function displayPokemons(pokemon) {
 
   pokemon.forEach((pokemon) => {
     const pokemonID = pokemon.url.split("/")[6];
-    const card = document.createElement("div");
+    let card = document.createElement("div");
     card.className = "responsive";
     card.innerHTML = `
             <div class="card">
@@ -40,35 +40,32 @@ function displayPokemons(pokemon) {
             </div>
          `;
     card.addEventListener("click", () => {
-      showModal();
+      showModal(pokemonID, pokemon.name);
     });
     main.appendChild(card);
   });
 }
 
-//  for test
-// showModal();
 
-function showModal() {
+
+function showModal(id, pokemon) {
   const modal = document.getElementById("myModal");
-  const btn = document.getElementById("myBtn");
-  const modalText = document.getElementById("modal-text");
-  modalText.textContent = "test";
+  var btn = document.getElementById("myBtn");
+  var modalText = document.getElementById("modal-text");
+  modalText.textContent = id + "and name " + pokemon;
 
-  btn.onclick = function () {
-    modal.style.display = "block";
-  };
+  modal.style.display = "block";
 }
 
 function closeModal() {
-  const modal = document.getElementById("myModal");
-  modal.style.display = "none";
+  var modal = document.getElementById("myModal");
+  modal.style.display = "none ";
 }
 
-var span = document.getElementsByClassName("close")[0];
+const span = document.getElementsByClassName("close")[0];
 span.onclick = closeModal;
 
-const modal = document.getElementById("myModal");
+var modal = document.getElementById("myModal");
 window.onclick = function (event) {
   if (event.target == modal) {
     modal.style.display = "none";
