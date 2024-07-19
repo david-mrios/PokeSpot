@@ -1,4 +1,4 @@
-const max_pokemon = 5;
+const max_pokemon = 1;
 const listDisplay = document.querySelector(".list-display");
 const main = document.querySelector(".main");
 
