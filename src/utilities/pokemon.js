@@ -1,4 +1,4 @@
-const max_pokemon = 1;
+const max_pokemon = 20;
 const listDisplay = document.querySelector(".list-display");
 const main = document.querySelector(".main");
 
@@ -30,38 +30,63 @@ function displayPokemons(pokemon) {
     card.className = "responsive";
     card.innerHTML = `
             <div class="card">
-              <a target="_blank" href="#">
+              <button id="myBtn">
                 <img
                   src="https://raw.githubusercontent.com/pokeapi/sprites/master/sprites/pokemon/other/dream-world/${pokemonID}.svg"
                   alt="Cinque Terre"
                 />
-              </a>
+              </button>
               <div class="desc">${pokemon.name}</div>
             </div>
-     `;
+         `;
     main.appendChild(card);
   });
 }
 
-// Get the modal
-var modal = document.getElementById("myModal");
+function modal(pokemon) {
+  main.innerHTML = "";
 
-// Get the button that opens the modal
-var btn = document.getElementById("myBtn");
+  pokemon.forEach((pokemon) => {
+    const pokemonID = pokemon.url.split("/")[6];
+    const card = document.createElement("div");
+    card.className = "responsive";
+    card.innerHTML = `
+            <div class="card">
+              <button id="myBtn">
+                <img
+                  src="https://raw.githubusercontent.com/pokeapi/sprites/master/sprites/pokemon/other/dream-world/${pokemonID}.svg"
+                  alt="Cinque Terre"
+                />
+              </button>
+              <div class="desc">${pokemon.name}</div>
+            </div>
+         `;
 
-// Get the <span> element that closes the modal
-var span = document.getElementsByClassName("close")[0];
+    main.appendChild(card);
+  });
+}
 
-// When the user clicks the button, open the modal
-btn.onclick = function () {
-  modal.style.display = "block";
-};
+showModal();
+closeModal();
 
-// When the user clicks on <span> (x), close the modal
-span.onclick = function () {
+function showModal() {
+  const modal = document.getElementById("myModal");
+  const btn = document.getElementById("myBtn");
+  const modalText = document.getElementById("modal-text");
+  modalText.textContent = "test";
+
+  btn.onclick = function () {
+    modal.style.display = "block";
+  };
+}
+
+function closeModal() {
+  const modal = document.getElementById("myModal");
   modal.style.display = "none";
-};
+}
 
+var span = document.getElementsByClassName("close")[0];
+span.onclick = closeModal;
 // When the user clicks anywhere outside of the modal, close it
 window.onclick = function (event) {
   if (event.target == modal) {
