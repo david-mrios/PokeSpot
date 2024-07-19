@@ -1,4 +1,4 @@
-const max_pokemon = 1;
+const max_pokemon = 20;
 const listDisplay = document.querySelector(".list-display");
 const main = document.querySelector(".main");
 
@@ -52,7 +52,7 @@ function showModal(id, pokemon) {
   const modal = document.getElementById("myModal");
   var btn = document.getElementById("myBtn");
   var modalText = document.getElementById("modal-text");
-  modalText.textContent = id + "and name " + pokemon;
+  // modalText.textContent = id + "and name " + pokemon;
 
   modal.style.display = "block";
 }
