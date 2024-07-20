@@ -281,7 +281,7 @@ div.desc {
 
 .close:hover,
 .close:focus {
-  color: #000;
+  color: #ff0000;
   text-decoration: none;
   cursor: pointer;
 }
@@ -315,7 +315,7 @@ div.desc {
     padding: 0 0 0 0;
     margin: 0 0 0 0;
     /* box-shadow: 12px 8px 20px orange ; */
-    filter: drop-shadow(10px 7px 15px #ffa500);
+    filter: drop-shadow(0 0 0.75rem crimson) opacity(60%);
   }
 
   ul {
