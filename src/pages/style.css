@@ -315,7 +315,7 @@ div.desc {
     padding: 0 0 0 0;
     margin: 0 0 0 0;
     /* box-shadow: 12px 8px 20px orange ; */
-    filter: drop-shadow(12px 8px 20px rgb(223, 122, 122));
+    filter: drop-shadow(10px 7px 15px #ffa500);
   }
 
   ul {
@@ -334,6 +334,13 @@ div.desc {
   flex: 3;
   padding: 0 0 0 75px;
   margin: 0 0;
+  color: orange;
+}
+
+#info-modal {
+  display: inline;
+  padding: 0 0 10px 4px;
+  border-bottom: 0.0625rem solid gray;
 }
 
 .column-modal-text ul {
@@ -348,58 +355,62 @@ div.desc {
     color: #5bc8f7;
   }
 }
-/* 
-.Spicies::before {
-  content: "Spicies";
-  color: red;
-  padding: 0 100px 0 0;
-}
-
-.Height::before {
-  content: "Height";
-  color: red;
-  padding: 0 105px 0 0;
-}
-.ability::before {
-  content: "ability";
-  color: red;
-  padding: 0 100px 0 0;
-}
-.weakness::before {
-  content: "weakness";
-  color: red;
-  padding: 0 63px 0 0;
-  margin: 0 0 0 0;
-}
-
-.Gen::before {
-  content: "Gen";
-  color: red;
-  padding: 0 100px 0 0;
-}
 
 #btn-info {
-  height: 25px;
-  width: 50px;
-  margin: 0;
-  padding: 0;
-} */
+  padding: 9px;
+  border-radius: 1rem;
+  color: #ffffff;
+  background: transparent;
+  transition: none;
+  pointer-events: none;
+  h2 {
+    font-size: 1.1em;
+    display: inline;
+    text-transform: uppercase;
+    padding: 0 25px 0 25px;
+    margin: 0 0 0 0;
+    color: orange;
+  }
+}
 
 .info-class {
   color: #fff;
+  font: normal bold 1.1em "Fira Sans", sans-serif;
   display: inline;
-  padding: 0 0 0 0;
+  padding: 20px 0 0 0;
 }
 
 .data-class {
-  padding: 0 43px 0 0;
+  padding: 10px 43px 0 0;
+  font: normal bold 1.1em "Fira Sans", sans-serif;
+  text-transform: uppercase;
+  display: inline;
   color: orange;
 }
 
 .li-data {
   display: flex;
   justify-content: space-between;
-  h2{
-    font-size: 15px;
+  align-items: center;
+  h2 {
+    font-size: 1.1em;
   }
 }
+
+/* .li-data {
+  border: none;
+  padding: 9px;
+  font-size: 1rem;
+  border-radius: 1rem;
+  color: #ffffff;
+  box-shadow: 0 0.4rem #dfd9d9;
+  background: transparent;
+  cursor: pointer;
+  content: "";
+
+  h2 {
+    font-size: 20px;
+    display: inline;
+    padding: 0 0 0 10px;
+    margin: 0 0 0 0;
+  } */
