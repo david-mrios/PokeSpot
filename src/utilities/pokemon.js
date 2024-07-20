@@ -4,6 +4,7 @@ const main = document.querySelector(".main");
 
 let pokemons = [];
 
+
 async function fetchData() {
   try {
     const response = await fetch(
@@ -46,8 +47,6 @@ function displayPokemons(pokemon) {
   });
 }
 
-
-
 function showModal(id, pokemon) {
   const modal = document.getElementById("myModal");
   var btn = document.getElementById("myBtn");
@@ -71,3 +70,5 @@ window.onclick = function (event) {
     modal.style.display = "none";
   }
 };
+
+
