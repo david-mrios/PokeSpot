@@ -415,7 +415,7 @@ div.desc {
     margin: 0 0 0 0;
   } */
 
-/* label {
+label {
   background-color: white;
   display: flex;
   justify-content: flex-end;
@@ -428,11 +428,11 @@ div.desc {
   color: rgb(255, 255, 255);
 }
 
-input {
+.checkbox-heart {
   display: none;
 }
 
-input:checked + label svg {
+.checkbox-heart:checked + label svg {
   fill: hsl(0deg 100% 50%);
   stroke: hsl(0deg 100% 50%);
   animation: heartButton 1s;
@@ -460,13 +460,13 @@ input:checked + label svg {
   }
 }
 
-input + label .action {
+.checkbox-heart + label .action {
   position: relative;
   overflow: hidden;
   display: grid;
 }
 
-input + label .action span {
+.checkbox-heart + label .action span {
   grid-column-start: 1;
   grid-column-end: 1;
   grid-row-start: 1;
@@ -474,22 +474,22 @@ input + label .action span {
   transition: all 0.5s;
 }
 
-input + label .action span.option-1 {
+.checkbox-heart + label .action span.option-1 {
   transform: translate(0px, 0%);
   opacity: 1;
 }
 
-input:checked + label .action span.option-1 {
+.checkbox-heart:checked + label .action span.option-1 {
   transform: translate(0px, -100%);
   opacity: 0;
 }
 
-input + label .action span.option-2 {
+.checkbox-heart + label .action span.option-2 {
   transform: translate(0px, 100%);
   opacity: 0;
 }
 
-input:checked + label .action span.option-2 {
+.checkbox-heart:checked + label .action span.option-2 {
   transform: translate(0px, 0%);
   opacity: 1;
 }
@@ -500,4 +500,4 @@ input:checked + label .action span.option-2 {
   max-width: 1300;
   width: 100%;
   background-color: transparent;
-} */
+}
