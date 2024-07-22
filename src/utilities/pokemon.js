@@ -1,4 +1,4 @@
-const max_pokemon = 4;
+const max_pokemon = 5;
 const listDisplay = document.querySelector(".list-display");
 const main = document.querySelector(".main");
 
@@ -14,7 +14,7 @@ async function fetchData() {
     pokemons = data.results;
     console.log(pokemons);
     displayPokemons(pokemons);
-    PokemonAbilities  (pokemons);
+    PokemonAbilities(pokemons);
   } catch (error) {
     console.error("error:", error);
   }
@@ -22,7 +22,6 @@ async function fetchData() {
 
 function PokemonAbilities(pokemon) {
   pokemon.forEach((pokemon) => {
-    console.log(pokemon.url);
     fetchDataAbilities(pokemon.url);
   });
 }
@@ -31,10 +30,20 @@ async function fetchDataAbilities(url) {
   try {
     const response = await fetch(url);
     const data = await response.json();
-    console.log(data);
+    // console.log(data);
+    abilities = data.abilities;
+
+    displayPokemonsAbilities(abilities);
   } catch (error) {
     console.error("error:", error);
   }
+}
+
+function displayPokemonsAbilities(abilities) {
+  //  console.log(abilities)
+  abilities.forEach((abilities) => {
+    console.log(abilities.ability.name);
+  });
 }
 
 fetchData();
