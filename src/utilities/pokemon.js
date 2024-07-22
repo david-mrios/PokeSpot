@@ -1,4 +1,4 @@
-const max_pokemon = 20;
+const max_pokemon = 1;
 const listDisplay = document.querySelector(".list-display");
 const main = document.querySelector(".main");
 
@@ -14,7 +14,7 @@ async function fetchData() {
     const data = await response.json();
     pokemons = data.results;
     console.log(pokemons);
-    displayPokemons(pokemons);
+    // displayPokemons(pokemons);
   } catch (error) {
     console.error("error:", error);
   }
