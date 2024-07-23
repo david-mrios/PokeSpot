@@ -1,4 +1,4 @@
-const max_pokemon = 5;
+const max_pokemon = 10;
 const listDisplay = document.querySelector(".list-display");
 const main = document.querySelector(".main");
 const modal_cont = document.querySelector(".data-modal");
@@ -13,49 +13,39 @@ async function fetchData() {
 
     const data = await response.json();
     pokemons = data.results;
-    console.log(pokemons);
     displayPokemons(pokemons);
-    // PokemonAbilities(pokemons);
   } catch (error) {
     console.error("error:", error);
   }
-}
-
-function PokemonAbilities(pokemon) {
-  pokemon.forEach((pokemon) => {
-    fetchDataAbilities(pokemon.url);
-  });
 }
 
 async function fetchDataAbilities(url) {
   try {
     const response = await fetch(url);
     const data = await response.json();
-    pokemons = [
-      [data.abilities, data.height, data.base_experience, data.forms],
-    ];
-    // console.log(pokemons);
-    displayPokemonsAbilities(pokemons);
+    pokemons = {
+      abilities: data.abilities,
+      height: data.height,
+      base_experience: data.base_experience,
+      forms: data.forms,
+      Spicies: data.genera
+    };
+console.log(pokemons.Spicies)
+    return pokemons;
+    // displayPokemons(pokemon)
   } catch (error) {
     console.error("error:", error);
   }
 }
 
-function displayPokemonsAbilities(pokemon) {
-  pokemon.forEach((pokemon) => {
-    abilities = pokemon[0];
-    console.log(abilities[0].ability.name);
-    console.log(abilities[1].ability.name);
-  });
-}
-
 fetchData();
 
-function displayPokemons(pokemon) {
+function displayPokemons(pokemon_data) {
   main.innerHTML = "";
-
-  pokemon.forEach((pokemon) => {
+  pokemon_data.forEach(async (pokemon) => {
     const pokemonID = pokemon.url.split("/")[6];
+    const dataPokemon = await fetchDataAbilities(pokemon.url);
+
     let card = document.createElement("div");
     card.className = "responsive";
     card.innerHTML = `
@@ -96,18 +86,22 @@ function displayPokemons(pokemon) {
             </div>
          `;
     card.addEventListener("click", () => {
-      showModal(pokemonID, pokemon.name);
+      showModal(
+        pokemonID,
+        pokemon.name,
+        dataPokemon.height,
+        dataPokemon.abilities[0].ability.name
+      );
     });
     main.appendChild(card);
   });
 }
 
-function showModal(id, pokemon) {
+function showModal(id, pokemon, height, abilities) {
   const modal = document.getElementById("myModal");
   var btn = document.getElementById("myBtn");
   modal_cont.innerHTML = "";
   let modalCard = document.createElement("div");
-
   modalCard.className = "row";
   // let img = document.createElement("img");
   modalCard.innerHTML = `
@@ -127,11 +121,11 @@ function showModal(id, pokemon) {
                 </li>
                 <li class="li-data">
                   <span class="info-class">Height</span>
-                  <span class="data-class">test</span>
+                  <span class="data-class">${height}</span>
                 </li>
                 <li class="li-data">
                   <span class="info-class">Ability</span>
-                  <span class="data-class">test</span>
+                  <span class="data-class">${abilities}</span>
                 </li>
                 <li class="li-data">
                   <span class="info-class">Weakness</span>
