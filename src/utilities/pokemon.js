@@ -28,9 +28,9 @@ async function fetchDataAbilities(url) {
       height: data.height,
       base_experience: data.base_experience,
       forms: data.forms,
-      Spicies: data.genera
+      Spicies: data.genera,
+      weight: data.weight,
     };
-console.log(pokemons.Spicies)
     return pokemons;
     // displayPokemons(pokemon)
   } catch (error) {
@@ -67,7 +67,7 @@ function displayPokemons(pokemon_data) {
                   fill="none"
                   stroke="currentColor"
                   stroke-width="2"
-                  stroke-linecap="round"
+                  stroke-lineca p="round"
                   stroke-linejoin="round"
                   class="feather feather-heart"
                 >
@@ -90,14 +90,15 @@ function displayPokemons(pokemon_data) {
         pokemonID,
         pokemon.name,
         dataPokemon.height,
-        dataPokemon.abilities[0].ability.name
+        dataPokemon.abilities[0].ability.name,
+        dataPokemon.weight
       );
     });
     main.appendChild(card);
   });
 }
 
-function showModal(id, pokemon, height, abilities) {
+function showModal(id, pokemon, height, abilities, weight) {
   const modal = document.getElementById("myModal");
   var btn = document.getElementById("myBtn");
   modal_cont.innerHTML = "";
@@ -114,7 +115,7 @@ function showModal(id, pokemon, height, abilities) {
             </div>
             <div class="column-modal-text">
               <h2 id="info-modal">Intelligence</h2>
-              <ul>
+              <ul class="">
                 <li class="li-data">
                   <span class="info-class">Spicies</span>
                   <span class="data-class">test</span>
@@ -123,17 +124,17 @@ function showModal(id, pokemon, height, abilities) {
                   <span class="info-class">Height</span>
                   <span class="data-class">${height}</span>
                 </li>
-                <li class="li-data">
-                  <span class="info-class">Ability</span>
-                  <span class="data-class">${abilities}</span>
+                  <li class="li-data">
+                  <span class="info-class">weight</span>
+                  <span class="data-class">${weight}</span>
                 </li>
                 <li class="li-data">
                   <span class="info-class">Weakness</span>
                   <button id="btn-info"><h2>Test</h2></button>
                 </li>
-                <li class="li-data">
-                  <span class="info-class">ability</span>
-                  <span class="data-class">test</span>
+                 <li class="li-data">
+                  <span class="info-class">Ability</span>
+                  <span class="data-class">${abilities}, ${abilities} </span>
                 </li>
               </ul>
             </div>
