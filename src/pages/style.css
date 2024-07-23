@@ -303,6 +303,7 @@ div.desc {
 .column-modal-img {
   display: flex;
   position: static;
+  flex-wrap: wrap;
   justify-content: flex-start;
   align-items: center;
   flex: 1;
@@ -500,4 +501,15 @@ label {
   max-width: 1300;
   width: 100%;
   background-color: transparent;
+}
+
+div.desc-modal {
+  padding: 0 0 0 80px;
+  font-size: 18px;
+  color: #fff;
+  letter-spacing: 7px;
+  font-weight: 700;
+  text-transform: uppercase;
+  background: #212121;
+  color: #ccc;
 }

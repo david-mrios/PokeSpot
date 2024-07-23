@@ -1,6 +1,7 @@
 const max_pokemon = 5;
 const listDisplay = document.querySelector(".list-display");
 const main = document.querySelector(".main");
+const modal_cont = document.querySelector(".data-modal");
 
 let pokemons = [];
 
@@ -14,7 +15,7 @@ async function fetchData() {
     pokemons = data.results;
     console.log(pokemons);
     displayPokemons(pokemons);
-    PokemonAbilities(pokemons);
+    // PokemonAbilities(pokemons);
   } catch (error) {
     console.error("error:", error);
   }
@@ -30,19 +31,21 @@ async function fetchDataAbilities(url) {
   try {
     const response = await fetch(url);
     const data = await response.json();
-    // console.log(data);
-    abilities = data.abilities;
-
-    displayPokemonsAbilities(abilities);
+    pokemons = [
+      [data.abilities, data.height, data.base_experience, data.forms],
+    ];
+    // console.log(pokemons);
+    displayPokemonsAbilities(pokemons);
   } catch (error) {
     console.error("error:", error);
   }
 }
 
-function displayPokemonsAbilities(abilities) {
-  //  console.log(abilities)
-  abilities.forEach((abilities) => {
-    console.log(abilities.ability.name);
+function displayPokemonsAbilities(pokemon) {
+  pokemon.forEach((pokemon) => {
+    abilities = pokemon[0];
+    console.log(abilities[0].ability.name);
+    console.log(abilities[1].ability.name);
   });
 }
 
@@ -102,9 +105,46 @@ function displayPokemons(pokemon) {
 function showModal(id, pokemon) {
   const modal = document.getElementById("myModal");
   var btn = document.getElementById("myBtn");
-  var modalText = document.getElementById("modal-text");
-  // modalText.textContent = id + "and name " + pokemon;
+  modal_cont.innerHTML = "";
+  let modalCard = document.createElement("div");
 
+  modalCard.className = "row";
+  // let img = document.createElement("img");
+  modalCard.innerHTML = `
+  <div class="column-modal-img">
+                 <div class="desc-modal">${pokemon}</div>
+              <img
+                src="https://raw.githubusercontent.com/pokeapi/sprites/master/sprites/pokemon/other/dream-world/${id}.svg"
+                alt=""
+              />
+            </div>
+            <div class="column-modal-text">
+              <h2 id="info-modal">Intelligence</h2>
+              <ul>
+                <li class="li-data">
+                  <span class="info-class">Spicies</span>
+                  <span class="data-class">test</span>
+                </li>
+                <li class="li-data">
+                  <span class="info-class">Height</span>
+                  <span class="data-class">test</span>
+                </li>
+                <li class="li-data">
+                  <span class="info-class">Ability</span>
+                  <span class="data-class">test</span>
+                </li>
+                <li class="li-data">
+                  <span class="info-class">Weakness</span>
+                  <button id="btn-info"><h2>Test</h2></button>
+                </li>
+                <li class="li-data">
+                  <span class="info-class">ability</span>
+                  <span class="data-class">test</span>
+                </li>
+              </ul>
+            </div>
+  `;
+  modal_cont.appendChild(modalCard);
   modal.style.display = "block";
 }
 
