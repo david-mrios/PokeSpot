@@ -554,6 +554,14 @@ div.desc-modal {
 }
 
 
-desc-modal-evo {
-  
+div.desc-modal-evo {
+  padding: 0 0 0 10px;
+  font-size: 23px;
+  color: #fff;
+  justify-content: center;
+  letter-spacing: 7px;
+  font-weight: 720;
+  text-transform: uppercase;
+  background: #212121;
+  color: orange; 
 }

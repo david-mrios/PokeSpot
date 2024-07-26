@@ -1,4 +1,4 @@
-const max_pokemon = 100;
+const max_pokemon = 10;
 const listDisplay = document.querySelector(".list-display");
 const main = document.querySelector(".main");
 const modal_cont = document.querySelector(".data-modal");
@@ -18,6 +18,7 @@ async function fetchData() {
     console.error("error:", error);
   }
 }
+fetchData();
 
 async function fetchDataAbilities(url) {
   try {
@@ -28,9 +29,11 @@ async function fetchDataAbilities(url) {
       height: data.height,
       base_experience: data.base_experience,
       forms: data.forms,
-      Spicies: data.genera,
+      Spicies: data.species,
       weight: data.weight,
     };
+    console.log(pokemons.Spicies.url);
+    fetchDataSpecies(pokemons.Spicies.url)
     return pokemons;
     // displayPokemons(pokemon)
   } catch (error) {
@@ -38,7 +41,22 @@ async function fetchDataAbilities(url) {
   }
 }
 
-fetchData();
+async function fetchDataSpecies() {
+  try {
+    const response = await fetch(`https://pokeapi.co/api/v2/pokemon/1/`);
+
+    const data = await response.json();
+    pokemons = data.species;
+    //  species to chain
+    fetchDataEvolution(pokemons.url);
+  } catch (error) {
+    console.error("error:", error);
+  }
+}
+
+fetchDataSpecies();
+
+
 
 function displayPokemons(pokemon_data) {
   main.innerHTML = "";
@@ -138,33 +156,7 @@ function showModal(id, pokemon, height, abilities, weight) {
                 </li>
               </ul>
             </div>
-             <div class="clearfix"></div>
-            <div style="padding: 40px"></div>
-                 <div class="desc-modal-evo">${pokemon}</div>
-
-            <div class="row">
-            <div class="column-modal-img-evo">
-              <img
-                src="https://raw.githubusercontent.com/pokeapi/sprites/master/sprites/pokemon/other/dream-world/${id}.svg"
-                alt=""
-              />
-            </div>
-                        <div class="column-modal-img-evo">
-              <img
-                src="https://raw.githubusercontent.com/pokeapi/sprites/master/sprites/pokemon/other/dream-world/${id}.svg"
-                alt=""
-              />
-            </div>
-
-                        <div class="column-modal-img-evo">
-              <img
-                src="https://raw.githubusercontent.com/pokeapi/sprites/master/sprites/pokemon/other/dream-world/${id}.svg"
-                alt=""
-              />
-            </div>
-
-            </div>
-
+             
   `;
   modal_cont.appendChild(modalCard);
   modal.style.display = "block";
