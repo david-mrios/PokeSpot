@@ -2,6 +2,8 @@ const max_pokemon = 10;
 const listDisplay = document.querySelector(".list-display");
 const main = document.querySelector(".main");
 const modal_cont = document.querySelector(".data-modal");
+let list = [];
+let pokemonID;  
 
 let pokemons = [];
 
@@ -91,6 +93,15 @@ function forToEvolution(pokemon) {
   array.forEach(element => {
     console.log(element);
   });
+}
+
+function recall(evo) {
+  if (evo != undefined) {
+    pokemonID = evo.species.url.split("/")[6];
+    list.push(pokemonID);
+    recall(evo.evolves_to[0]);
+    return list;
+  }
 }
 
 function displayPokemons(pokemon_data) {
