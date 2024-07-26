@@ -69,6 +69,19 @@ async function fetchDataEvolution(url) {
   }
 }
 
+async function fetchDataEvolutionChain(url) {
+  try {
+    const response = await fetch(url);
+
+    const data = await response.json();
+    // evoultion
+    pokemons = data;
+    forToEvolution(pokemons);
+  } catch (error) {
+    console.error("error:", error);
+  }
+}
+
 
 function displayPokemons(pokemon_data) {
   main.innerHTML = "";
