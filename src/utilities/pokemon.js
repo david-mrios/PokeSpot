@@ -1,4 +1,4 @@
-const max_pokemon = 10;
+const max_pokemon = 100;
 const listDisplay = document.querySelector(".list-display");
 const main = document.querySelector(".main");
 const modal_cont = document.querySelector(".data-modal");
@@ -73,7 +73,6 @@ function forToEvolution(pokemon) {
 
   while (list.length > 0) list.pop();
   let array = recall(evolves_to);
-  console.log(array);
   evolution_modal(array);
 }
 
@@ -131,6 +130,7 @@ function displayPokemons(pokemon_data) {
             </div>
          `;
     card.addEventListener("click", () => {
+      fetchDataEvolution(dataPokemon.Spicies.url);
       showModal(
         pokemonID,
         pokemon.name,
@@ -138,7 +138,6 @@ function displayPokemons(pokemon_data) {
         dataPokemon.abilities[0].ability.name,
         dataPokemon.weight
       );
-      fetchDataEvolution(dataPokemon.Spicies.url);
     });
     main.appendChild(card);
   });
@@ -185,7 +184,7 @@ function showModal(id, pokemon, height, abilities, weight) {
               </ul>
             </div>
 
-             
+
   `;
   modal_cont.appendChild(modalCard);
 
