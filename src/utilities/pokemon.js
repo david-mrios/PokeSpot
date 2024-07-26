@@ -3,7 +3,7 @@ const listDisplay = document.querySelector(".list-display");
 const main = document.querySelector(".main");
 const modal_cont = document.querySelector(".data-modal");
 let list = [];
-let pokemonID;  
+let pokemonIDlist;
 
 let pokemons = [];
 
@@ -34,29 +34,12 @@ async function fetchDataAbilities(url) {
       Spicies: data.species,
       weight: data.weight,
     };
-    console.log(pokemons.Spicies.url);
-    fetchDataSpecies(pokemons.Spicies.url)
     return pokemons;
     // displayPokemons(pokemon)
   } catch (error) {
     console.error("error:", error);
   }
 }
-
-async function fetchDataSpecies() {
-  try {
-    const response = await fetch(`https://pokeapi.co/api/v2/pokemon/1/`);
-
-    const data = await response.json();
-    pokemons = data.species;
-    //  species to chain
-    fetchDataEvolution(pokemons.url);
-  } catch (error) {
-    console.error("error:", error);
-  }
-}
-
-fetchDataSpecies();
 
 async function fetchDataEvolution(url) {
   try {
@@ -86,19 +69,19 @@ async function fetchDataEvolutionChain(url) {
 
 function forToEvolution(pokemon) {
   let evolves_to = pokemon.chain;
-  let pokemon2D = pokemon.chain.species.url.split("/")[6];
 
+  list = [];
   let array = recall(evolves_to);
   console.log(array);
-  array.forEach(element => {
-    console.log(element);
-  });
+  // array.forEach((element) => {
+  //   console.log(element.le);
+  // });
 }
 
 function recall(evo) {
   if (evo != undefined) {
-    pokemonID = evo.species.url.split("/")[6];
-    list.push(pokemonID);
+    pokemonIDlist = evo.species.url.split("/")[6];
+    list.push(pokemonIDlist);
     recall(evo.evolves_to[0]);
     return list;
   }
@@ -109,7 +92,6 @@ function displayPokemons(pokemon_data) {
   pokemon_data.forEach(async (pokemon) => {
     const pokemonID = pokemon.url.split("/")[6];
     const dataPokemon = await fetchDataAbilities(pokemon.url);
-
     let card = document.createElement("div");
     card.className = "responsive";
     card.innerHTML = `
@@ -157,6 +139,7 @@ function displayPokemons(pokemon_data) {
         dataPokemon.abilities[0].ability.name,
         dataPokemon.weight
       );
+      fetchDataEvolution(dataPokemon.Spicies.url);
     });
     main.appendChild(card);
   });
@@ -202,6 +185,7 @@ function showModal(id, pokemon, height, abilities, weight) {
                 </li>
               </ul>
             </div>
+
              
   `;
   modal_cont.appendChild(modalCard);
