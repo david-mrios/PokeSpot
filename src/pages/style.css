@@ -521,11 +521,10 @@ div.desc-modal {
   color: orange;
 }
 
-
 .column-modal-img-evo {
   display: flex;
   position: static;
-  flex-wrap:nowrap;
+  flex-wrap: nowrap;
   justify-content: center;
   align-items: center;
   flex: 3;
@@ -553,7 +552,6 @@ div.desc-modal {
   }
 }
 
-
 div.desc-modal-evo {
   padding: 0 0 0 10px;
   font-size: 23px;
@@ -563,5 +561,14 @@ div.desc-modal-evo {
   font-weight: 720;
   text-transform: uppercase;
   background: #212121;
-  color: orange; 
+  color: orange;
+}
+
+.img-evo {
+  content: "";
+  display: flex;
+  flex-wrap: wrap;
+  clear: both;
+  padding: 0;
+  margin: 0;
 }

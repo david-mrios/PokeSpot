@@ -196,14 +196,12 @@ function evolution_modal(pokemon) {
   img_evo.innerHTML = "";
   pokemon.forEach((id) => {
     let imgEvo = document.createElement("div");
-    imgEvo.className = "row";
+    imgEvo.className = "column-modal-img-evo";
     imgEvo.innerHTML = `
-    <div class="column-modal-img-evo">
                 <img
                   src="https://raw.githubusercontent.com/pokeapi/sprites/master/sprites/pokemon/other/dream-world/${id}.svg"
                   alt=""
                 />
-              </div>
     `;
     img_evo.appendChild(imgEvo);
   });
