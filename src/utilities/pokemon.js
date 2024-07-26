@@ -2,6 +2,7 @@ const max_pokemon = 10;
 const listDisplay = document.querySelector(".list-display");
 const main = document.querySelector(".main");
 const modal_cont = document.querySelector(".data-modal");
+const img_evo = document.querySelector(".img-evo");
 let list = [];
 let pokemonIDlist;
 
@@ -70,12 +71,10 @@ async function fetchDataEvolutionChain(url) {
 function forToEvolution(pokemon) {
   let evolves_to = pokemon.chain;
 
-  list = [];
+  while (list.length > 0) list.pop();
   let array = recall(evolves_to);
   console.log(array);
-  // array.forEach((element) => {
-  //   console.log(element.le);
-  // });
+  evolution_modal(array);
 }
 
 function recall(evo) {
@@ -189,7 +188,25 @@ function showModal(id, pokemon, height, abilities, weight) {
              
   `;
   modal_cont.appendChild(modalCard);
+
   modal.style.display = "block";
+}
+
+function evolution_modal(pokemon) {
+  img_evo.innerHTML = "";
+  pokemon.forEach((id) => {
+    let imgEvo = document.createElement("div");
+    imgEvo.className = "row";
+    imgEvo.innerHTML = `
+    <div class="column-modal-img-evo">
+                <img
+                  src="https://raw.githubusercontent.com/pokeapi/sprites/master/sprites/pokemon/other/dream-world/${id}.svg"
+                  alt=""
+                />
+              </div>
+    `;
+    img_evo.appendChild(imgEvo);
+  });
 }
 
 function closeModal() {
