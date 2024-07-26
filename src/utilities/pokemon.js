@@ -56,6 +56,18 @@ async function fetchDataSpecies() {
 
 fetchDataSpecies();
 
+async function fetchDataEvolution(url) {
+  try {
+    const response = await fetch(url);
+
+    const data = await response.json();
+    // evoultion
+    pokemons = data.evolution_chain;
+    fetchDataEvolutionChain(pokemons.url);
+  } catch (error) {
+    console.error("error:", error);
+  }
+}
 
 
 function displayPokemons(pokemon_data) {
