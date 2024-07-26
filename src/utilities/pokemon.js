@@ -1,4 +1,4 @@
-const max_pokemon = 10;
+const max_pokemon = 100;
 const listDisplay = document.querySelector(".list-display");
 const main = document.querySelector(".main");
 const modal_cont = document.querySelector(".data-modal");
@@ -138,6 +138,33 @@ function showModal(id, pokemon, height, abilities, weight) {
                 </li>
               </ul>
             </div>
+             <div class="clearfix"></div>
+            <div style="padding: 40px"></div>
+                 <div class="desc-modal-evo">${pokemon}</div>
+
+            <div class="row">
+            <div class="column-modal-img-evo">
+              <img
+                src="https://raw.githubusercontent.com/pokeapi/sprites/master/sprites/pokemon/other/dream-world/${id}.svg"
+                alt=""
+              />
+            </div>
+                        <div class="column-modal-img-evo">
+              <img
+                src="https://raw.githubusercontent.com/pokeapi/sprites/master/sprites/pokemon/other/dream-world/${id}.svg"
+                alt=""
+              />
+            </div>
+
+                        <div class="column-modal-img-evo">
+              <img
+                src="https://raw.githubusercontent.com/pokeapi/sprites/master/sprites/pokemon/other/dream-world/${id}.svg"
+                alt=""
+              />
+            </div>
+
+            </div>
+
   `;
   modal_cont.appendChild(modalCard);
   modal.style.display = "block";
