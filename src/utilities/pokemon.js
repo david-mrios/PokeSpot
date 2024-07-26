@@ -82,6 +82,16 @@ async function fetchDataEvolutionChain(url) {
   }
 }
 
+function forToEvolution(pokemon) {
+  let evolves_to = pokemon.chain;
+  let pokemon2D = pokemon.chain.species.url.split("/")[6];
+
+  let array = recall(evolves_to);
+  console.log(array);
+  array.forEach(element => {
+    console.log(element);
+  });
+}
 
 function displayPokemons(pokemon_data) {
   main.innerHTML = "";
