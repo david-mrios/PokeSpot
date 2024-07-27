@@ -52,10 +52,11 @@ body {
 
 .main-div {
   div {
-    display: flex;
-    justify-content: center;
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(300px, 2fr));
+    justify-content: flex-start;
     flex-wrap: wrap;
-    padding: 15px 20px 7px 15px;
+    padding: 15px 20px 7px 10px;
     margin: 0 0 0 0;
     background-color: #ffffff;
   }
@@ -190,9 +191,8 @@ body {
   padding: 0 0;
   margin: 0 0 0 0;
   float: left;
-  width: 22%;
+  width: 30%;
 }
-
 
 .clearfix:after {
   content: "";
@@ -213,6 +213,3 @@ body {
     width: 50%;
   }
 }
-
-
-
