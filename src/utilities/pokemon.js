@@ -49,10 +49,22 @@ async function fetchDataEvolution(url) {
     const data = await response.json();
     // evoultion
     pokemons = data.evolution_chain;
+    Spicies = data.genera;
     fetchDataEvolutionChain(pokemons.url);
+    return SpecieName(Spicies);
   } catch (error) {
     console.error("error:", error);
   }
+}
+
+function SpecieName(genera) {
+  let species;
+  genera.forEach((lenguage) => {
+    if (lenguage.language.name == "es") {
+      species = lenguage.genus;
+    }
+  });
+  return species;
 }
 
 async function fetchDataEvolutionChain(url) {
@@ -129,13 +141,15 @@ function displayPokemons(pokemon_data) {
               <div class="desc">${pokemon.name}</div>
             </div>
          `;
-    card.addEventListener("click", () => {
-      fetchDataEvolution(dataPokemon.Spicies.url);
+    card.addEventListener("click", async () => {
+      const species = await fetchDataEvolution(dataPokemon.Spicies.url);
       showModal(
         pokemonID,
         pokemon.name,
+        species,
         dataPokemon.height,
         dataPokemon.abilities[0].ability.name,
+        dataPokemon.abilities[1].ability.name,
         dataPokemon.weight
       );
     });
@@ -143,7 +157,15 @@ function displayPokemons(pokemon_data) {
   });
 }
 
-function showModal(id, pokemon, height, abilities, weight) {
+function showModal(
+  id,
+  pokemon,
+  species,
+  height,
+  abilities1,
+  abilities2,
+  weight
+) {
   const modal = document.getElementById("myModal");
   var btn = document.getElementById("myBtn");
   modal_cont.innerHTML = "";
@@ -163,7 +185,7 @@ function showModal(id, pokemon, height, abilities, weight) {
               <ul class="">
                 <li class="li-data">
                   <span class="info-class">Spicies</span>
-                  <span class="data-class">test</span>
+                  <span class="data-class">${species}</span>
                 </li>
                 <li class="li-data">
                   <span class="info-class">Height</span>
@@ -173,13 +195,10 @@ function showModal(id, pokemon, height, abilities, weight) {
                   <span class="info-class">weight</span>
                   <span class="data-class">${weight}</span>
                 </li>
-                <li class="li-data">
-                  <span class="info-class">Weakness</span>
-                  <button id="btn-info"><h2>Test</h2></button>
-                </li>
+          
                  <li class="li-data">
                   <span class="info-class">Ability</span>
-                  <span class="data-class">${abilities}, ${abilities} </span>
+                  <span class="data-class">${abilities1}, ${abilities2} </span>
                 </li>
               </ul>
             </div>
