@@ -53,11 +53,13 @@ body {
 .main-div {
   div {
     display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(300px, 2fr));
-    justify-content: flex-start;
+    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+    place-items: center;
+    justify-content: center;
+    gap: 1rem;
     flex-wrap: wrap;
-    padding: 15px 20px 7px 10px;
-    margin: 0 0 0 0;
+    padding: 15px 20px 7px 15px;
+    margin: 0 15px 0 20px;
     background-color: #ffffff;
   }
 }
@@ -191,7 +193,7 @@ body {
   padding: 0 0;
   margin: 0 0 0 0;
   float: left;
-  width: 30%;
+  width: 23%;
 }
 
 .clearfix:after {

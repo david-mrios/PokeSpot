@@ -6,6 +6,7 @@ div.card {
   background: #212121;
   border-radius: 30px;
   box-shadow: 0px 0px 0px rgb(25, 25, 25), -10px -10px 30px rgb(60, 60, 60);
+  padding: 20px 15px 10px 0;
 }
 
 div.card:hover {
@@ -13,9 +14,11 @@ div.card:hover {
 }
 
 div.card img {
-  width: 200px;
-  height: 200px;
-  padding: 10px 0 0 10px;
+  width: 180px;
+  height: 180px;
+  aspect-ratio: 1 / 1;
+  object-fit: contain;
+  padding: 5px 0 0 10px;
   margin: 0 0 0 0;
 }
 
@@ -29,7 +32,7 @@ div.desc {
   text-align: center;
   text-transform: uppercase;
   background: #212121;
-  color: #ccc;
+  color: #ccc;  
 }
 
 label {

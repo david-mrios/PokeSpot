@@ -9,7 +9,7 @@ let pokemonIDlist;
 let pokemons = [];
 
 async function fetchData() {
-  try {
+  try { 
     const response = await fetch(
       `https://pokeapi.co/api/v2/pokemon?limit=${max_pokemon}&offset=0`
     );
