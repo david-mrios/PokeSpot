@@ -1,32 +1,47 @@
 body {
   font-family: "Pontano Sans", sans-serif;
   font-size: 15px;
-  line-height: 1.5;
-  margin: 0;
-  padding: 0;
-  color: rgb(0, 0, 0);
-  background: #775494;
+
+  background-color: #3a2939;
   text-rendering: optimizeLegibility;
 }
 
 * {
-    box-sizing: border-box;
-    &::before,
-    &::after {
-        box-sizing: border-box;
-    }
+  box-sizing: border-box;
+}
+.flex-box {
+  display: flex;
+  flex-wrap: wrap;
+  background-size: cover;
+  width: 100%;
+  height: 95vh;
 }
 
-.Login {
-  display: flex;
-  justify-content:end;
-  position: absolute;
-  top: 10%;
+.flex-item {
+  margin: auto;
+  background-color: white;
   padding: 20px;
-  width: 100%;
+  border: 1px solid rgb(167, 28, 28);
+  flex-grow: 1;
+  flex-basis: 0;
+  min-width: 300px;
 }
+.flex-item img {
+  min-width: 200px;
+  min-height: 200px;
+  max-width: 50%;
+  border-radius: 50%;
+}
+
+.login-wrapped img {
+  min-width: 200px;
+  max-width: 60%;
+  border-radius: 50%;
+}
+
 .form-box {
-  max-width:300px;
+  margin: auto;
+  max-width: 320px;
   background: #f1f7fe;
   overflow: hidden;
   border-radius: 16px;
@@ -42,7 +57,6 @@ body {
   text-align: center;
 }
 
-/*Form text*/
 .title {
   font-weight: bold;
   font-size: 1.6rem;
@@ -53,7 +67,6 @@ body {
   color: #666;
 }
 
-/*Inputs box*/
 .form-container {
   overflow: hidden;
   border-radius: 8px;
@@ -74,6 +87,7 @@ body {
 }
 
 .form-section {
+  text-align: center;
   padding: 16px;
   font-size: 0.85rem;
   background-color: #e0ecfb;
@@ -91,7 +105,6 @@ body {
   text-decoration: underline;
 }
 
-/*Button*/
 .form button {
   background-color: #0066ff;
   color: #fff;
@@ -108,8 +121,7 @@ body {
   background-color: #005ce6;
 }
 
-
-img {
-    width: 100px;
-    height: 100px;
+.flex-img {
+  display: grid;
+  place-items: center;
 }
