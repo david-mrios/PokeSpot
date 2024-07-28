@@ -9,7 +9,7 @@ let pokemonIDlist;
 let pokemons = [];
 
 async function fetchData() {
-  try { 
+  try {
     const response = await fetch(
       `https://pokeapi.co/api/v2/pokemon?limit=${max_pokemon}&offset=0`
     );
@@ -214,13 +214,19 @@ function evolution_modal(pokemon) {
   img_evo.innerHTML = "";
   pokemon.forEach((id) => {
     let imgEvo = document.createElement("div");
-    imgEvo.className = "column-modal-img-evo";
+    imgEvo.className = "container-evo";
     imgEvo.innerHTML = `
-                <img
-                  src="https://raw.githubusercontent.com/pokeapi/sprites/master/sprites/pokemon/other/dream-world/${id}.svg"
-                  alt=""
-                />
-    `;
+
+                          <img
+                            src="https://raw.githubusercontent.com/pokeapi/sprites/master/sprites/pokemon/other/dream-world/${id}.svg"
+                            alt="Avatar"
+                            class="image"
+                            style="width: 100%"
+                          />
+                          <div class="middle">
+                            <div class="text">John Doe</div>
+                          </div>
+             `;
     img_evo.appendChild(imgEvo);
   });
 }
