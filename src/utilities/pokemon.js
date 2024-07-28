@@ -224,7 +224,7 @@ function evolution_modal(pokemon) {
                             style="width: 100%"
                           />
                           <div class="middle">
-                            <div class="text">John Doe</div>
+                            <div class="text">PIDGEOTTO</div>
                           </div>
              `;
     img_evo.appendChild(imgEvo);
