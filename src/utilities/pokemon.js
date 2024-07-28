@@ -86,13 +86,12 @@ function forToEvolution(pokemon) {
   while (list.length > 0) list.pop();
   let array = recall(evolves_to);
   evolution_modal(array);
-  console.log(array);
 }
 
 function recall(evo) {
   if (evo != undefined) {
     pokemonIDlist = evo.species.url.split("/")[6];
-    list.push(pokemonIDlist);
+    list.push([pokemonIDlist,evo.species.name]);
     recall(evo.evolves_to[0]);
     return list;
   }
@@ -217,19 +216,20 @@ function showModal(
 
 function evolution_modal(pokemon) {
   img_evo.innerHTML = "";
-  pokemon.forEach((id) => {
+  pokemon.forEach((element) => {
+    console.log();
     let imgEvo = document.createElement("div");
     imgEvo.className = "container-evo";
     imgEvo.innerHTML = `
 
                           <img
-                            src="https://raw.githubusercontent.com/pokeapi/sprites/master/sprites/pokemon/other/dream-world/${id}.svg"
+                            src="https://raw.githubusercontent.com/pokeapi/sprites/master/sprites/pokemon/other/dream-world/${element[0]}.svg"
                             alt="Avatar"
                             class="image"
                             style="width: 100%"
                           />
                           <div class="middle">
-                            <div class="text">PIDGEOTTO</div>
+                            <div class="text">${element[1]}</div>
                           </div>
              `;
     img_evo.appendChild(imgEvo);
