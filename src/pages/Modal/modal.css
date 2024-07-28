@@ -238,14 +238,6 @@ div.desc-modal-evo {
 }
 
 .container-evo {
-  /* display: flex;
-  position: relative;
-  flex-wrap: nowrap;
-
-  padding: 5px 0 0 60px;
-  margin: 0 0; */
-
-  display: flex;
   position: relative;
   flex-wrap: nowrap;
   justify-content: center;

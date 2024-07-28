@@ -86,6 +86,7 @@ function forToEvolution(pokemon) {
   while (list.length > 0) list.pop();
   let array = recall(evolves_to);
   evolution_modal(array);
+  console.log(array);
 }
 
 function recall(evo) {
@@ -143,13 +144,17 @@ function displayPokemons(pokemon_data) {
          `;
     card.addEventListener("click", async () => {
       const species = await fetchDataEvolution(dataPokemon.Spicies.url);
+      let abilities2 = "";
+      if (dataPokemon.abilities[1] != undefined) {
+        abilities2 = ", " + dataPokemon.abilities[1].ability.name;
+      }
       showModal(
         pokemonID,
         pokemon.name,
         species,
         dataPokemon.height,
         dataPokemon.abilities[0].ability.name,
-        dataPokemon.abilities[1].ability.name,
+        abilities2,
         dataPokemon.weight
       );
     });
@@ -198,7 +203,7 @@ function showModal(
           
                  <li class="li-data">
                   <span class="info-class">Ability</span>
-                  <span class="data-class">${abilities1}, ${abilities2} </span>
+                  <span class="data-class">${abilities1}  ${abilities2} </span>
                 </li>
               </ul>
             </div>
