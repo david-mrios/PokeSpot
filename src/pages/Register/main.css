@@ -39,7 +39,6 @@ body {
   background: #f1f7fe;
   overflow: hidden;
   border-radius: 16px;
-  z-index: 10;
   color: #010101;
 }
 
@@ -120,32 +119,37 @@ body {
   display: flex;
   flex-direction: column;
   align-items: end;
-  padding-top: 50px;
-  /* img {
-    min-width: 250px;
-    min-height: 150px;
-    max-width: 70%;
-
-  } */
 }
 
 .img-pokemon {
-  filter: drop-shadow(20px 9px 30px #18417b);
   min-width: 300px;
   min-height: 200px;
-  z-index: 10;
   max-width: 80%;
+  filter: drop-shadow(0 1rem 1rem #1a0d19) opacity(70%);
+  mix-blend-mode: difference;
 }
 
 .img-pokemons {
-  position: absolute;
-  top: 23%;
-  left: 1%;
+  position: relative;
   min-width: 300px;
   min-height: 200px;
-  max-width: 70%;
-
+  max-width: 80%;
+  margin: 0 0 0 0;
+  border-radius: 50%;
+  box-shadow: 12px 8px 20px #1a0d19;
+  z-index: 10;
+  mix-blend-mode: overlay;
 }
+
+/* .img-pokemons {
+  min-width: 300px;
+  min-height: 200px;
+  max-width: 80%;
+  margin: 0 0 0 0;
+  border-radius: 50%;
+  box-shadow: 12px 8px 20px orange;
+  z-index: 10;
+} */
 
 @media (min-width: 300px) and (max-width: 1070px) {
   .form-box {
