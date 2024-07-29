@@ -23,18 +23,22 @@ body {
   flex-grow: 1;
   flex-basis: 0;
   min-width: 300px;
-  /* border: 1px solid #eee; */
+  flex: 2;
+  border: 1px solid #eee;
 }
-
-.login-wrapped img {
-  min-width: 200px;
-  max-width: 60%;
-  border-radius: 50%;
+.flex-item-form {
+  /* background-color: white; */
+  padding: 20px;
+  flex-grow: 1;
+  flex-basis: 0;
+  min-width: 300px;
+  flex: 3;
+  border: 1px solid #eee;
 }
 
 .form-box {
   margin: auto;
-  margin-top: 100px;
+  margin-top: 40px;
   max-width: 320px;
   background: #f1f7fe;
   overflow: hidden;
@@ -46,7 +50,7 @@ body {
   position: relative;
   display: flex;
   flex-direction: column;
-  padding: 32px 24px 24px;
+  padding: 70px 24px 70px;
   gap: 16px;
   text-align: center;
 }
@@ -118,38 +122,34 @@ body {
 .flex-img {
   display: flex;
   flex-direction: column;
-  align-items: end;
+  align-items: center;
+
+  img {
+    border: 1px solid gray;
+  }
 }
 
 .img-pokemon {
-  min-width: 300px;
+  min-width: 380px;
   min-height: 200px;
-  max-width: 80%;
+  max-width: 70%;
   filter: drop-shadow(0 1rem 1rem #1a0d19) opacity(70%);
   mix-blend-mode: difference;
 }
 
 .img-pokemons {
-  position: relative;
   min-width: 300px;
   min-height: 200px;
-  max-width: 80%;
+  max-width: 65%;
   margin: 0 0 0 0;
   border-radius: 50%;
   box-shadow: 12px 8px 20px #1a0d19;
+  /* nose si usarlo */
+  /* padding: 10px 10px 10px 100px; */
+
   z-index: 10;
   mix-blend-mode: overlay;
 }
-
-/* .img-pokemons {
-  min-width: 300px;
-  min-height: 200px;
-  max-width: 80%;
-  margin: 0 0 0 0;
-  border-radius: 50%;
-  box-shadow: 12px 8px 20px orange;
-  z-index: 10;
-} */
 
 @media (min-width: 300px) and (max-width: 1070px) {
   .form-box {
