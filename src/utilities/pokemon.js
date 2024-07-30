@@ -3,6 +3,7 @@ const listDisplay = document.querySelector(".list-display");
 const main = document.querySelector(".main");
 const modal_cont = document.querySelector(".data-modal");
 const img_evo = document.querySelector(".img-evo");
+
 let list = [];
 let pokemonIDlist;
 
@@ -17,6 +18,7 @@ async function fetchData() {
     const data = await response.json();
     pokemons = data.results;
     displayPokemons(pokemons);
+    actiontest(pokemons);
   } catch (error) {
     console.error("error:", error);
   }
@@ -101,7 +103,6 @@ function displayPokemons(pokemon_data) {
   main.innerHTML = "";
   pokemon_data.forEach(async (pokemon) => {
     const pokemonID = pokemon.url.split("/")[6];
-    const dataPokemon = await fetchDataAbilities(pokemon.url);
     let card = document.createElement("div");
     card.className = "responsive";
     card.innerHTML = `
@@ -132,17 +133,21 @@ function displayPokemons(pokemon_data) {
                   ></path>
                 </svg>
               </label>
-              <button id="myBtn" class="modal-btn">
+              <button   class="modal-btn" id="myBtn${pokemonID}">
                 <img
                   src="https://raw.githubusercontent.com/pokeapi/sprites/master/sprites/pokemon/other/dream-world/${pokemonID}.svg"
                   alt="Cinque Terre"
+                  class="modal-btn"   
+                  id="${pokemonID}"
                 />
               </button>
               <div class="desc">${pokemon.name}</div>
             </div>
          `;
+
     // card.addEventListener("click", async () => {
-    //   const species = await fetchDataEvolution(dataPokemon.Spicies.url);
+    // Econst species = await fetchDatavolution(dataPokemon.Spicies.url);
+
     //   let abilities2 = "";
     //   if (dataPokemon.abilities[1] != undefined) {
     //     abilities2 = ", " + dataPokemon.abilities[1].ability.name;
@@ -158,6 +163,34 @@ function displayPokemons(pokemon_data) {
     //   );
     // });
     main.appendChild(card);
+  });
+}
+
+function actiontest(pokemons) {
+  document.body.addEventListener("click", async (event) => {
+    if (event.target.classList.contains("modal-btn")) {
+      pokemons.forEach(async (pokemon) => {
+        const pokemonID = pokemon.url.split("/")[6];
+        if (event.target.id == pokemonID) {
+          let dataPokemon = await fetchDataAbilities(pokemon.url);
+          const species = await fetchDataEvolution(dataPokemon.Spicies.url);
+
+          let abilities2 = "";
+          if (dataPokemon.abilities[1] != undefined) {
+            abilities2 = ", " + dataPokemon.abilities[1].ability.name;
+          }
+          showModal(
+            pokemonID,
+            pokemon.name,
+            species,
+            dataPokemon.height,
+            dataPokemon.abilities[0].ability.name,
+            abilities2,
+            dataPokemon.weight
+          );
+        }
+      });
+    }
   });
 }
 
