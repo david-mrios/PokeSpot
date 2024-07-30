@@ -47,6 +47,16 @@ body {
   transition: all 0.6s ease-in-out;
 }
 
+.Sign-in {
+  z-index: 2;
+}
+
+.Sign-up {
+  opacity: 0;
+  z-index: 1;
+}
+
+
 
 .form {
   position: relative;
