@@ -32,7 +32,13 @@ div.desc {
   text-align: center;
   text-transform: uppercase;
   background: #212121;
-  color: #ccc;  
+  color: #ccc;
+}
+
+div.desc[id]::before {
+  content: attr(id);
+  letter-spacing: 4px;
+  font-size: 15px;
 }
 
 label {
@@ -111,7 +117,7 @@ label {
 
 .checkbox-heart:checked + label .action span.option-2 {
   transform: translate(0px, 0%);
-  opacity: 1; 
+  opacity: 1;
 }
 
 .containerHeart {

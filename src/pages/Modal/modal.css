@@ -44,15 +44,15 @@
   border: 0;
   cursor: pointer;
 }
+
 .test-btn {
   background-color: #212121;
   border: 0;
   cursor: pointer;
   z-index: 10;
-   img{
+  img {
     z-index: 1;
-    
-   }
+  }
 }
 
 .icon {

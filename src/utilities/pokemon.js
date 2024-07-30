@@ -1,4 +1,4 @@
-const max_pokemon = 10;
+const max_pokemon = 100;
 const listDisplay = document.querySelector(".list-display");
 const main = document.querySelector(".main");
 const modal_cont = document.querySelector(".data-modal");
@@ -141,56 +141,10 @@ function displayPokemons(pokemon_data) {
                   id="${pokemonID}"
                 />
               </button>
-              <div class="desc">${pokemon.name}</div>
+              <div class="desc" id="#${pokemonID}"><br>${pokemon.name}</div>
             </div>
          `;
-
-    // card.addEventListener("click", async () => {
-    // Econst species = await fetchDatavolution(dataPokemon.Spicies.url);
-
-    //   let abilities2 = "";
-    //   if (dataPokemon.abilities[1] != undefined) {
-    //     abilities2 = ", " + dataPokemon.abilities[1].ability.name;
-    //   }
-    //   showModal(
-    //     pokemonID,
-    //     pokemon.name,
-    //     species,
-    //     dataPokemon.height,
-    //     dataPokemon.abilities[0].ability.name,
-    //     abilities2,
-    //     dataPokemon.weight
-    //   );
-    // });
     main.appendChild(card);
-  });
-}
-
-function actiontest(pokemons) {
-  document.body.addEventListener("click", async (event) => {
-    if (event.target.classList.contains("modal-btn")) {
-      pokemons.forEach(async (pokemon) => {
-        const pokemonID = pokemon.url.split("/")[6];
-        if (event.target.id == pokemonID) {
-          let dataPokemon = await fetchDataAbilities(pokemon.url);
-          const species = await fetchDataEvolution(dataPokemon.Spicies.url);
-
-          let abilities2 = "";
-          if (dataPokemon.abilities[1] != undefined) {
-            abilities2 = ", " + dataPokemon.abilities[1].ability.name;
-          }
-          showModal(
-            pokemonID,
-            pokemon.name,
-            species,
-            dataPokemon.height,
-            dataPokemon.abilities[0].ability.name,
-            abilities2,
-            dataPokemon.weight
-          );
-        }
-      });
-    }
   });
 }
 
@@ -266,6 +220,34 @@ function evolution_modal(pokemon) {
                           </div>
              `;
     img_evo.appendChild(imgEvo);
+  });
+}
+
+function actiontest(pokemons) {
+  document.body.addEventListener("click", async (event) => {
+    if (event.target.classList.contains("modal-btn")) {
+      pokemons.forEach(async (pokemon) => {
+        const pokemonID = pokemon.url.split("/")[6];
+        if (event.target.id == pokemonID) {
+          let dataPokemon = await fetchDataAbilities(pokemon.url);
+          const species = await fetchDataEvolution(dataPokemon.Spicies.url);
+
+          let abilities2 = "";
+          if (dataPokemon.abilities[1] != undefined) {
+            abilities2 = ", " + dataPokemon.abilities[1].ability.name;
+          }
+          showModal(
+            pokemonID,
+            pokemon.name,
+            species,
+            dataPokemon.height,
+            dataPokemon.abilities[0].ability.name,
+            abilities2,
+            dataPokemon.weight
+          );
+        }
+      });
+    }
   });
 }
 
