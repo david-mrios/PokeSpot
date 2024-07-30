@@ -1,4 +1,4 @@
-const max_pokemon = 100;
+const max_pokemon = 10;
 const listDisplay = document.querySelector(".list-display");
 const main = document.querySelector(".main");
 const modal_cont = document.querySelector(".data-modal");
@@ -91,7 +91,7 @@ function forToEvolution(pokemon) {
 function recall(evo) {
   if (evo != undefined) {
     pokemonIDlist = evo.species.url.split("/")[6];
-    list.push([pokemonIDlist,evo.species.name]);
+    list.push([pokemonIDlist, evo.species.name]);
     recall(evo.evolves_to[0]);
     return list;
   }
@@ -109,12 +109,12 @@ function displayPokemons(pokemon_data) {
              <!-- favorities -->
               <input
                 type="checkbox"
-                id="favorite"
+                id="${pokemonID}"
                 class="checkbox-heart"
                 name="favorite-checkbox"
                 value="favorite-button"
               />
-              <label for="favorite" class="containerHeart">
+              <label for="${pokemonID}" class="containerHeart">
                 <svg
                   xmlns="http://www.w3.org/2000/svg"
                   width="24"
@@ -141,22 +141,22 @@ function displayPokemons(pokemon_data) {
               <div class="desc">${pokemon.name}</div>
             </div>
          `;
-    card.addEventListener("click", async () => {
-      const species = await fetchDataEvolution(dataPokemon.Spicies.url);
-      let abilities2 = "";
-      if (dataPokemon.abilities[1] != undefined) {
-        abilities2 = ", " + dataPokemon.abilities[1].ability.name;
-      }
-      showModal(
-        pokemonID,
-        pokemon.name,
-        species,
-        dataPokemon.height,
-        dataPokemon.abilities[0].ability.name,
-        abilities2,
-        dataPokemon.weight
-      );
-    });
+    // card.addEventListener("click", async () => {
+    //   const species = await fetchDataEvolution(dataPokemon.Spicies.url);
+    //   let abilities2 = "";
+    //   if (dataPokemon.abilities[1] != undefined) {
+    //     abilities2 = ", " + dataPokemon.abilities[1].ability.name;
+    //   }
+    //   showModal(
+    //     pokemonID,
+    //     pokemon.name,
+    //     species,
+    //     dataPokemon.height,
+    //     dataPokemon.abilities[0].ability.name,
+    //     abilities2,
+    //     dataPokemon.weight
+    //   );
+    // });
     main.appendChild(card);
   });
 }
