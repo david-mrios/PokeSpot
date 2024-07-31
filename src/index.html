@@ -49,13 +49,13 @@
             <div class="column-text">
               <ul>
                 <li>
-                  <button class="nav-item">
+                  <button class="nav-item" onclick="favorites()">
                     <i class="fas fa-heart"></i>
                     <h2>Favorites</h2>
                   </button>
                 </li>
                 <li>
-                  <button class="nav-item">
+                  <button class="nav-item" onclick="login()">
                     <i class="fas fa-user"></i>
                     <h2>Login</h2>
                   </button>
@@ -95,6 +95,27 @@
           <div class="img-evo"></div>
         </div>
       </div>
+
+
+
+
+      <!-- modal favorites -->
+      <div id="myModal-favorites" class="modal-favorites">
+        <!-- Modal content -->
+        <div class="modal-content-favorites">
+          <span class="close_favorite">&times;</span>
+          <div class="data-modal-favorites">
+            <!-- data -->
+          </div>
+          <!-- <div class="clearfix"></div>
+            <div style="padding: 40px"></div> -->
+        </div>
+      </div>
+
+
+
+
+
     </main>
   </body>
 </html>

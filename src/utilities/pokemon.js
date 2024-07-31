@@ -1,6 +1,7 @@
 const max_pokemon = 100;
 const listDisplay = document.querySelector(".list-display");
 const main = document.querySelector(".main");
+const modal_fav = document.querySelector(".data-modal-favorites");
 const modal_cont = document.querySelector(".data-modal");
 const img_evo = document.querySelector(".img-evo");
 
@@ -262,6 +263,35 @@ span.onclick = closeModal;
 var modal = document.getElementById("myModal");
 window.onclick = function (event) {
   if (event.target == modal) {
+    modal.style.display = "none";
+  }
+};
+
+function login() {
+  document.location.href = "pages/Register/season.html";
+}
+
+function favorites() {
+  showModalFavorites();
+}
+
+function showModalFavorites() {
+  const modal = document.getElementById("myModal-favorites");
+
+  modal.style.display = "block";
+}
+
+function closeModalFavorites() {
+  var modal = document.getElementById("myModal-favorites");
+  modal.style.display = "none ";
+}
+
+const span_Favorites = document.getElementsByClassName("close_favorite")[0];
+span_Favorites.onclick = closeModalFavorites;
+
+var modal_Favorites = document.getElementById("myModal-favorites");
+window.onclick = function (event_Favorites) {
+  if (event_Favorites.target == modal) {
     modal.style.display = "none";
   }
 };
