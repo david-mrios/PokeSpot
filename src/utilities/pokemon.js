@@ -331,3 +331,21 @@ function favoritos_id() {
 }
 
 favoritos_id();
+
+function verificarFavoritos() {
+  if (localStorage.getItem("Pokemon")) {
+    var test = JSON.parse(localStorage.getItem("Pokemon"));
+    let verdaderos = [];
+    for (let i = 0; i < test.length; i++) {
+      if (test[i] != null) {
+        verdaderos.push(test[i]);
+      }
+    }
+    // console.log(verdaderos);
+    localStorage.setItem("Pokemon", JSON.stringify(verdaderos));
+  } else {
+    console.log("no true");
+  }
+}
+
+verificarFavoritos();
