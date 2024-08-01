@@ -301,9 +301,8 @@ function favoritos_id() {
   document.body.addEventListener("click", async (event) => {
     if (event.target.classList.contains("checkbox-heart")) {
       const elemento = document.getElementsByClassName("checkbox-heart");
-      var cantidad = elemento.length;
       var test = [];
-      for (var i = 0; i < cantidad; i++) {
+      for (var i = 0; i < test.length; i++) {
         var id = elemento[i].getAttribute("id");
 
         if (id == event.target.id && event.target.checked) {
