@@ -1,9 +1,10 @@
-const max_pokemon = 100;
+const max_pokemon = 5;
 const listDisplay = document.querySelector(".list-display");
 const main = document.querySelector(".main");
 const modal_fav = document.querySelector(".data-modal-favorites");
 const modal_cont = document.querySelector(".data-modal");
 const img_evo = document.querySelector(".img-evo");
+const fav = document.querySelector(".checkbox-heart");
 
 let list = [];
 let pokemonIDlist;
@@ -295,3 +296,38 @@ window.onclick = function (event_Favorites) {
     modal.style.display = "none";
   }
 };
+
+function favoritos_id() {
+  document.body.addEventListener("click", async (event) => {
+    if (event.target.classList.contains("checkbox-heart")) {
+      const elemento = document.getElementsByClassName("checkbox-heart");
+      var cantidad = elemento.length;
+      var test = [];
+      for (var i = 0; i < cantidad; i++) {
+        var id = elemento[i].getAttribute("id");
+
+        if (id == event.target.id && event.target.checked) {
+          if (localStorage.getItem("Pokemon")) {
+            test = JSON.parse(localStorage.getItem("Pokemon"));
+            test.push(id);
+            localStorage.setItem("Pokemon", JSON.stringify(test));
+          } else {
+            test[0] = id;
+            localStorage.setItem("Pokemon", JSON.stringify(test));
+          }
+        }
+        if (id == event.target.id && !event.target.checked) {
+          test = JSON.parse(localStorage.getItem("Pokemon"));
+          for (let i = 0; i < test.length; i++) {
+            if (test[i] == id) {
+              delete test[i];
+            }
+          }
+          localStorage.setItem("Pokemon", JSON.stringify(test));
+        }
+      }
+    }
+  });
+}
+
+favoritos_id();
