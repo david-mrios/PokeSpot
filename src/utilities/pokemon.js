@@ -349,3 +349,22 @@ function verificarFavoritos() {
 }
 
 verificarFavoritos();
+
+const checkForElement = () => {
+  const element = document.querySelectorAll(".checkbox-heart");
+  if (element) {
+    element.forEach((element) => {
+      if (localStorage.getItem("Pokemon")) {
+        test = JSON.parse(localStorage.getItem("Pokemon"));
+        for (let i = 0; i < test.length; i++) {
+          if (test[i] == element.id) {
+            element.checked = true;
+          }
+        }
+      }
+    });
+    clearInterval(intervalId);
+  }
+};
+
+const intervalId = setInterval(checkForElement, 100);
