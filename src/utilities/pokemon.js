@@ -19,9 +19,9 @@ async function fetchData() {
 
     const data = await response.json();
     pokemons = data.results;
+    displayPokemonsFavoritos(pokemons);
     displayPokemons(pokemons);
     actiontest(pokemons);
-    displayPokemonsFavoritos(pokemons);
   } catch (error) {
     console.error("error:", error);
   }
@@ -275,8 +275,8 @@ function login() {
 }
 
 function favorites() {
-  fetchData();
   showModalFavorites();
+  fetchData();
 }
 
 function showModalFavorites() {
@@ -326,7 +326,6 @@ function favoritos_id() {
             }
           }
           localStorage.setItem("Pokemon", JSON.stringify(test));
-          verificarFavoritos();
         }
       }
     }
@@ -426,7 +425,14 @@ function displayPokemonsFavoritos(pokemon_data) {
           };
 
           const intervalId = setInterval(checkForElement, 100);
-          verificarFavoritos();
+
+          document.body.addEventListener("click", async (event) => {
+            if (event.target.classList.contains("checkbox-heart")) {
+              if (!event.target.checked) {
+                fetchData();
+              }
+            }
+          });
         } else {
           //
         }
@@ -434,3 +440,5 @@ function displayPokemonsFavoritos(pokemon_data) {
     }
   });
 }
+
+localStorage.removeItem("Pokemon");
