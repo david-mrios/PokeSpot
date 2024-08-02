@@ -4,7 +4,7 @@ const main = document.querySelector(".main");
 const modal_fav = document.querySelector(".data-modal-favorites");
 const modal_cont = document.querySelector(".data-modal");
 const img_evo = document.querySelector(".img-evo");
-const fav = document.querySelector(".checkbox-heart");
+const fav = document.querySelector(".rwapped-favorite");
 
 let list = [];
 let pokemonIDlist;
@@ -21,6 +21,7 @@ async function fetchData() {
     pokemons = data.results;
     displayPokemons(pokemons);
     actiontest(pokemons);
+    displayPokemonsFavoritos(pokemons);
   } catch (error) {
     console.error("error:", error);
   }
@@ -296,13 +297,13 @@ window.onclick = function (event_Favorites) {
     modal.style.display = "none";
   }
 };
-
 function favoritos_id() {
   document.body.addEventListener("click", async (event) => {
     if (event.target.classList.contains("checkbox-heart")) {
       const elemento = document.getElementsByClassName("checkbox-heart");
+      var cantidad = elemento.length;
       var test = [];
-      for (var i = 0; i < test.length; i++) {
+      for (var i = 0; i < cantidad; i++) {
         var id = elemento[i].getAttribute("id");
 
         if (id == event.target.id && event.target.checked) {
@@ -310,9 +311,11 @@ function favoritos_id() {
             test = JSON.parse(localStorage.getItem("Pokemon"));
             test.push(id);
             localStorage.setItem("Pokemon", JSON.stringify(test));
+            location.reload();
           } else {
             test[0] = id;
             localStorage.setItem("Pokemon", JSON.stringify(test));
+            location.reload();
           }
         }
         if (id == event.target.id && !event.target.checked) {
@@ -320,6 +323,7 @@ function favoritos_id() {
           for (let i = 0; i < test.length; i++) {
             if (test[i] == id) {
               delete test[i];
+              location.reload();
             }
           }
           localStorage.setItem("Pokemon", JSON.stringify(test));
@@ -330,6 +334,7 @@ function favoritos_id() {
 }
 
 favoritos_id();
+verificarFavoritos();
 
 function verificarFavoritos() {
   if (localStorage.getItem("Pokemon")) {
@@ -338,6 +343,7 @@ function verificarFavoritos() {
     for (let i = 0; i < test.length; i++) {
       if (test[i] != null) {
         verdaderos.push(test[i]);
+        localStorage.removeItem("Pokemon");
       }
     }
     // console.log(verdaderos);
@@ -346,8 +352,6 @@ function verificarFavoritos() {
     console.log("no true");
   }
 }
-
-verificarFavoritos();
 
 const checkForElement = () => {
   const element = document.querySelectorAll(".checkbox-heart");
@@ -367,3 +371,66 @@ const checkForElement = () => {
 };
 
 const intervalId = setInterval(checkForElement, 100);
+
+function displayPokemonsFavoritos(pokemon_data) {
+  fav.innerHTML = "";
+  let test = [];
+  pokemon_data.forEach((pokemon) => {
+    const pokemonID = pokemon.url.split("/")[6];
+
+    if (localStorage.getItem("Pokemon")) {
+      test = JSON.parse(localStorage.getItem("Pokemon"));
+      for (let i = 0; i < test.length; i++) {
+        if (test[i] == pokemonID) {
+          let card = document.createElement("div");
+          card.className = "responsive-favorite";
+          card.innerHTML = `
+                     <div class="card-favorite">
+                              <!-- favorities -->
+                              <input
+                                type="checkbox"
+                                id="${pokemonID}"
+                                class="checkbox-heart"
+                                name="favorite-checkbox"
+                                value="favorite-button"
+                              />
+                              <label for="${pokemonID}" class="containerHeart">
+                                <svg
+                                  xmlns="http://www.w3.org/2000/svg"
+                                  width="24"
+                                  height="24"
+                                  viewBox="0 0 24 24"
+                                  fill="none"
+                                  stroke="currentColor"
+                                  stroke-width="2"
+                                  stroke-lineca
+                                  p="round"
+                                  stroke-linejoin="round"
+                                  class="feather feather-heart"
+                                >
+                                  <path
+                                    d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z"
+                                  ></path>
+                                </svg>
+                              </label>
+                              <button class="modal-btn" id="myBtn${pokemonID}">
+                                <img
+                                  src="https://raw.githubusercontent.com/pokeapi/sprites/master/sprites/pokemon/other/dream-world/${pokemonID}.svg"
+                                  alt="Cinque Terre"
+                                  class="modal-btn"
+                                  id="${pokemonID}"
+                                />
+                              </button>
+                              <div class="desc-favorite" id="#${pokemonID}">
+                                <br />${pokemon.name}
+                              </div>
+                            </div>
+                   `;
+          fav.appendChild(card);
+        } else {
+          //
+        }
+      }
+    }
+  });
+}
