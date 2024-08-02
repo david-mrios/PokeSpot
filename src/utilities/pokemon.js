@@ -26,6 +26,7 @@ async function fetchData() {
     console.error("error:", error);
   }
 }
+
 fetchData();
 
 async function fetchDataAbilities(url) {
@@ -274,6 +275,7 @@ function login() {
 }
 
 function favorites() {
+  fetchData();
   showModalFavorites();
 }
 
@@ -311,11 +313,9 @@ function favoritos_id() {
             test = JSON.parse(localStorage.getItem("Pokemon"));
             test.push(id);
             localStorage.setItem("Pokemon", JSON.stringify(test));
-            location.reload();
           } else {
             test[0] = id;
             localStorage.setItem("Pokemon", JSON.stringify(test));
-            location.reload();
           }
         }
         if (id == event.target.id && !event.target.checked) {
@@ -323,10 +323,10 @@ function favoritos_id() {
           for (let i = 0; i < test.length; i++) {
             if (test[i] == id) {
               delete test[i];
-              location.reload();
             }
           }
           localStorage.setItem("Pokemon", JSON.stringify(test));
+          verificarFavoritos();
         }
       }
     }
@@ -352,25 +352,6 @@ function verificarFavoritos() {
     console.log("no true");
   }
 }
-
-const checkForElement = () => {
-  const element = document.querySelectorAll(".checkbox-heart");
-  if (element) {
-    element.forEach((element) => {
-      if (localStorage.getItem("Pokemon")) {
-        test = JSON.parse(localStorage.getItem("Pokemon"));
-        for (let i = 0; i < test.length; i++) {
-          if (test[i] == element.id) {
-            element.checked = true;
-          }
-        }
-      }
-    });
-    clearInterval(intervalId);
-  }
-};
-
-const intervalId = setInterval(checkForElement, 100);
 
 function displayPokemonsFavoritos(pokemon_data) {
   fav.innerHTML = "";
@@ -427,6 +408,25 @@ function displayPokemonsFavoritos(pokemon_data) {
                             </div>
                    `;
           fav.appendChild(card);
+          const checkForElement = () => {
+            const element = document.querySelectorAll(".checkbox-heart");
+            if (element) {
+              element.forEach((element) => {
+                if (localStorage.getItem("Pokemon")) {
+                  test = JSON.parse(localStorage.getItem("Pokemon"));
+                  for (let i = 0; i < test.length; i++) {
+                    if (test[i] == element.id) {
+                      element.checked = true;
+                    }
+                  }
+                }
+              });
+              clearInterval(intervalId);
+            }
+          };
+
+          const intervalId = setInterval(checkForElement, 100);
+          verificarFavoritos();
         } else {
           //
         }
