@@ -41,42 +41,62 @@
                       id="input"
                     />
                   </div>
-
+                </li>
+                <li id="filter">
                   <details>
-                    <summary>sorttBy</summary>
-                    <div class="sorted-wrapped">
-                      <div class="sort-wrap">
-                        <img src="" alt="" />
+                    <summary>
+                      <i class="fas fa-filter"></i>
+                    </summary>
+                    <div class="column-text-sumary">
+                      <div>
+                        <input
+                          type="radio"
+                          id="number"
+                          name="filter"
+                          value="number"
+                          checked
+                        />
+                        <label for="number" class="nav-item-sum">number</label>
                       </div>
-                      <div class="filter-wraped">
-                        <div class="filter-wrap">
-                          <div>
-                            <input
-                              type="radio"
-                              id="number"
-                              name="filter"
-                              value="number"
-                              checked
-                            />
-                            <label for="number" style="color: black"
-                              >number</label
-                            >
-                          </div>
-                          <div>
-                            <input
-                              type="radio"
-                              id="name"
-                              name="filter"
-                              value="name"
-                            />
-                            <label for="name" style="color: black">name </label>
-                          </div>
-                        </div>
+                      <div>
+                        <input
+                          type="radio"
+                          id="name"
+                          name="filter"
+                          value="name"
+                        />
+                        <label for="name" class="nav-item-sum">name </label>
                       </div>
                     </div>
                   </details>
                 </li>
-                <li></li>
+                <li id="sifo">
+                  <details>
+                    <summary>
+                      <i class="fas fa-ellipsis-v"></i>
+                    </summary>
+                    <div class="column-text-sumary">
+                      <div>
+                        <button class="nav-item-setting">
+                          <i class="fas fa-cogs"></i>
+                          <h2>Setting</h2>
+                        </button>
+                      </div>
+                      <div>
+                        <button class="nav-item-setting" onclick="login()">
+                          <i class="fas fa-user"></i>
+                          <h2>Login</h2>
+                        </button>
+                      </div>
+                      <div>
+                        <button class="nav-item-setting" onclick="favorites()">
+                          <i class="fas fa-heart"></i>
+                          <h2>Favorites</h2>
+                        </button>
+                      </div>
+                    </div>
+                  </details>
+                </li>
               </ul>
             </div>
 

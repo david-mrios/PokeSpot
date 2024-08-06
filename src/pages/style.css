@@ -231,3 +231,155 @@ body {
   color: #ccc;
   border-bottom: 0.0625rem solid gray;
 }
+
+summary::focus {
+  outline: none;
+}
+summary:focus-visible {
+  outline: 3px dotted #ff0060;
+}
+summary {
+  padding: 10px;
+  list-style: none;
+  i {
+    color: white;
+  }
+}
+
+.filter-wrap div {
+  display: flex;
+  width: 180px;
+  height: 100px;
+}
+
+.label-menu {
+  display: flex;
+  width: 200px;
+  text-align: center;
+  height: 20px;
+}
+.column-text-sumary {
+  position: absolute;
+  top: 70px; /* Ajusta la distancia desde la parte superior de la ventana */
+  left: 250px;
+  border-radius: 10px;
+  border: 1px solid white;
+  background-size: cover;
+  background-color: #dfd9d9;
+  padding: 10px;
+  z-index: 1000; /* Asegura que el elemento esté en la parte superior */
+}
+.column-text-sumary div {
+  display: flex;
+  flex-direction: row;
+  margin: 0 10px 10px 10px;
+  column-gap: 10px;
+  padding: 10px 10px;
+  border-radius: 15px;
+}
+
+.nav-item-sum {
+  border: none;
+  padding: 9px;
+  font-size: 1rem;
+  border-radius: 1rem;
+  width: 80px;
+  box-shadow: 0 0.4rem #dfd9d9;
+  background: transparent;
+  justify-content: center;
+  padding: 10px 0 15 0;
+  cursor: pointer;
+  content: "";
+  h2 {
+    font-size: 20px;
+    display: inline;
+    padding: 0 0 0 10px;
+    margin: 0 0 0 0;
+  }
+}
+
+.nav-item-sum:hover {
+  border: 1px solid #aaaaaa;
+}
+
+.nav-item-sum:focus {
+  border: 1px solid #aaaaaa;
+}
+#filter {
+  padding: 0;
+  margin: 0;
+}
+
+#sifo {
+  display: none;
+  i {
+    color: #ffffff;
+  }
+}
+@media (max-width: 740px) {
+  #sifo {
+    display: block;
+    padding: 9px;
+    margin: 0;
+  }
+  .column-text {
+    display: none;
+  }
+
+  .column-img {
+    display: flex;
+    position: static;
+    justify-content: center;
+    align-items: center;
+    flex: 2;
+    padding: 5px 0 0;
+    margin: 0 0;
+
+    img {
+      width: 20%;
+      padding: 0 0 0;
+      margin: 0 15px 0 15px;
+    }
+
+    ul {
+      display: flex;
+      position: relative;
+      justify-content: end;
+      list-style: none;
+      padding: 0;
+      li {
+        margin: 10px;
+        padding: 0 0 0 40px;
+      }
+    }
+  }
+}
+
+.nav-item-setting {
+  border: none;
+  font-size: 1rem;
+  padding: 10px;
+  border-radius: 1rem;
+  color: #ffffff;
+  box-shadow: 0 0.4rem #dfd9d9;
+  min-width: 150px;
+  background: transparent;
+  cursor: pointer;
+  content: "";
+
+  h2 {
+    font-size: 16px;
+    display: inline-block;
+    padding: 0 0 0 10px;
+    margin: 0 0 0 0;
+  }
+}
+
+.nav-item-setting:hover {
+  border: 1px solid #aaaaaa;
+}
+
+.nav-item-setting:focus {
+  border: 1px solid #aaaaaa;
+}
+
