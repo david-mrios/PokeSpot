@@ -300,6 +300,7 @@ window.onclick = function (event_Favorites) {
 };
 function favoritos_id() {
   document.body.addEventListener("click", async (event) => {
+    verificarFavoritos();
     if (event.target.classList.contains("checkbox-heart")) {
       const elemento = document.getElementsByClassName("checkbox-heart");
       var cantidad = elemento.length;
@@ -474,7 +475,6 @@ function handleSearch() {
     notFoundMessage.style.display = "none";
   }
 }
-
 
 // Fetch all the details element.
 const details = document.querySelectorAll("details");
