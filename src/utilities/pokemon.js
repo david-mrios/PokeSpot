@@ -494,3 +494,7 @@ function setTargetDetail(targetDetail) {
     }
   });
 }
+
+function settings() {
+  document.location.href = "pages/User-Profile/profije.html";
+}

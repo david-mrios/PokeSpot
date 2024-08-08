@@ -94,15 +94,13 @@ body {
 }
 
 .form-section button {
-  
   font-weight: bold;
-  color: #0066ff;
   transition: color 0.3s ease;
 }
 
 .form-section button:hover {
-  color: #005ce6;
-  text-decoration: underline;
+  background-color: #005ce6;
+
 }
 
 .form button {
@@ -183,10 +181,16 @@ body {
 }
 
 .btn {
-  border: none;
-  color: #ffffff;
-  background: transparent;
-  transition: none;
+  background-color: #000000;
+  color: #fff;
+  border: 0;
+  border-radius: 24px;
+  padding: 10px 16px;
+  font-size: 1rem;
+  width: 200px;
+  font-weight: 600;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
 }
 
 .item-row {
@@ -196,7 +200,7 @@ body {
   align-items: start;
   flex: 2;
   padding: 5px;
-  margin: 0 0;
+  margin-right: 30px;
   input {
     display: inline;
     background: rgb(218, 137, 137);
@@ -218,23 +222,25 @@ body {
   flex-direction: column;
   position: relative;
   align-items: start;
-  flex: 2;
+  /* flex: 2; */
   padding: 5px;
   margin: 0 0;
 }
 
 .item-row-2 div {
-  margin-top: 12px;
+  margin: auto;
   min-height: 45px;
   width: 360px;
   display: flex;
-  gap: 40px;
+  justify-content: start;
+  gap: 10px;
+  
   flex-direction: row;
 }
 
 .radio {
-  width: 150px;
-  height: 40px;
+  display: inline;
+  justify-content: center;
   background-color: #e63950;
   border: 1px solid red;
   border-radius: 10px;
@@ -245,8 +251,25 @@ body {
   z-index: 10;
 }
 
-
 label {
-  padding: 0;
-  margin: 0;
+  position: relative;
+  left: 45%;
+  padding: 4px;
+  text-align: center;
+  font-family: "Courier New", Courier, monospace;
+  font-style: normal;
+  font-variant: small-caps;
+  font-size: 24px;
+  line-height: 1.6;
 }
+
+#label-for-radio {
+  position: relative;
+  top: 30px;
+}
+
+.test-label {
+  position: relative;
+  left: 0;
+}
+
