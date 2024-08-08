@@ -180,7 +180,7 @@ function showModal(
                 <li class="li-data">
                   <span class="info-class">Spicies</span>
                   <span class="data-class">${species}</span>
-                </li>
+                  </li>
                 <li class="li-data">
                   <span class="info-class">Height</span>
                   <span class="data-class">${height}</span>
@@ -195,7 +195,7 @@ function showModal(
                   
                 </li>
                 <div class="div-data">
-                <span class="data-class">${abilities1}  ${abilities2} </span>                
+                <span class="data-class-abilties">${abilities1}  ${abilities2} </span>                
                 </div>
 
               </ul>
@@ -220,7 +220,6 @@ function evolution_modal(pokemon) {
                             src="https://raw.githubusercontent.com/pokeapi/sprites/master/sprites/pokemon/other/dream-world/${element[0]}.svg"
                             alt="Avatar"
                             class="image"
-                            style="width: 100%"
                           />
                           <div class="middle">
                             <div class="text">${element[1]}</div>
