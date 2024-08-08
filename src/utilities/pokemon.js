@@ -190,10 +190,14 @@ function showModal(
                   <span class="data-class">${weight}</span>
                 </li>
           
-                 <li class="li-data">
+                 <li class="li-data center">
                   <span class="info-class">Ability</span>
-                  <span class="data-class">${abilities1}  ${abilities2} </span>
+                  
                 </li>
+                <div class="div-data">
+                <span class="data-class">${abilities1}  ${abilities2} </span>                
+                </div>
+
               </ul>
             </div>
 

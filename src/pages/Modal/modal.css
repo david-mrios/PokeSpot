@@ -185,6 +185,12 @@
   color: orange;
 }
 
+.div-data {
+  display: flex;
+  justify-content: center;
+
+}
+
 .li-data {
   display: flex;
   justify-content: space-between;
@@ -192,6 +198,10 @@
   h2 {
     font-size: 1.1em;
   }
+}
+
+.center {
+  justify-content: center;
 }
 
 /* .li-data {
@@ -522,3 +532,7 @@ div.card-favorite img {
   float: left;
   width: 10%;
 }
+
+
+
+@media (max)
