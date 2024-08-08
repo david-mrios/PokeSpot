@@ -288,6 +288,7 @@ div.desc-modal-evo {
   content: "";
   display: flex;
   flex-wrap: nowrap;
+  justify-content: center;
   clear: both;
   padding: 20px 0 0 0;
   margin: 0;
@@ -295,13 +296,14 @@ div.desc-modal-evo {
 }
 
 .container-evo {
+  display: flex;
   position: relative;
   flex-wrap: nowrap;
   justify-content: center;
   width: 100%;
   align-items: center;
   flex: 3;
-  padding: 5px 0 0 20px;
+  padding: 5px 0 20px 20px;
   margin: 0 0;
 }
 
@@ -405,11 +407,9 @@ color: orange; */
       filter: drop-shadow(0 0 0.75rem crimson) opacity(60%);
     }
   }
-
 }
 
 @media (max-width: 1050px) {
-  
   .column-modal-text {
     flex: 3;
     display: flex;
@@ -453,12 +453,11 @@ color: orange; */
     border-radius: 30px;
     width: 80%;
   }
-
 }
 
 @media (max-width: 664px) {
   /* Modal Content */
-  
+
   .column-modal-img {
     display: flex;
     position: static;
@@ -548,20 +547,23 @@ div.card-favorite img {
 
 @media (max-width: 1111px) {
   .container-evo {
-    display: flex;
-    flex-direction: row;
     padding: 30px;
   }
   .img-evo {
+    
+      display: flex;
+    flex-direction: row;
+    justify-content: start;
     background-color: #333;
-    overflow: auto;
+    overflow: scroll; /* Asegura el scroll horizontal */
     white-space: nowrap;
-    padding: 10px;
+    overflow-y: hidden;
+    width: 100%;
+    
+    
   }
 
 }
-
-
 
 .desc-favorite-card {
   display: flex;
@@ -578,5 +580,4 @@ div.card-favorite img {
   text-transform: uppercase;
   background: #212121;
   color: #ccc;
-  
 }
