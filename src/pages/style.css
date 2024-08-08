@@ -22,6 +22,8 @@ body {
 }
 .main {
   grid-area: main;
+  padding: 0;
+  margin: 0;
 }
 .footer {
   grid-area: footer;
@@ -33,9 +35,7 @@ body {
     "header header header header header header"
     "main main main main main main"
     "footer footer footer footer footer footer";
-  gap: 10px;
-  padding: 0 0 0 0;
-  margin: 0 0 0 0;
+  gap: 4px;
   border: none;
   background-color: #ffffff;
 }
@@ -53,10 +53,9 @@ body {
 .main-div {
   div {
     display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+    grid-template-columns: repeat(auto-fit, minmax(300px, 0fr));
     place-items: center;
     justify-content: center;
-    gap: 1rem;
     flex-wrap: wrap;
     padding: 15px 15px 7px 15px;
     margin: 0 15px 0 20px;
@@ -114,10 +113,9 @@ body {
 
   ul {
     display: flex;
-    position: relative;
     justify-content: end;
     list-style: none;
-    padding: 0;
+    
     li {
       margin: 10px;
       padding: 6px 0 10px 0;
@@ -244,6 +242,10 @@ summary {
   i {
     color: white;
   }
+  
+}
+summary i:hover {
+  color: aqua;
 }
 
 .filter-wrap div {

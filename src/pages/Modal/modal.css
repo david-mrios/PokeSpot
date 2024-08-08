@@ -484,13 +484,14 @@ color: orange; */
 .main-div-favorite {
   div {
     display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+    grid-template-columns: repeat(auto-fit, minmax(220px, 1px));
     place-items: center;
     justify-content: center;
     flex-wrap: wrap;
     padding: 15px 15px 7px 15px;
     margin: 0 15px 0 20px;
     background-color: #212121;
+    z-index: 10;
   }
 }
 
@@ -558,4 +559,24 @@ div.card-favorite img {
     padding: 10px;
   }
 
+}
+
+
+
+.desc-favorite-card {
+  display: flex;
+  position: relative;
+  justify-content: center;
+  top: 40px;
+  padding: 15px 20px 20px 30px;
+  margin: 0 15px 0 20px;
+  font-size: 18px;
+  color: #fff;
+  letter-spacing: 7px;
+  font-weight: 700;
+  text-align: center;
+  text-transform: uppercase;
+  background: #212121;
+  color: #ccc;
+  
 }
