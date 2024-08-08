@@ -106,14 +106,15 @@
   display: flex;
   position: static;
   flex-wrap: wrap;
+  flex-direction: column;
   justify-content: center;
   align-items: center;
-  flex: 3;
+  flex: 2;
   padding: 5px 0 0 50px;
   margin: 0 0;
 
   img {
-    width: 300px;
+    width: 230px;
     height: 300px;
     padding: 0 0 0 0;
     margin: 0 0 0 0;
@@ -125,18 +126,19 @@
 .column-modal-text {
   flex: 3;
   display: flex;
-  flex-wrap: wrap;
+  flex-direction: column;
   position: static;
-
-  justify-content: center;
-  padding: 0 0 0 0;
+  justify-content: start;
+  padding: 0 45px 0 45px;
   margin: 0 0;
   color: orange;
 }
 
 #info-modal {
-  display: inline-block;
-  padding: 0 0 0 20px;
+  display: inline;
+  text-align: center;
+  margin: 7px;
+  padding: 0;
   border-bottom: 0.0625rem solid gray;
 }
 
@@ -145,10 +147,10 @@
   flex-direction: column;
   position: relative;
   list-style: none;
-  padding: 0;
+  padding: 10px;
   li {
-    margin: 10px 0 0 0;
-    padding: 6px 0 0 0;
+    margin: 15px 0 0 0;
+    padding: 3px;
     color: #5bc8f7;
   }
 }
@@ -178,7 +180,7 @@
 }
 
 .data-class {
-  padding: 15px 0 0 50px;
+  padding: 0 0 0 50px;
   font: normal bold 1.1em "Fira Sans", sans-serif;
   text-transform: uppercase;
   display: inline;
@@ -231,6 +233,7 @@
   } */
 
 div.desc-modal {
+  margin: 2px 0 14px 0px;
   padding: 0 0 0 10px;
   font-size: 23px;
   color: #fff;
@@ -437,8 +440,8 @@ color: orange; */
     margin: 0 0;
 
     img {
-      width: 300px;
-      height: 300px;
+      width: 200px;
+      height: 200px;
       padding: 0 0 0 0;
       margin: 0 0 0 0;
       /* box-shadow: 12px 8px 20px orange ; */
@@ -550,8 +553,7 @@ div.card-favorite img {
     padding: 30px;
   }
   .img-evo {
-    
-      display: flex;
+    display: flex;
     flex-direction: row;
     justify-content: start;
     background-color: #333;
@@ -559,10 +561,7 @@ div.card-favorite img {
     white-space: nowrap;
     overflow-y: hidden;
     width: 100%;
-    
-    
   }
-
 }
 
 .desc-favorite-card {
