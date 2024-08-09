@@ -1,4 +1,4 @@
-const max_pokemon = 100;
+const max_pokemon = 500;
 const listDisplay = document.querySelector(".list-display");
 const main = document.querySelector(".main");
 const modal_fav = document.querySelector(".data-modal-favorites");
@@ -21,7 +21,6 @@ async function fetchData() {
     pokemons = data.results;
     displayPokemonsFavoritos(pokemons);
     displayPokemons(pokemons);
-    actiontest(pokemons);
   } catch (error) {
     console.error("error:", error);
   }
@@ -41,6 +40,7 @@ async function fetchDataAbilities(url) {
       Spicies: data.species,
       weight: data.weight,
     };
+
     return pokemons;
   } catch (error) {
     console.error("error:", error);
@@ -87,9 +87,9 @@ async function fetchDataEvolutionChain(url) {
 
 function forToEvolution(pokemon) {
   let evolves_to = pokemon.chain;
-
   while (list.length > 0) list.pop();
   let array = recall(evolves_to);
+  console.log(array);
   evolution_modal(array);
 }
 
@@ -148,6 +148,9 @@ function displayPokemons(pokemon_data) {
             </div>
          `;
     main.appendChild(card);
+    let dataPokemon = await fetchDataAbilities(pokemon.url);
+
+    actiontest(pokemon, dataPokemon);
   });
 }
 
@@ -211,7 +214,6 @@ function showModal(
 function evolution_modal(pokemon) {
   img_evo.innerHTML = "";
   pokemon.forEach((element) => {
-    console.log();
     let imgEvo = document.createElement("div");
     imgEvo.className = "container-evo";
     imgEvo.innerHTML = `
@@ -229,30 +231,27 @@ function evolution_modal(pokemon) {
   });
 }
 
-function actiontest(pokemons) {
-  document.body.addEventListener("click", (event) => {
+function actiontest(pokemons, dataPokemon) {
+  document.body.addEventListener("click", async (event) => {
     if (event.target.classList.contains("modal-btn")) {
-      pokemons.forEach(async (pokemon) => {
-        const pokemonID = pokemon.url.split("/")[6];
-        if (event.target.id == pokemonID) {
-          let dataPokemon = await fetchDataAbilities(pokemon.url);
-          const species = await fetchDataEvolution(dataPokemon.Spicies.url);
+      const pokemonID = pokemons.url.split("/")[6];
+      if (event.target.id == pokemonID) {
+        const species = await fetchDataEvolution(dataPokemon.Spicies.url);
 
-          let abilities2 = "";
-          if (dataPokemon.abilities[1] != undefined) {
-            abilities2 = ", " + dataPokemon.abilities[1].ability.name;
-          }
-          showModal(
-            pokemonID,
-            pokemon.name,
-            species,
-            dataPokemon.height,
-            dataPokemon.abilities[0].ability.name,
-            abilities2,
-            dataPokemon.weight
-          );
+        let abilities2 = "";
+        if (dataPokemon.abilities[1] != undefined) {
+          abilities2 = ", " + dataPokemon.abilities[1].ability.name;
         }
-      });
+        showModal(
+          pokemonID,
+          pokemons.name,
+          species,
+          dataPokemon.height,
+          dataPokemon.abilities[0].ability.name,
+          abilities2,
+          dataPokemon.weight
+        );
+      }
     }
   });
 }
@@ -264,13 +263,6 @@ function closeModal() {
 
 const span = document.getElementsByClassName("close")[0];
 span.onclick = closeModal;
-
-var modal = document.getElementById("myModal");
-window.onclick = function (event) {
-  if (event.target == modal) {
-    modal.style.display = "none";
-  }
-};
 
 function login() {
   document.location.href = "pages/Register/season.html";
@@ -350,8 +342,6 @@ function verificarFavoritos() {
     }
     // console.log(verdaderos);
     localStorage.setItem("Pokemon", JSON.stringify(verdaderos));
-  } else {
-    console.log("no true");
   }
 }
 
@@ -473,7 +463,7 @@ function handleSearch() {
   displayPokemons(filteredPokemons);
 
   if (filteredPokemons.length === 0) {
-    notFoundMessage.style.display = "block";
+    notFoundMessage.style.display = "flex";
   } else {
     notFoundMessage.style.display = "none";
   }
@@ -501,3 +491,23 @@ function setTargetDetail(targetDetail) {
 function settings() {
   document.location.href = "pages/User-Profile/profije.html";
 }
+
+notFoundMessage.style.display = "none";
+
+var summary = document.getElementById("details-s");
+var radio = document.getElementById("name");
+var modal = document.getElementById("myModal");
+
+window.onclick = function (event) {
+  // Handle the modal click logic
+  if (event.target == modal) {
+    modal.style.display = "none";
+  }
+
+  // Handle the summary open/close logic
+  if (summary && !event.target.checked) {
+    if (event.target.tagName !== "LABEL") {
+      summary.open = false;
+    }
+  }
+};

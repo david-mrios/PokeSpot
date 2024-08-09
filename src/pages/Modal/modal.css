@@ -578,5 +578,10 @@ div.card-favorite img {
   text-align: center;
   text-transform: uppercase;
   background: #212121;
-  color: #ccc;
+    color: #ccc;
+  }
+
+#not-found {
+  color: #3a2939;
+  font: small-caps bold 50px/1 sans-serif;
 }
