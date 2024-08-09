@@ -1,4 +1,4 @@
-const max_pokemon = 500;
+const max_pokemon = 10;
 const listDisplay = document.querySelector(".list-display");
 const main = document.querySelector(".main");
 const modal_fav = document.querySelector(".data-modal-favorites");
@@ -89,7 +89,6 @@ function forToEvolution(pokemon) {
   let evolves_to = pokemon.chain;
   while (list.length > 0) list.pop();
   let array = recall(evolves_to);
-  console.log(array);
   evolution_modal(array);
 }
 
@@ -251,6 +250,9 @@ function actiontest(pokemons, dataPokemon) {
           abilities2,
           dataPokemon.weight
         );
+        FavoritesDisplau();
+
+        /////
       }
     }
   });
@@ -258,7 +260,12 @@ function actiontest(pokemons, dataPokemon) {
 
 function closeModal() {
   var modal = document.getElementById("myModal");
+  var modal_Favorites = document.getElementById("myModal-favorites");
   modal.style.display = "none ";
+
+  if (modal_Favorites.style.opacity == 0) {
+    modal_Favorites.style.opacity = 1;
+  }
 }
 
 const span = document.getElementsByClassName("close")[0];
@@ -281,18 +288,18 @@ function showModalFavorites() {
 
 function closeModalFavorites() {
   var modal = document.getElementById("myModal-favorites");
-  modal.style.display = "none ";
+  modal.style.display = "none";
+}
+
+function FavoritesDisplau() {
+  var modal = document.getElementById("myModal-favorites");
+  modal.style.zIndex = 0;
+  modal.style.opacity = 0;
 }
 
 const span_Favorites = document.getElementsByClassName("close_favorite")[0];
 span_Favorites.onclick = closeModalFavorites;
 
-var modal_Favorites = document.getElementById("myModal-favorites");
-window.onclick = function (event_Favorites) {
-  if (event_Favorites.target == modal) {
-    modal.style.display = "none";
-  }
-};
 function favoritos_id() {
   document.body.addEventListener("click", async (event) => {
     verificarFavoritos();
@@ -497,11 +504,15 @@ notFoundMessage.style.display = "none";
 var summary = document.getElementById("details-s");
 var radio = document.getElementById("name");
 var modal = document.getElementById("myModal");
+var modal_Favorites = document.getElementById("myModal-favorites");
 
 window.onclick = function (event) {
   // Handle the modal click logic
   if (event.target == modal) {
     modal.style.display = "none";
+    if (modal_Favorites.style.opacity == 0) {
+      modal_Favorites.style.opacity = 1;
+    }
   }
 
   // Handle the summary open/close logic
@@ -509,5 +520,9 @@ window.onclick = function (event) {
     if (event.target.tagName !== "LABEL") {
       summary.open = false;
     }
+  }
+
+  if (event.target == modal_Favorites) {
+    modal_Favorites.style.display = "none";
   }
 };
