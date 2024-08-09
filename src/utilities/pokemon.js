@@ -32,7 +32,8 @@ async function fetchDataAbilities(url) {
   try {
     const response = await fetch(url);
     const data = await response.json();
-    pokemons = {
+
+    dATApokemons = {
       abilities: data.abilities,
       height: data.height,
       base_experience: data.base_experience,
@@ -41,7 +42,7 @@ async function fetchDataAbilities(url) {
       weight: data.weight,
     };
 
-    return pokemons;
+    return dATApokemons;
   } catch (error) {
     console.error("error:", error);
   }
@@ -442,7 +443,6 @@ function displayPokemonsFavoritos(pokemon_data) {
 }
 
 localStorage.removeItem("Pokemon");
-
 const searchInput = document.querySelector("#input");
 const numberFilter = document.querySelector("#number");
 const nameFilter = document.querySelector("#name");
@@ -475,7 +475,6 @@ function handleSearch() {
     notFoundMessage.style.display = "none";
   }
 }
-
 // Fetch all the details element.
 const details = document.querySelectorAll("details");
 
