@@ -29,17 +29,35 @@
             <div class="test">
               <img src="../../assets/icons/pokemonIcon.png" alt="" />
             </div>
-            <form class="form">
+            <form action="../../index.html" class="form" id="form-singUp">
               <span class="title">Sign up</span>
               <span class="subtitle"
                 >Create a free account with your email.</span
               >
               <div class="form-container">
-                <input type="text" class="input" placeholder="Full Name" />
-                <input type="email" class="input" placeholder="Email" />
-                <input type="password" class="input" placeholder="Password" />
+                <input
+                  type="text"
+                  class="input"
+                  id="user"
+                  name="FullName"
+                  placeholder="Full Name"
+                />
+
+                <input
+                  type="email"
+                  class="input"
+                  name="Email"
+                  placeholder="Email"
+                />
+                <input
+                  type="password"
+                  class="input"
+                  name="Pass"
+                  placeholder="Password +8 characters"
+                />
               </div>
-              <button>Sign up</button>
+              <input type="submit" value="Sign-in" class="btn-singup" />
+              <div id="msg"></div>
             </form>
             <div class="form-section">
               <p>Have an account?</p>
@@ -50,14 +68,25 @@
             <div class="test">
               <img src="../../assets/icons/pokemonIcon.png" alt="" />
             </div>
-            <form class="form">
+            <form class="form" id="form-singIn">
               <span class="title">Log in</span>
               <span class="subtitle">you log in with your account</span>
               <div class="form-container">
-                <input type="email" class="input" placeholder="Email" />
-                <input type="password" class="input" placeholder="Password" />
+                <input
+                  type="email"
+                  class="input"
+                  name="Email-Login"
+                  placeholder="Email"
+                />
+                <input
+                  type="password"
+                  class="input"
+                  name="Pass-Login"
+                  placeholder="Password"
+                />
               </div>
-              <button>Sign up</button>
+              <input type="submit" value="Sign-up" class="btn-singup" />
+              <div class="msg"></div>
             </form>
             <div class="form-section">
               <p>Don´t have an account?</p>

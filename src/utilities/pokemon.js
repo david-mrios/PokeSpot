@@ -442,7 +442,7 @@ function displayPokemonsFavoritos(pokemon_data) {
   });
 }
 
-localStorage.removeItem("Pokemon");
+// localStorage.removeItem("Pokemon");
 const searchInput = document.querySelector("#input");
 const numberFilter = document.querySelector("#number");
 const nameFilter = document.querySelector("#name");
