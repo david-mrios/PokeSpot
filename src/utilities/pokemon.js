@@ -525,3 +525,4 @@ window.onclick = function (event) {
     modal_Favorites.style.display = "none";
   }
 };
+

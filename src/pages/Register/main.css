@@ -13,13 +13,11 @@ body {
   flex-wrap: wrap;
   background-size: cover;
   width: 100%;
-  height: 95vh;
+  height: 80vh;
 }
 
 .flex-item-form {
-  padding: 20px;
-  flex-grow: 1;
-  flex-basis: 0;
+  padding: 0;
   min-width: 300px;
   flex: 2;
 }
@@ -36,7 +34,7 @@ body {
 .form-box {
   position: absolute;
   margin: auto;
-  margin-top: 40px;
+  margin-top: 115px;
   max-width: 320px;
   background: #ecedef;
   overflow: hidden;
@@ -45,10 +43,9 @@ body {
   transition: all 0.6s ease-in-out;
 }
 .container.active .Sign-in {
-  transform: translateX(15%);
+  transform: translateX(1%);
 }
 .Sign-in {
-
   z-index: 2;
 }
 
@@ -57,7 +54,7 @@ body {
   z-index: 1;
 }
 .container.active .Sign-up {
-  transform: translateX(15%);
+  transform: translateX(1%);
   opacity: 1;
   z-index: 5;
   animation: move 0.6s;
@@ -77,10 +74,9 @@ body {
 }
 
 .form {
-  position: relative;
   display: flex;
   flex-direction: column;
-  padding: 50px 24px 70px;
+  padding: 44px 24px 28px;
   gap: 16px;
 
   text-align: center;
@@ -102,6 +98,7 @@ body {
   background-color: #fff;
   margin: 1rem 0 0.5rem;
   width: 100%;
+  height: 100%;
 }
 
 .input {
@@ -120,6 +117,7 @@ body {
   justify-content: center;
   text-align: center;
   padding: 16px;
+
   font-size: 0.85rem;
   background-color: #e0ecfb;
   box-shadow: rgb(0 0 0 / 8%) 0 -1px;
@@ -148,7 +146,7 @@ body {
   transition: background-color 0.3s ease;
 }
 
-.btn-singup:hover{
+.btn-singup:hover {
   background-color: #005ce6;
 }
 
@@ -176,7 +174,6 @@ body {
 
 .img-pokemon {
   min-width: 380px;
-  min-height: 200px;
   max-width: 70%;
   filter: drop-shadow(20px 20px 20px #1a0d19) opacity(70%);
   mix-blend-mode: difference;
@@ -198,7 +195,7 @@ body {
 
 @media (min-width: 300px) and (max-width: 1070px) {
   .form-box {
-    margin: auto;
+    margin: 10px 42px 10px 10px;
     max-width: 320px;
     background: #f1f7fe;
     overflow: hidden;
@@ -213,6 +210,7 @@ body {
   max-width: 1300;
   max-height: 645;
   width: 100%;
+  height: 100vh;
 }
 
 .test {
@@ -227,10 +225,182 @@ body {
   }
 }
 
-
 .btn {
   border: none;
   color: #ffffff;
   background: transparent;
-  transition: none;
+  transition: none;
+}
+
+.msg {
+  display: none;
+  color: red;
+  font: small-caps bold 1.6em/1 "Fira Sans", sans-serif;
+  text-transform: uppercase;
+  border-bottom: 1px solid gray;
+}
+
+@media (max-width: 863px) {
+  .container {
+    display: flex;
+    margin: 0;
+    padding: 0 0px;
+    max-width: 1300;
+    max-height: 645;
+    height: 152vh;
+    width: 100%;
+    align-items: flex-start;
+  }
+  .flex-box {
+    display: flex;
+    flex-wrap: nowrap;
+    background-size: cover;
+    width: 100%;
+    height: 80vh;
+    flex-direction: column;
+  }
+
+  .flex-item-form {
+    display: flex;
+    padding: 0 8px 0px 0px;
+    min-width: 300px;
+    flex: 2;
+    flex-direction: row;
+    flex-wrap: wrap;
+    justify-content: center;
+  }
+
+  .form-box {
+    margin: 10px 0 10px 10px;
+    max-width: 320px;
+    background: #f1f7fe;
+    overflow: hidden;
+    border-radius: 16px;
+    color: #010101;
+  }
+}
+@media (max-width: 500px) {
+  .flex-item-form {
+    position: relative;
+    top: 22%;
+  }
+
+  .container {
+    display: flex;
+    margin: 0;
+    padding: 0 0px;
+    max-width: 1300;
+    max-height: 645;
+    width: 100%;
+    align-items: flex-start;
+  }
+  .flex-item-img {
+    display: flex;
+    flex-grow: 0;
+    flex-basis: 0;
+    height: 100px;
+    /* flex: 3; */
+    /* border: 1px solid #eee; */
+    justify-content: flex-start;
+    position: relative;
+    top: 10%;
+    align-items: start;
+  }
+  .img-pokemons-case {
+    display: none;
+  }
+
+  .img-pokemon {
+    min-width: 300px;
+    max-width: 70%;
+    filter: drop-shadow(20px 20px 20px #1a0d19) opacity(70%);
+    mix-blend-mode: difference;
+  }
+}
+
+.img-pokemons-case {
+  min-width: 300px;
+  min-height: 200px;
+  max-width: 65%;
+  margin: 0 0 0 0;
+  border-radius: 50%;
+  box-shadow: 12px 8px 20px #1a0d19;
+  /* nose si usarlo */
+  /* padding: 10px 10px 10px 100px; */
+
+  z-index: 10;
+  mix-blend-mode: overlay;
+}
+
+.msg-login {
+  display: none;
+  color: red;
+  font: small-caps bold 1.6em/1 "Fira Sans", sans-serif;
+  text-transform: uppercase;
+  border-bottom: 1px solid gray;
+}
+
+@media (max-width: 1100px) {
+  .container {
+    display: flex;
+    margin: 0;
+    padding: 0 0px;
+    max-width: 1300;
+    max-height: 645;
+    height: 100vh;
+    width: 100%;
+    justify-content: center;
+    align-items: center;
+  }
+}
+
+@media (max-width: 852px) {
+  .container {
+    display: flex;
+    margin: 0;
+    padding: 0 0px;
+    height: 177vh;
+    width: 100%;
+    align-items: flex-start;
+  }
+}
+@media (max-width: 430px) {
+  .container {
+    display: flex;
+    margin: 0;
+    padding: 0 0px;
+    height: 10vh;
+    width: 100%;
+    align-items: flex-start;
+  }
+}
+@media (max-width: 375px) {
+  .container {
+    display: flex;
+    margin: 0;
+    padding: 0 0px;
+    height: 120vh;
+    width: 100%;
+    align-items: flex-start;
+  }
+}
+@media (max-width: 768px) {
+  .container {
+    display: flex;
+    margin: 0;
+    padding: 0 0px;
+    height: 110vh;
+    width: 100%;
+    align-items: flex-start;
+  }
+}
+@media (max-width: 820px) {
+  .container {
+    display: flex;
+    margin: 0;
+    padding: 0 0px;
+    height: 50vh;
+    width: 100%;
+    align-items: flex-start;
+  }
 }
