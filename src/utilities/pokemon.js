@@ -186,11 +186,11 @@ function showModal(
                   </li>
                 <li class="li-data">
                   <span class="info-class">Height</span>
-                  <span class="data-class">${height}</span>
+                  <span class="data-class">${height} m</span>
                 </li>
                   <li class="li-data">
                   <span class="info-class">weight</span>
-                  <span class="data-class">${weight}</span>
+                  <span class="data-class">${weight} kg</span>
                 </li>
           
                  <li class="li-data center">
