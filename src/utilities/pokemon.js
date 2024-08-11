@@ -501,6 +501,7 @@ function settings() {
 notFoundMessage.style.display = "none";
 
 var summary = document.getElementById("details-s");
+var summary2 = document.getElementById("details-2");
 var radio = document.getElementById("name");
 var modal = document.getElementById("myModal");
 var modal_Favorites = document.getElementById("myModal-favorites");
@@ -520,9 +521,16 @@ window.onclick = function (event) {
       summary.open = false;
     }
   }
+  // Handle the summary open/close logic
+  if (summary2 && !event.target.checked) {
+    if (event.target.tagName !== "LABEL") {
+      summary2.open = false;
+    }
+  }
 
   if (event.target == modal_Favorites) {
     modal_Favorites.style.display = "none";
   }
 };
 
+localStorage.removeItem("Login");

@@ -57,7 +57,7 @@ body {
     place-items: center;
     justify-content: center;
     flex-wrap: wrap;
-    padding: 15px 15px 7px 15px;
+    padding: 18px 10px 9px 1px;
     margin: 0 15px 0 20px;
     background-color: #ffffff;
   }
@@ -115,7 +115,7 @@ body {
     display: flex;
     justify-content: end;
     list-style: none;
-    
+
     li {
       margin: 10px;
       padding: 6px 0 10px 0;
@@ -152,7 +152,7 @@ body {
 
 .button-search {
   background-color: #eee;
-  border: none; 
+  border: none;
   padding: 9px;
   font-size: 1rem;
   border-radius: 1rem;
@@ -242,7 +242,6 @@ summary {
   i {
     color: white;
   }
-  
 }
 summary i:hover {
   color: aqua;
@@ -315,7 +314,12 @@ summary i:hover {
 #sifo {
   display: none;
   i {
+    padding: 0;
     color: #ffffff;
+    display: flex;
+    justify-content: center;
+    position: relative;
+    padding: 0 0 8px 0;
   }
 }
 @media (max-width: 740px) {
@@ -386,3 +390,43 @@ summary i:hover {
 }
 
 /*  */
+
+@media (max-width: 590px) {
+  .column-text-sumary {
+    position: absolute;
+    top: 80px;
+    left: 201px;
+    border-radius: 10px;
+    border: 1px solid white;
+    background-size: cover;
+    background-color: #dfd9d9;
+    padding: 10px;
+    z-index: 1000;
+  }
+}
+@media (max-width: 478px) {
+  .column-text-sumary {
+    position: absolute;
+    top: 80px;
+    left: 154px;
+    border-radius: 10px;
+    border: 1px solid white;
+    background-size: cover;
+    background-color: #dfd9d9;
+    padding: 10px;
+    z-index: 1000;
+  }
+}
+@media (max-width: 378px) {
+  .column-text-sumary {
+    position: absolute;
+    top: 80px;
+    left: 129px;
+    border-radius: 10px;
+    border: 1px solid white;
+    background-size: cover;
+    background-color: #dfd9d9;
+    padding: 10px;
+    z-index: 1000;
+  }
+}
