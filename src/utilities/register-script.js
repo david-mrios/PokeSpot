@@ -23,7 +23,7 @@ document.addEventListener("DOMContentLoaded", function () {
 
 function validForm(e) {
   e.preventDefault();
-  const msg = e.target.querySelector(".msg"); // Selecciona el div 'msg' correspondiente al formulario actual
+  const msg = e.target.querySelector(".msg");
   msg.innerText = "";
 
   var fullName = document.querySelector("[name=FullName]").value;
@@ -52,7 +52,7 @@ function validForm(e) {
   login.push(fullName, email, password);
   localStorage.setItem("Login", JSON.stringify(login));
 
-  window.location.href = "../../index.html";
+  window.location.href = "/src/pages/Cards/card.html";
 }
 
 function validateEmail(email) {
@@ -91,7 +91,7 @@ function validLogin(e) {
   msg.style.display = "none";
   document.querySelector("[name=Pass-Login]").value = "";
   document.querySelector("[name=Email-Login]").value = "";
-  window.location.href = "../../index.html";
+  window.location.href = "/src/pages/Cards/card.html";
 }
 
 function clearDiv() {

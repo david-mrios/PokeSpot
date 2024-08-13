@@ -1,0 +1,176 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>PokeSpot</title>
+    <link
+      rel="website icon"
+      type="png"
+      href="../../assets/icons/pokemon_icon.png"
+    />
+    <link rel="stylesheet" href="../Modal/modal-style.css" />
+    <link rel="stylesheet" href="display-style.css" />
+    <link rel="stylesheet" href="card-style.css" />
+    <link
+      rel="stylesheet"
+      href="https://use.fontawesome.com/releases/v5.12.1/css/all.css"
+      crossorigin="anonymous"
+    />
+  </head>
+  <body>
+    <header class="container">
+      <div class="grid-container">
+        <div class="header">
+          <div class="row">
+            <div class="column-img">
+              <!-- <img src="assets/icons/logo.svg" alt="PokeSpot logo" /> -->
+              <ul>
+                <li>
+                  <div class="input-wrapper">
+                    <svg class="icon" aria-hidden="true" viewBox="0 0 24 24">
+                      <g>
+                        <path
+                          d="M21.53 20.47l-3.66-3.66C19.195 15.24 20 13.214 20 11c0-4.97-4.03-9-9-9s-9 4.03-9 9 4.03 9 9 9c2.215 0 4.24-.804 5.808-2.13l3.66 3.66c.147.146.34.22.53.22s.385-.073.53-.22c.295-.293.295-.767.002-1.06zM3.5 11c0-4.135 3.365-7.5 7.5-7.5s7.5 3.365 7.5 7.5-3.365 7.5-7.5 7.5-7.5-3.365-7.5-7.5z"
+                        ></path>
+                      </g>
+                    </svg>
+                    <input
+                      type="text"
+                      placeholder="search here..."
+                      name="text"
+                      class="input"
+                      id="input"
+                    />
+                  </div>
+                </li>
+                <li id="filter">
+                  <details id="details-s">
+                    <summary>
+                      <i class="fas fa-filter"></i>
+                    </summary>
+                    <div class="column-text-sumary">
+                      <div>
+                        <input
+                          type="radio"
+                          id="number"
+                          name="filter"
+                          value="number"
+                          checked
+                        />
+                        <label for="number" class="nav-item-sum">number</label>
+                      </div>
+                      <div>
+                        <input
+                          type="radio"
+                          id="name"
+                          name="filter"
+                          value="name"
+                        />
+                        <label for="name" class="nav-item-sum">name </label>
+                      </div>
+                    </div>
+                  </details>
+                </li>
+                <li id="sifo">
+                  <details id="details-2">
+                    <summary>
+                      <i class="fas fa-ellipsis-v"></i>
+                    </summary>
+                    <div class="column-text-sumary">
+                      <div>
+                        <button class="nav-item-setting" onclick="">
+                          <i class="fas fa-cogs"></i>
+                          <h2>Setting</h2>
+                        </button>
+                      </div>
+                      <div>
+                        <button class="nav-item-setting" onclick="login()">
+                          <i class="fas fa-user"></i>
+                          <h2>Login</h2>
+                        </button>
+                      </div>
+                      <div>
+                        <button class="nav-item-setting" onclick="favorites()">
+                          <i class="fas fa-heart"></i>
+                          <h2>Favorites</h2>
+                        </button>
+                      </div>
+                    </div>
+                  </details>
+                </li>
+              </ul>
+            </div>
+
+            <div class="column-text">
+              <ul>
+                <li>
+                  <button class="nav-item" onclick="favorites()">
+                    <i class="fas fa-heart"></i>
+                    <h2>Favorites</h2>
+                  </button>
+                </li>
+                <li>
+                  <button class="nav-item" onclick="login()">
+                    <i class="fas fa-user"></i>
+                    <h2>Login</h2>
+                  </button>
+                </li>
+                <li>
+                  <button class="nav-item" onclick="settings()">
+                    <i class="fas fa-cogs"></i>
+                    <h2>Setting</h2>
+                  </button>
+                </li>
+              </ul>
+            </div>
+          </div>
+        </div>
+      </div>
+    </header>
+
+    <!-- main-card -->
+    <main class="">
+      <div class="main-div">
+        <div class="main" id="main">
+          <!-- card -->
+        </div>
+        <div id="not-found">not found</div>
+      </div>
+      <!-- The Modal -->
+      <div id="myModal" class="modal">
+        <!-- Modal content -->
+        <div class="modal-content">
+          <span class="close">&times;</span>
+          <div class="data-modal">
+            <!-- data -->
+          </div>
+          <!-- <div class="clearfix"></div>
+            <div style="padding: 40px"></div> -->
+          <div class="head-main">Evolution</div>
+          <div class="img-evo"></div>
+        </div>
+      </div>
+
+      <!-- modal favorites -->
+      <div id="myModal-favorites" class="modal-favorites">
+        <!-- Modal content -->
+        <div class="modal-content-favorites">
+          <span class="close_favorite">&times;</span>
+          <div class="data-modal-favorites">
+            <!-- data -->
+            <div class="desc-favorite-card">pokemon ready to fight</div>
+            <div class="main-div-favorite">
+              <div style="padding: 15px"></div>
+              <div class="rwapped-favorite">
+                <div class="responsive-favorite"></div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </main>
+  </body>
+  <script src="../../utilities/pokemon-script.js" defer></script>
+</html>
+

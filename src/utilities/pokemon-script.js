@@ -453,21 +453,30 @@ searchInput.addEventListener("keyup", handleSearch);
 function handleSearch() {
   const searchTerm = searchInput.value.toLowerCase();
   let filteredPokemons;
-
+  var main = document.getElementById("main");
+  var style;
   if (numberFilter.checked) {
     filteredPokemons = pokemons.filter((pokemon) => {
       const pokemonID = pokemon.url.split("/")[6];
       return pokemonID.startsWith(searchTerm);
     });
+    style = "repeat(auto-fit, minmax(300px, 0fr))";
   } else if (nameFilter.checked) {
+    style = "repeat(auto-fit, minmax(300px, 0fr))";
     filteredPokemons = pokemons.filter((pokemon) =>
       pokemon.name.toLowerCase().startsWith(searchTerm)
     );
   } else {
+    style = "repeat(auto-fit, minmax(300px, 1fr))";
     filteredPokemons = pokemons;
   }
 
+  if (searchTerm === "") {
+    style = "repeat(auto-fit, minmax(300px, 1fr))";
+  }
+
   displayPokemons(filteredPokemons);
+  main.style.gridTemplateColumns = style;
 
   if (filteredPokemons.length === 0) {
     notFoundMessage.style.display = "flex";
@@ -495,7 +504,7 @@ function setTargetDetail(targetDetail) {
 }
 
 function settings() {
-  document.location.href = "pages/User-Profile/profile.html";
+  document.location.href = "/src/pages/User-Profile/profile.html";
 }
 
 notFoundMessage.style.display = "none";
