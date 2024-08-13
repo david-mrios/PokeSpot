@@ -507,7 +507,6 @@ var modal = document.getElementById("myModal");
 var modal_Favorites = document.getElementById("myModal-favorites");
 
 window.onclick = function (event) {
-  // Handle the modal click logic
   if (event.target == modal) {
     modal.style.display = "none";
     if (modal_Favorites.style.opacity == 0) {
@@ -515,13 +514,11 @@ window.onclick = function (event) {
     }
   }
 
-  // Handle the summary open/close logic
   if (summary && !event.target.checked) {
     if (event.target.tagName !== "LABEL") {
       summary.open = false;
     }
   }
-  // Handle the summary open/close logic
   if (summary2 && !event.target.checked) {
     if (event.target.tagName !== "LABEL") {
       summary2.open = false;
@@ -532,4 +529,3 @@ window.onclick = function (event) {
     modal_Favorites.style.display = "none";
   }
 };
-
