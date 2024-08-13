@@ -273,7 +273,7 @@ const span = document.getElementsByClassName("close")[0];
 span.onclick = closeModal;
 
 function login() {
-  document.location.href = "pages/Register/season.html";
+  document.location.href = "pages/Register/register-season.html";
 }
 
 function favorites() {
@@ -495,7 +495,7 @@ function setTargetDetail(targetDetail) {
 }
 
 function settings() {
-  document.location.href = "pages/User-Profile/profije.html";
+  document.location.href = "pages/User-Profile/profile.html";
 }
 
 notFoundMessage.style.display = "none";
