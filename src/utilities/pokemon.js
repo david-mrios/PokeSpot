@@ -533,4 +533,3 @@ window.onclick = function (event) {
   }
 };
 
-localStorage.removeItem("Login");

@@ -1,3 +1,4 @@
+<!DOCTYPE html>
 <html lang="en">
   <head>
     <meta charset="UTF-8" />
@@ -5,6 +6,7 @@
     <title>Document</title>
     <link rel="stylesheet" href="style.css" />
     <link rel="stylesheet" href="../../pages/style.css" />
+    <script src="script.js"></script>
   </head>
   <body>
     <div class="container" id="container">
@@ -14,45 +16,38 @@
             <div class="test">
               <img src="../../assets/icons/pokemonIcon.png" alt="" />
             </div>
-            <form class="form">
+            <form class="form" id="update-form">
               <span class="title">Personal data</span>
-
-              <span class="subtitle"
-                >Update your information if necessary.</span
-              >
+              <span class="subtitle">Update your information if necessary.</span>
               <div class="row">
                 <div class="item-row">
-                  <label for="">Your name</label>
-                  <input type="text" class="" />
-                  <label for="">Nickname</label>
-
-                  <input type="text" class="" />
-                  <label for="">Email</label>
-
-                  <input type="email" class="" />
+                  <label for="fullName">Your name</label>
+                  <input type="text" id="fullName" name="FullName" />
+                  <label for="nickname">Nickname</label>
+                  <input type="text" id="nickname" name="Nickname" />
+                  <label for="email">Email</label>
+                  <input type="email" id="email" name="Email" />
                 </div>
-
                 <div class="item-row-2">
-                  <label for="">Date of Birth </label>
-                  <input type="date" class="input" />
-                  <label for="" id="label-for-radio">Gender</label>
-
+                  <label for="dob">Date of Birth</label>
+                  <input type="date" id="dob" name="DateOfBirth" class="input" />
+                  <label id="label-for-radio">Gender</label>
                   <div>
                     <div class="radio">
-                      <input type="radio" name="gender" />
-                      <label for="" class="test-label">Male</label>
+                      <input type="radio" id="male" name="gender" value="Male" />
+                      <label for="male" class="test-label">Male</label>
                     </div>
                     <div class="radio">
-                      <input type="radio" name="gender" />
-                      <label for="" class="test-label">Female</label>
+                      <input type="radio" id="female" name="gender" value="Female" />
+                      <label for="female" class="test-label">Female</label>
                     </div>
                   </div>
                 </div>
               </div>
-              <button>save data</button>
+              <button type="submit">Save Data</button>
             </form>
             <div class="form-section">
-              <button id="login" class="btn">return to the main page</button>
+              <button id="login" class="btn">Return to the main page</button>
             </div>
           </div>
         </div>
