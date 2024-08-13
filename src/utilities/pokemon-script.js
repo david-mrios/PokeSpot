@@ -484,23 +484,28 @@ function handleSearch() {
     notFoundMessage.style.display = "none";
   }
 }
-// Fetch all the details element.
 const details = document.querySelectorAll("details");
 
-// Add the onclick listeners.
 details.forEach((detail) => {
   detail.addEventListener("toggle", () => {
-    if (detail.open) setTargetDetail(detail);
+    if (detail.open) {
+      setTargetDetail(detail);
+    }
   });
 });
 
-// Close all the details that are not targetDetail.
+let currentlyOpenDetail = null;
+
 function setTargetDetail(targetDetail) {
-  details.forEach((detail) => {
-    if (detail !== targetDetail) {
-      detail.open = false;
+  if (currentlyOpenDetail === targetDetail) {
+    targetDetail.open = false;
+    currentlyOpenDetail = null;
+  } else {
+    if (currentlyOpenDetail !== null) {
+      currentlyOpenDetail.open = false;
     }
-  });
+    currentlyOpenDetail = targetDetail;
+  }
 }
 
 function settings() {
