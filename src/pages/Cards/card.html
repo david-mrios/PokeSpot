@@ -24,7 +24,6 @@
         <div class="header">
           <div class="row">
             <div class="column-img">
-              <!-- <img src="assets/icons/logo.svg" alt="PokeSpot logo" /> -->
               <ul>
                 <li>
                   <div class="input-wrapper">
@@ -49,7 +48,7 @@
                     <summary>
                       <i class="fas fa-filter"></i>
                     </summary>
-                    <div class="column-text-sumary">
+                    <div class="column-text-summary">
                       <div>
                         <input
                           type="radio"
@@ -72,12 +71,12 @@
                     </div>
                   </details>
                 </li>
-                <li id="sifo">
+                <li id="li-detail">
                   <details id="details-2">
                     <summary>
                       <i class="fas fa-ellipsis-v"></i>
                     </summary>
-                    <div class="column-text-sumary">
+                    <div class="column-text-summary">
                       <div>
                         <button class="nav-item-setting" onclick="">
                           <i class="fas fa-cogs"></i>
@@ -85,15 +84,15 @@
                         </button>
                       </div>
                       <div>
-                        <button class="nav-item-setting" onclick="login()">
-                          <i class="fas fa-user"></i>
-                          <h2>Login</h2>
-                        </button>
-                      </div>
-                      <div>
                         <button class="nav-item-setting" onclick="favorites()">
                           <i class="fas fa-heart"></i>
                           <h2>Favorites</h2>
+                        </button>
+                      </div>
+                      <div>
+                        <button class="nav-item-setting" onclick="login()">
+                          <i class="fas fa-user"></i>
+                          <h2>log out</h2>
                         </button>
                       </div>
                     </div>
@@ -111,15 +110,15 @@
                   </button>
                 </li>
                 <li>
-                  <button class="nav-item" onclick="login()">
-                    <i class="fas fa-user"></i>
-                    <h2>Login</h2>
-                  </button>
-                </li>
-                <li>
                   <button class="nav-item" onclick="settings()">
                     <i class="fas fa-cogs"></i>
                     <h2>Setting</h2>
+                  </button>
+                </li>
+                <li>
+                  <button class="nav-item" onclick="login()">
+                    <i class="fas fa-sign-out-alt"></i>
+                    <h2>log out</h2>
                   </button>
                 </li>
               </ul>
@@ -162,7 +161,7 @@
             <div class="desc-favorite-card">pokemon ready to fight</div>
             <div class="main-div-favorite">
               <div style="padding: 15px"></div>
-              <div class="rwapped-favorite">
+              <div class="wrapped-favorite">
                 <div class="responsive-favorite"></div>
               </div>
             </div>
@@ -173,4 +172,3 @@
   </body>
   <script src="../../utilities/pokemon-script.js" defer></script>
 </html>
-

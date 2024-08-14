@@ -40,33 +40,27 @@ body {
   background-color: #ffffff;
 }
 
-.grid-container {
-  div {
-    /* background: linear-gradient(#f4bd6c, #dc9f4b); */
-    background: #3a2939;
-    text-align: center;
-    padding: 0 0 0 0;
-    font-size: 30px;
-  }
+.grid-container div {
+  background: #3a2939;
+  text-align: center;
+  padding: 0 0 0 0;
+  font-size: 30px;
 }
 
-.main-div {
-  div {
-    display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
-    place-items: center;
-    justify-content: center;
-    flex-wrap: wrap;
-    padding: 18px 10px 9px 1px;
-    margin: 0 15px 0 20px;
-    background-color: #ffffff;
-  }
+.main-div div {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+  place-items: center;
+  justify-content: center;
+  flex-wrap: wrap;
+  padding: 18px 10px 9px 1px;
+  margin: 0 15px 0 20px;
+  background-color: #ffffff;
 }
 
 .container {
   margin: 0;
   padding: 0 0px;
-  max-width: 1300;
   width: 100%;
   background-color: #ffffff;
 }
@@ -75,7 +69,6 @@ body {
   display: flex;
   flex-wrap: wrap;
   clear: both;
-  padding: 0;
   margin: 0;
 }
 .column-img {
@@ -84,10 +77,7 @@ body {
   justify-content: flex-start;
   align-items: center;
   flex: 2;
-  padding: 5px 0 0;
-  margin: 0  0 0 12px ;
-
-  
+  margin: 0 0 0 12px;
 
   ul {
     display: flex;
@@ -104,14 +94,13 @@ body {
 
 .column-text {
   flex: 2;
-  padding: 5px 0 0;
   margin: 0 0;
 
   ul {
     display: flex;
     justify-content: end;
     list-style: none;
-    padding:  0 50px 0  0;
+    padding: 0 50px 0 0;
 
     li {
       margin: 10px;
@@ -122,25 +111,24 @@ body {
 
 .input-wrapper {
   display: flex;
-  line-height: 28 px;
   align-items: center;
   position: relative;
   max-width: 190px;
-  input {
-    height: 40px;
-    line-height: 28px;
-    padding: 0 1rem;
-    width: 100%;
-    padding-left: 2.5rem;
-    background-color: #eee;
-    border: none;
-    font-size: 1rem;
-    /* width: 13rem; */
-    border-radius: 1rem;
-    color: #615f5f;
-    box-shadow: 0 0.4rem #dfd9d9;
-    cursor: text;
-  }
+}
+
+.input-wrapper input {
+  height: 40px;
+  line-height: 28px;
+  padding: 0 1rem;
+  width: 100%;
+  padding-left: 2.5rem;
+  background-color: #eee;
+  border: none;
+  font-size: 1rem;
+  border-radius: 1rem;
+  color: #615f5f;
+  box-shadow: 0 0.4rem #dfd9d9;
+  cursor: text;
 }
 
 .input-wrapper input:focus {
@@ -168,7 +156,6 @@ body {
   background: transparent;
   cursor: pointer;
   content: "";
-
   h2 {
     font-size: 20px;
     display: inline;
@@ -186,8 +173,6 @@ body {
 }
 
 .responsive {
-  padding: 0 0;
-  margin: 0 0 0 0;
   float: left;
   width: 23%;
 }
@@ -256,18 +241,18 @@ summary i:hover {
   text-align: center;
   height: 20px;
 }
-.column-text-sumary {
+.column-text-summary {
   position: absolute;
-  top: 70px; /* Ajusta la distancia desde la parte superior de la ventana */
+  top: 70px;
   left: 250px;
   border-radius: 10px;
   border: 1px solid white;
   background-size: cover;
   background-color: #dfd9d9;
   padding: 10px;
-  z-index: 1000; /* Asegura que el elemento esté en la parte superior */
+  z-index: 1000;
 }
-.column-text-sumary div {
+.column-text-summary div {
   display: flex;
   flex-direction: row;
   margin: 0 10px 10px 10px;
@@ -308,7 +293,7 @@ summary i:hover {
   margin: 0;
 }
 
-#sifo {
+#li-detail {
   display: none;
   i {
     padding: 0;
@@ -320,7 +305,7 @@ summary i:hover {
   }
 }
 @media (max-width: 740px) {
-  #sifo {
+  #li-detail {
     display: block;
     padding: 9px;
     margin: 0;
@@ -386,10 +371,8 @@ summary i:hover {
   border: 1px solid #aaaaaa;
 }
 
-/*  */
-
 @media (max-width: 590px) {
-  .column-text-sumary {
+  .column-text-summary {
     position: absolute;
     top: 80px;
     left: 201px;
@@ -402,7 +385,7 @@ summary i:hover {
   }
 }
 @media (max-width: 478px) {
-  .column-text-sumary {
+  .column-text-summary {
     position: absolute;
     top: 80px;
     left: 154px;
@@ -415,7 +398,7 @@ summary i:hover {
   }
 }
 @media (max-width: 378px) {
-  .column-text-sumary {
+  .column-text-summary {
     position: absolute;
     top: 80px;
     left: 129px;
