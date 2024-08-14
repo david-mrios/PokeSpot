@@ -1,9 +1,9 @@
 const container = document.getElementById("container");
 const registerBtn = document.getElementById("register");
 const loginBtn = document.getElementById("login");
-const msg = document.querySelector(".msg");
+const signUpMsg = document.querySelector(".msg");
 
-msg.style.display = "none";
+signUpMsg.style.display = "none";
 
 registerBtn.addEventListener("click", () => {
   container.classList.add("active");
@@ -14,43 +14,45 @@ loginBtn.addEventListener("click", () => {
 });
 
 document.addEventListener("DOMContentLoaded", function () {
-  document.getElementById("form-singUp").addEventListener("submit", validForm);
+  document
+    .getElementById("form-singUp")
+    .addEventListener("submit", validateSignUpForm);
+  document
+    .getElementById("form-singIn")
+    .addEventListener("submit", validateLoginForm);
 });
 
-document.addEventListener("DOMContentLoaded", function () {
-  document.getElementById("form-singIn").addEventListener("submit", validLogin);
-});
-
-function validForm(e) {
+function validateSignUpForm(e) {
   e.preventDefault();
-  const msg = e.target.querySelector(".msg");
-  msg.innerText = "";
+  const signUpMsg = e.target.querySelector(".msg");
+  signUpMsg.innerText = "";
 
   var fullName = document.querySelector("[name=FullName]").value;
   var email = document.querySelector("[name=Email]").value;
   var password = document.querySelector("[name=Pass]").value;
-  var login = [];
+  var userData = [];
+
   if (fullName === "") {
-    msg.style.display = "inline";
-    msg.innerText = "You got to input a name";
+    signUpMsg.style.display = "inline";
+    signUpMsg.innerText = "You got to input a name";
     return;
   }
 
   if (!validateEmail(email)) {
-    msg.style.display = "inline";
-    msg.innerText = "You must input a valid email";
+    signUpMsg.style.display = "inline";
+    signUpMsg.innerText = "You must input a valid email";
     return;
   }
 
   if (password.length !== 8) {
-    msg.style.display = "inline";
-    msg.innerText = "Password must be 8 characters long";
+    signUpMsg.style.display = "inline";
+    signUpMsg.innerText = "Password must be 8 characters long";
     return;
   }
 
-  msg.style.display = "none";
-  login.push(fullName, email, password);
-  localStorage.setItem("Login", JSON.stringify(login));
+  signUpMsg.style.display = "none";
+  userData.push(fullName, email, password);
+  localStorage.setItem("Login", JSON.stringify(userData));
 
   window.location.href = "/src/pages/Cards/card.html";
 }
@@ -60,43 +62,44 @@ function validateEmail(email) {
     /^(([^<>()\[\]\\.,;:\s@']+(\.[^<>()\[\]\\.,;:\s@']+)*)|('.+'))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
   return re.test(String(email).toLowerCase());
 }
-function validLogin(e) {
+
+function validateLoginForm(e) {
   e.preventDefault();
-  const msg = e.target.querySelector(".msg-login");
-  const values = JSON.parse(localStorage.getItem("Login"));
+  const loginMsg = e.target.querySelector(".msg-login");
+  const userData = JSON.parse(localStorage.getItem("Login"));
   var email = document.querySelector("[name=Email-Login]").value;
   var password = document.querySelector("[name=Pass-Login]").value;
-  msg.innerText = "";
+  loginMsg.innerText = "";
 
-  if (!values) {
-    msg.style.display = "inline";
-    msg.innerText = "There not exist any account";
+  if (!userData) {
+    loginMsg.style.display = "inline";
+    loginMsg.innerText = "There not exist any account";
     return;
   }
 
-  if (values[1] !== email) {
-    msg.style.display = "inline";
-    msg.innerText = "El email no coincide.";
+  if (userData[1] !== email) {
+    loginMsg.style.display = "inline";
+    loginMsg.innerText = "The email does not match.";
     document.querySelector("[name=Email-Login]").value = "";
     return;
   }
 
-  if (values[2] !== password) {
-    msg.style.display = "inline";
-    msg.innerText = "The password is incorrect";
+  if (userData[2] !== password) {
+    loginMsg.style.display = "inline";
+    loginMsg.innerText = "The password is incorrect";
     document.querySelector("[name=Pass-Login]").value = "";
     return;
   }
 
-  msg.style.display = "none";
+  loginMsg.style.display = "none";
   document.querySelector("[name=Pass-Login]").value = "";
   document.querySelector("[name=Email-Login]").value = "";
   window.location.href = "/src/pages/Cards/card.html";
 }
 
 function clearDiv() {
-  const msg = document.querySelector(".msg");
-  msg.style.display = "none";
-  const msg_login = document.querySelector(".msg-login");
-  msg_login.style.display = "none";
+  const signUpMsg = document.querySelector(".msg");
+  signUpMsg.style.display = "none";
+  const loginMsg = document.querySelector(".msg-login");
+  loginMsg.style.display = "none";
 }

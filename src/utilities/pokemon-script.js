@@ -1,116 +1,116 @@
-const max_pokemon = 10;
+const MAX_POKEMON_COUNT = 10;
 const listDisplay = document.querySelector(".list-display");
-const main = document.querySelector(".main");
-const modal_fav = document.querySelector(".data-modal-favorites");
-const modal_cont = document.querySelector(".data-modal");
-const img_evo = document.querySelector(".img-evo");
-const fav = document.querySelector(".rwapped-favorite");
+const mainContainer = document.querySelector(".main");
+const modalContainer = document.querySelector(".data-modal");
+const evolutionImage = document.querySelector(".img-evo");
+const favoriteContainer = document.querySelector(".rwapped-favorite");
+const searchInput = document.querySelector("#input");
+const numberFilter = document.querySelector("#number");
+const nameFilter = document.querySelector("#name");
+const notFoundMessage = document.querySelector("#not-found");
 
-let list = [];
-let pokemonIDlist;
+let evolutionList = [];
+let currentPokemonIDList;
 
-let pokemons = [];
+let pokemonList = [];
 
-async function fetchData() {
+async function fetchPokemonData() {
   try {
     const response = await fetch(
-      `https://pokeapi.co/api/v2/pokemon?limit=${max_pokemon}&offset=0`
+      `https://pokeapi.co/api/v2/pokemon?limit=${MAX_POKEMON_COUNT}&offset=0`
     );
 
     const data = await response.json();
-    pokemons = data.results;
-    displayPokemonsFavoritos(pokemons);
-    displayPokemons(pokemons);
+    pokemonList = data.results;
+    displayFavoritePokemon(pokemonList);
+    displayPokemon(pokemonList);
   } catch (error) {
     console.error("error:", error);
   }
 }
 
-fetchData();
+fetchPokemonData();
 
-async function fetchDataAbilities(url) {
+async function fetchPokemonAbilities(url) {
   try {
     const response = await fetch(url);
     const data = await response.json();
 
-    dATApokemons = {
+    let pokemonData = {
       abilities: data.abilities,
       height: data.height,
       base_experience: data.base_experience,
       forms: data.forms,
-      Spicies: data.species,
+      Spices: data.species,
       weight: data.weight,
     };
 
-    return dATApokemons;
+    return pokemonData;
   } catch (error) {
     console.error("error:", error);
   }
 }
 
-async function fetchDataEvolution(url) {
+async function fetchPokemonEvolution(url) {
   try {
     const response = await fetch(url);
 
     const data = await response.json();
-    // evoultion
-    pokemons = data.evolution_chain;
-    Spicies = data.genera;
-    fetchDataEvolutionChain(pokemons.url);
-    return SpecieName(Spicies);
+    pokemonList = data.evolution_chain;
+    let speciesGenera = data.genera;
+    fetchEvolutionChainData(pokemonList.url);
+    return getSpeciesName(speciesGenera);
   } catch (error) {
     console.error("error:", error);
   }
 }
 
-function SpecieName(genera) {
-  let species;
-  genera.forEach((lenguage) => {
-    if (lenguage.language.name == "es") {
-      species = lenguage.genus;
+function getSpeciesName(genera) {
+  let speciesName;
+  genera.forEach((language) => {
+    if (language.language.name == "es") {
+      speciesName = language.genus;
     }
   });
-  return species;
+  return speciesName;
 }
 
-async function fetchDataEvolutionChain(url) {
+async function fetchEvolutionChainData(url) {
   try {
     const response = await fetch(url);
 
     const data = await response.json();
-    // evoultion
-    pokemons = data;
-    forToEvolution(pokemons);
+    pokemonList = data;
+    processEvolutionChain(pokemonList);
   } catch (error) {
     console.error("error:", error);
   }
 }
 
-function forToEvolution(pokemon) {
-  let evolves_to = pokemon.chain;
-  while (list.length > 0) list.pop();
-  let array = recall(evolves_to);
-  evolution_modal(array);
+function processEvolutionChain(pokemon) {
+  let evolvesToChain = pokemon.chain;
+  while (evolutionList.length > 0) evolutionList.pop();
+  let evolutionArray = getEvolutionArray(evolvesToChain);
+  showEvolutionModal(evolutionArray);
 }
 
-function recall(evo) {
-  if (evo != undefined) {
-    pokemonIDlist = evo.species.url.split("/")[6];
-    list.push([pokemonIDlist, evo.species.name]);
-    recall(evo.evolves_to[0]);
-    return list;
+function getEvolutionArray(evolutionData) {
+  if (evolutionData != undefined) {
+    currentPokemonIDList = evolutionData.species.url.split("/")[6];
+    evolutionList.push([currentPokemonIDList, evolutionData.species.name]);
+    getEvolutionArray(evolutionData.evolves_to[0]);
+    return evolutionList;
   }
 }
 
-function displayPokemons(pokemon_data) {
-  main.innerHTML = "";
-  pokemon_data.forEach(async (pokemon) => {
+function displayPokemon(pokemonData) {
+  mainContainer.innerHTML = "";
+  pokemonData.forEach(async (pokemon) => {
     const pokemonID = pokemon.url.split("/")[6];
-    let card = document.createElement("div");
-    card.className = "responsive";
-    card.innerHTML = `
+    let cardElement = document.createElement("div");
+    cardElement.className = "responsive";
+    cardElement.innerHTML = `
             <div class="card">
-             <!-- favorities -->
               <input
                 type="checkbox"
                 id="${pokemonID}"
@@ -147,31 +147,30 @@ function displayPokemons(pokemon_data) {
               <div class="desc" id="#${pokemonID}"><br>${pokemon.name}</div>
             </div>
          `;
-    main.appendChild(card);
-    let dataPokemon = await fetchDataAbilities(pokemon.url);
+    mainContainer.appendChild(cardElement);
+    let pokemonAbilitiesData = await fetchPokemonAbilities(pokemon.url);
 
-    actiontest(pokemon, dataPokemon);
+    setUpActionListeners(pokemon, pokemonAbilitiesData);
   });
 }
 
 function showModal(
   id,
-  pokemon,
-  species,
+  pokemonName,
+  speciesName,
   height,
   abilities1,
   abilities2,
   weight
 ) {
   const modal = document.getElementById("myModal");
-  var btn = document.getElementById("myBtn");
-  modal_cont.innerHTML = "";
-  let modalCard = document.createElement("div");
-  modalCard.className = "row";
+  modalContainer.innerHTML = "";
+  let modalCardElement = document.createElement("div");
+  modalCardElement.className = "row";
   // let img = document.createElement("img");
-  modalCard.innerHTML = `
+  modalCardElement.innerHTML = `
   <div class="column-modal-img">
-                 <div class="desc-modal">${pokemon}</div>
+                 <div class="desc-modal">${pokemonName}</div>
               <img
                 src="https://raw.githubusercontent.com/pokeapi/sprites/master/sprites/pokemon/other/dream-world/${id}.svg"
                 alt=""
@@ -181,8 +180,8 @@ function showModal(
               <h2 id="info-modal">Intelligence</h2>
               <ul class="">
                 <li class="li-data">
-                  <span class="info-class">Spicies</span>
-                  <span class="data-class">${species}</span>
+                  <span class="info-class">Spices</span>
+                  <span class="data-class">${speciesName}</span>
                   </li>
                 <li class="li-data">
                   <span class="info-class">Height</span>
@@ -198,7 +197,7 @@ function showModal(
                   
                 </li>
                 <div class="div-data">
-                <span class="data-class-abilties">${abilities1}  ${abilities2} </span>                
+                <span class="data-class-abilities">${abilities1}  ${abilities2} </span>                
                 </div>
 
               </ul>
@@ -206,17 +205,17 @@ function showModal(
 
 
   `;
-  modal_cont.appendChild(modalCard);
+  modalContainer.appendChild(modalCardElement);
 
   modal.style.display = "block";
 }
 
-function evolution_modal(pokemon) {
-  img_evo.innerHTML = "";
-  pokemon.forEach((element) => {
-    let imgEvo = document.createElement("div");
-    imgEvo.className = "container-evo";
-    imgEvo.innerHTML = `
+function showEvolutionModal(pokemonArray) {
+  evolutionImage.innerHTML = "";
+  pokemonArray.forEach((element) => {
+    let evolutionImageElement = document.createElement("div");
+    evolutionImageElement.className = "container-evo";
+    evolutionImageElement.innerHTML = `
 
                           <img
                             src="https://raw.githubusercontent.com/pokeapi/sprites/master/sprites/pokemon/other/dream-world/${element[0]}.svg"
@@ -227,31 +226,31 @@ function evolution_modal(pokemon) {
                             <div class="text">${element[1]}</div>
                           </div>
              `;
-    img_evo.appendChild(imgEvo);
+    evolutionImage.appendChild(evolutionImageElement);
   });
 }
 
-function actiontest(pokemons, dataPokemon) {
+function setUpActionListeners(pokemon, pokemonData) {
   document.body.addEventListener("click", async (event) => {
     if (event.target.classList.contains("modal-btn")) {
-      const pokemonID = pokemons.url.split("/")[6];
+      const pokemonID = pokemon.url.split("/")[6];
       if (event.target.id == pokemonID) {
-        const species = await fetchDataEvolution(dataPokemon.Spicies.url);
+        const speciesName = await fetchPokemonEvolution(pokemonData.Spices.url);
 
-        let abilities2 = "";
-        if (dataPokemon.abilities[1] != undefined) {
-          abilities2 = ", " + dataPokemon.abilities[1].ability.name;
+        let secondAbility = "";
+        if (pokemonData.abilities[1] != undefined) {
+          secondAbility = ", " + pokemonData.abilities[1].ability.name;
         }
         showModal(
           pokemonID,
-          pokemons.name,
-          species,
-          dataPokemon.height,
-          dataPokemon.abilities[0].ability.name,
-          abilities2,
-          dataPokemon.weight
+          pokemon.name,
+          speciesName,
+          pokemonData.height,
+          pokemonData.abilities[0].ability.name,
+          secondAbility,
+          pokemonData.weight
         );
-        FavoritesDisplau();
+        hideFavoritesModal();
 
         /////
       }
@@ -261,16 +260,16 @@ function actiontest(pokemons, dataPokemon) {
 
 function closeModal() {
   var modal = document.getElementById("myModal");
-  var modal_Favorites = document.getElementById("myModal-favorites");
+  var modalFavorites = document.getElementById("myModal-favorites");
   modal.style.display = "none ";
 
-  if (modal_Favorites.style.opacity == 0) {
-    modal_Favorites.style.opacity = 1;
+  if (modalFavorites.style.opacity == 0) {
+    modalFavorites.style.opacity = 1;
   }
 }
 
-const span = document.getElementsByClassName("close")[0];
-span.onclick = closeModal;
+const closeButton = document.getElementsByClassName("close")[0];
+closeButton.onclick = closeModal;
 
 function login() {
   document.location.href = "pages/Register/register-season.html";
@@ -278,96 +277,94 @@ function login() {
 
 function favorites() {
   showModalFavorites();
-  fetchData();
+  fetchPokemonData();
 }
 
 function showModalFavorites() {
   const modal = document.getElementById("myModal-favorites");
-
   modal.style.display = "block";
 }
 
-function closeModalFavorites() {
+function closeFavoritesModal() {
   var modal = document.getElementById("myModal-favorites");
   modal.style.display = "none";
 }
 
-function FavoritesDisplau() {
+function hideFavoritesModal() {
   var modal = document.getElementById("myModal-favorites");
   modal.style.zIndex = 0;
   modal.style.opacity = 0;
 }
 
-const span_Favorites = document.getElementsByClassName("close_favorite")[0];
-span_Favorites.onclick = closeModalFavorites;
+const closeButtonFavorites =
+  document.getElementsByClassName("close_favorite")[0];
+closeButtonFavorites.onclick = closeFavoritesModal;
 
-function favoritos_id() {
+function showModalWithFavorites() {
   document.body.addEventListener("click", async (event) => {
-    verificarFavoritos();
+    checkFavorites();
     if (event.target.classList.contains("checkbox-heart")) {
-      const elemento = document.getElementsByClassName("checkbox-heart");
-      var cantidad = elemento.length;
-      var test = [];
-      for (var i = 0; i < cantidad; i++) {
-        var id = elemento[i].getAttribute("id");
+      const checkboxHeart = document.getElementsByClassName("checkbox-heart");
+      var quantity = checkboxHeart.length;
+      var PokemonFavorite = [];
+      for (var i = 0; i < quantity; i++) {
+        var id = checkboxHeart[i].getAttribute("id");
 
         if (id == event.target.id && event.target.checked) {
           if (localStorage.getItem("Pokemon")) {
-            test = JSON.parse(localStorage.getItem("Pokemon"));
-            test.push(id);
-            localStorage.setItem("Pokemon", JSON.stringify(test));
+            PokemonFavorite = JSON.parse(localStorage.getItem("Pokemon"));
+            PokemonFavorite.push(id);
+            localStorage.setItem("Pokemon", JSON.stringify(PokemonFavorite));
           } else {
-            test[0] = id;
-            localStorage.setItem("Pokemon", JSON.stringify(test));
+            PokemonFavorite[0] = id;
+            localStorage.setItem("Pokemon", JSON.stringify(PokemonFavorite));
           }
         }
         if (id == event.target.id && !event.target.checked) {
-          test = JSON.parse(localStorage.getItem("Pokemon"));
-          for (let i = 0; i < test.length; i++) {
-            if (test[i] == id) {
-              delete test[i];
+          PokemonFavorite = JSON.parse(localStorage.getItem("Pokemon"));
+          for (let i = 0; i < PokemonFavorite.length; i++) {
+            if (PokemonFavorite[i] == id) {
+              delete PokemonFavorite[i];
             }
           }
-          localStorage.setItem("Pokemon", JSON.stringify(test));
+          localStorage.setItem("Pokemon", JSON.stringify(PokemonFavorite));
         }
       }
     }
   });
 }
 
-favoritos_id();
-verificarFavoritos();
+showModalWithFavorites();
+checkFavorites();
 
-function verificarFavoritos() {
+function checkFavorites() {
   if (localStorage.getItem("Pokemon")) {
-    var test = JSON.parse(localStorage.getItem("Pokemon"));
-    let verdaderos = [];
-    for (let i = 0; i < test.length; i++) {
-      if (test[i] != null) {
-        verdaderos.push(test[i]);
+    var favorites = JSON.parse(localStorage.getItem("Pokemon"));
+    let checked = [];
+    for (let i = 0; i < favorites.length; i++) {
+      if (favorites[i] != null) {
+        checked.push(favorites[i]);
         localStorage.removeItem("Pokemon");
       }
     }
-    // console.log(verdaderos);
-    localStorage.setItem("Pokemon", JSON.stringify(verdaderos));
+    localStorage.setItem("Pokemon", JSON.stringify(checked));
   }
 }
 
-function displayPokemonsFavoritos(pokemon_data) {
-  fav.innerHTML = "";
-  let test = [];
-  pokemon_data.forEach((pokemon) => {
+function displayFavoritePokemon(pokemonArray) {
+  favoriteContainer.innerHTML = "";
+  let PokemonFavorite = [];
+  pokemonArray.forEach((pokemon) => {
     const pokemonID = pokemon.url.split("/")[6];
 
     if (localStorage.getItem("Pokemon")) {
-      test = JSON.parse(localStorage.getItem("Pokemon"));
-      for (let i = 0; i < test.length; i++) {
-        if (test[i] == pokemonID) {
-          let card = document.createElement("div");
-          card.className = "responsive-favorite";
-          card.innerHTML = `
+      PokemonFavorite = JSON.parse(localStorage.getItem("Pokemon"));
+      for (let i = 0; i < PokemonFavorite.length; i++) {
+        if (PokemonFavorite[i] == pokemonID) {
+          let favoriteCardElement = document.createElement("div");
+          favoriteCardElement.className = "responsive-favorite";
+          favoriteCardElement.innerHTML = `
                      <div class="card-favorite">
-                              <!-- favorities -->
                               <input
                                 type="checkbox"
                                 id="${pokemonID}"
@@ -407,15 +404,15 @@ function displayPokemonsFavoritos(pokemon_data) {
                               </div>
                             </div>
                    `;
-          fav.appendChild(card);
+          favoriteContainer.appendChild(favoriteCardElement);
           const checkForElement = () => {
-            const element = document.querySelectorAll(".checkbox-heart");
-            if (element) {
-              element.forEach((element) => {
+            const checkbox = document.querySelectorAll(".checkbox-heart");
+            if (checkbox) {
+              checkbox.forEach((element) => {
                 if (localStorage.getItem("Pokemon")) {
-                  test = JSON.parse(localStorage.getItem("Pokemon"));
-                  for (let i = 0; i < test.length; i++) {
-                    if (test[i] == element.id) {
+                  PokemonFavorite = JSON.parse(localStorage.getItem("Pokemon"));
+                  for (let i = 0; i < PokemonFavorite.length; i++) {
+                    if (PokemonFavorite[i] == element.id) {
                       element.checked = true;
                     }
                   }
@@ -430,7 +427,7 @@ function displayPokemonsFavoritos(pokemon_data) {
           document.body.addEventListener("click", async (event) => {
             if (event.target.classList.contains("checkbox-heart")) {
               if (!event.target.checked) {
-                fetchData();
+                fetchPokemonData();
               }
             }
           });
@@ -442,43 +439,36 @@ function displayPokemonsFavoritos(pokemon_data) {
   });
 }
 
-// localStorage.removeItem("Pokemon");
-const searchInput = document.querySelector("#input");
-const numberFilter = document.querySelector("#number");
-const nameFilter = document.querySelector("#name");
-const notFoundMessage = document.querySelector("#not-found");
-
 searchInput.addEventListener("keyup", handleSearch);
-
 function handleSearch() {
   const searchTerm = searchInput.value.toLowerCase();
-  let filteredPokemons;
+  let filteredPokemon;
   var main = document.getElementById("main");
   var style;
   if (numberFilter.checked) {
-    filteredPokemons = pokemons.filter((pokemon) => {
+    filteredPokemon = pokemonList.filter((pokemon) => {
       const pokemonID = pokemon.url.split("/")[6];
       return pokemonID.startsWith(searchTerm);
     });
     style = "repeat(auto-fit, minmax(300px, 0fr))";
   } else if (nameFilter.checked) {
     style = "repeat(auto-fit, minmax(300px, 0fr))";
-    filteredPokemons = pokemons.filter((pokemon) =>
+    filteredPokemon = pokemonList.filter((pokemon) =>
       pokemon.name.toLowerCase().startsWith(searchTerm)
     );
   } else {
     style = "repeat(auto-fit, minmax(300px, 1fr))";
-    filteredPokemons = pokemons;
+    filteredPokemon = pokemonList;
   }
 
   if (searchTerm === "") {
     style = "repeat(auto-fit, minmax(300px, 1fr))";
   }
 
-  displayPokemons(filteredPokemons);
+  displayPokemon(filteredPokemon);
   main.style.gridTemplateColumns = style;
 
-  if (filteredPokemons.length === 0) {
+  if (filteredPokemon.length === 0) {
     notFoundMessage.style.display = "flex";
   } else {
     notFoundMessage.style.display = "none";
