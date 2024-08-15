@@ -56,9 +56,9 @@ async function fetchPokemonEvolution(url) {
     const response = await fetch(url);
 
     const data = await response.json();
-    pokemonList = data.evolution_chain;
+    let pokemonListEvo = data.evolution_chain;
     let speciesGenera = data.genera;
-    fetchEvolutionChainData(pokemonList.url);
+    fetchEvolutionChainData(pokemonListEvo.url);
     return getSpeciesName(speciesGenera);
   } catch (error) {
     console.error("error:", error);
@@ -80,8 +80,9 @@ async function fetchEvolutionChainData(url) {
     const response = await fetch(url);
 
     const data = await response.json();
-    pokemonList = data;
-    processEvolutionChain(pokemonList);
+    let pokemonListChain = data;
+
+    processEvolutionChain(pokemonListChain);
   } catch (error) {
     console.error("error:", error);
   }
@@ -103,9 +104,10 @@ function getEvolutionArray(evolutionData) {
   }
 }
 
-function displayPokemon(pokemonData) {
+async function displayPokemon(pokemonData) {
   mainContainer.innerHTML = "";
-  pokemonData.forEach(async (pokemon) => {
+
+  for (const pokemon of pokemonData) {
     const pokemonID = pokemon.url.split("/")[6];
     let cardElement = document.createElement("div");
     cardElement.className = "responsive";
@@ -127,7 +129,7 @@ function displayPokemon(pokemonData) {
                   fill="none"
                   stroke="currentColor"
                   stroke-width="2"
-                  stroke-lineca p="round"
+                  stroke-linecap p="round"
                   stroke-linejoin="round"
                   class="feather feather-heart"
                 >
@@ -151,7 +153,7 @@ function displayPokemon(pokemonData) {
     let pokemonAbilitiesData = await fetchPokemonAbilities(pokemon.url);
 
     setUpActionListeners(pokemon, pokemonAbilitiesData);
-  });
+  }
 }
 
 function showModal(
@@ -206,7 +208,6 @@ function showModal(
 
   `;
   modalContainer.appendChild(modalCardElement);
-
   modal.style.display = "block";
 }
 
@@ -251,8 +252,6 @@ function setUpActionListeners(pokemon, pokemonData) {
           pokemonData.weight
         );
         hideFavoritesModal();
-
-        /////
       }
     }
   });
@@ -261,7 +260,7 @@ function setUpActionListeners(pokemon, pokemonData) {
 function closeModal() {
   var modal = document.getElementById("myModal");
   var modalFavorites = document.getElementById("myModal-favorites");
-  modal.style.display = "none ";
+  modal.style.display = "none";
 
   if (modalFavorites.style.opacity == 0) {
     modalFavorites.style.opacity = 1;
@@ -277,7 +276,7 @@ function login() {
 
 function favorites() {
   showModalFavorites();
-  fetchPokemonData();
+  displayFavoritePokemon(pokemonList);
 }
 
 function showModalFavorites() {
@@ -427,7 +426,7 @@ function displayFavoritePokemon(pokemonArray) {
           document.body.addEventListener("click", async (event) => {
             if (event.target.classList.contains("checkbox-heart")) {
               if (!event.target.checked) {
-                fetchPokemonData();
+                displayFavoritePokemon(pokemonList);
               }
             }
           });
@@ -440,11 +439,18 @@ function displayFavoritePokemon(pokemonArray) {
 }
 
 searchInput.addEventListener("keyup", handleSearch);
+
 function handleSearch() {
+  if (pokemonList.length == 0) {
+    console.error("pokemonList  is undefined:", pokemonList);
+    return;
+  }
+
   const searchTerm = searchInput.value.toLowerCase();
   let filteredPokemon;
   var main = document.getElementById("main");
   var style;
+
   if (numberFilter.checked) {
     filteredPokemon = pokemonList.filter((pokemon) => {
       const pokemonID = pokemon.url.split("/")[6];
@@ -474,6 +480,7 @@ function handleSearch() {
     notFoundMessage.style.display = "none";
   }
 }
+
 const details = document.querySelectorAll("details");
 
 details.forEach((detail) => {
@@ -515,6 +522,7 @@ window.onclick = function (event) {
     modal.style.display = "none";
     if (modal_Favorites.style.opacity == 0) {
       modal_Favorites.style.opacity = 1;
+    } else {
     }
   }
 

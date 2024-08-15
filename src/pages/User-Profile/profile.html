@@ -4,9 +4,10 @@
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Document</title>
-    <link rel="stylesheet" href="profile-style.css">
-    <link rel="stylesheet" href="/src/pages/Cards/display-style.css">
+    <link rel="stylesheet" href="profile-style.css" />
+    <link rel="stylesheet" href="/src/pages/Cards/display-style.css" />
     <script src="profile-script.js"></script>
+    <script src="utilities/session.js"></script>
   </head>
   <body>
     <div class="container" id="container">
@@ -18,7 +19,9 @@
             </div>
             <form class="form" id="update-form">
               <span class="title">Personal data</span>
-              <span class="subtitle">Update your information if necessary.</span>
+              <span class="subtitle"
+                >Update your information if necessary.</span
+              >
               <div class="row">
                 <div class="item-row">
                   <label for="fullName">Your name</label>
@@ -30,15 +33,30 @@
                 </div>
                 <div class="item-row-2">
                   <label for="dob">Date of Birth</label>
-                  <input type="date" id="dob" name="DateOfBirth" class="input" />
+                  <input
+                    type="date"
+                    id="dob"
+                    name="DateOfBirth"
+                    class="input"
+                  />
                   <label id="label-for-radio">Gender</label>
                   <div>
                     <div class="radio">
-                      <input type="radio" id="male" name="gender" value="Male" />
+                      <input
+                        type="radio"
+                        id="male"
+                        name="gender"
+                        value="Male"
+                      />
                       <label for="male" class="test-label">Male</label>
                     </div>
                     <div class="radio">
-                      <input type="radio" id="female" name="gender" value="Female" />
+                      <input
+                        type="radio"
+                        id="female"
+                        name="gender"
+                        value="Female"
+                      />
                       <label for="female" class="test-label">Female</label>
                     </div>
                   </div>

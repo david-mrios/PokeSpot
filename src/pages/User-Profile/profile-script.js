@@ -4,7 +4,8 @@ document.addEventListener("DOMContentLoaded", function () {
   document.getElementById("update-form").addEventListener("submit", updateData);
 
   document.getElementById("login").addEventListener("click", () => {
-    window.location.href = "../../index.html";
+    window.location.href = "../Cards/card.html";
+    
   });
 });
 
