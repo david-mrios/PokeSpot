@@ -1,4 +1,4 @@
-const MAX_POKEMON_COUNT = 600;
+const MAX_POKEMON_COUNT = 649;
 const listDisplay = document.querySelector(".list-display");
 const mainContainer = document.querySelector(".main");
 const modalContainer = document.querySelector(".data-modal");
@@ -15,7 +15,7 @@ var modal = document.getElementById("myModal");
 var modal_Favorites = document.getElementById("myModal-favorites");
 const details = document.querySelectorAll("details");
 
-let evolutionList = [];
+const evolutionList = [];
 let currentPokemonIDList;
 let pokemonList = [];
 let currentlyOpenDetail = null;
@@ -34,7 +34,24 @@ async function fetchPokemonData() {
 
     const data = await response.json();
     pokemonList = data.results;
-    displayPokemon(pokemonList);
+    let pokemonEvo = [];
+
+    mainContainer.innerHTML = "";
+    let PokemonFavorite = JSON.parse(localStorage.getItem("Pokemon")) || [];
+    updateFavoriteCheckboxes(PokemonFavorite);
+    for (const pokemon of pokemonList) {
+      displayPokemon(pokemon);
+      const pokemonID = pokemon.url.split("/")[6];
+      const pokemonDetails = await fetchPokemonAbilities(pokemon.url);
+      pokemon.details = pokemonDetails;
+      pokemon.speciesName = await fetchPokemonEvolution(
+        pokemonDetails.Spices.url
+      );
+      const evolutionChain = await getEvolutionChain(pokemonID);
+      pokemonEvo.push(evolutionChain);
+      handlePokemon(pokemon, pokemonEvo);
+    }
+
     displayFavoritePokemon(pokemonList);
   } catch (error) {
     console.error("error:", error);
@@ -67,8 +84,8 @@ async function fetchPokemonEvolution(url) {
 
     const data = await response.json();
     let pokemonListEvo = data.evolution_chain;
+
     let speciesGenera = data.genera;
-    fetchEvolutionChainData(pokemonListEvo.url);
     return getSpeciesName(speciesGenera);
   } catch (error) {
     console.error("error:", error);
@@ -77,6 +94,7 @@ async function fetchPokemonEvolution(url) {
 
 function getSpeciesName(genera) {
   let speciesName;
+
   genera.forEach((language) => {
     if (language.language.name == "es") {
       speciesName = language.genus;
@@ -85,121 +103,107 @@ function getSpeciesName(genera) {
   return speciesName;
 }
 
-async function fetchEvolutionChainData(url) {
-  try {
-    const response = await fetch(url);
+async function getEvolutionChain(pokemonID) {
+  // Fetch evolution chain from the API
+  let response = await fetch(
+    `https://pokeapi.co/api/v2/pokemon-species/${pokemonID}/`
+  );
+  let speciesData = await response.json();
+  let evolutionUrl = speciesData.evolution_chain.url;
 
-    const data = await response.json();
-    let pokemonListChain = data;
+  let evoResponse = await fetch(evolutionUrl);
+  let evoData = await evoResponse.json();
 
-    processEvolutionChain(pokemonListChain);
-  } catch (error) {
-    console.error("error:", error);
+  let evolutionChain = [];
+  let currentStage = evoData.chain;
+
+  do {
+    let pokemonId = currentStage.species.url.split("/")[6];
+    let pokemonName = currentStage.species.name;
+    evolutionChain.push([pokemonId, pokemonName]);
+    currentStage = currentStage.evolves_to[0];
+  } while (currentStage);
+
+  return evolutionChain;
+}
+function displayPokemon(pokemonData) {
+  if (!Array.isArray(pokemonData)) {
+    pokemonData = [pokemonData];
   }
-}
 
-function processEvolutionChain(pokemon) {
-  let evolvesToChain = pokemon.chain;
-  while (evolutionList.length > 0) evolutionList.pop();
-  let evolutionArray = getEvolutionArray(evolvesToChain);
-  showEvolutionModal(evolutionArray);
-}
-
-function getEvolutionArray(evolutionData) {
-  if (evolutionData != undefined) {
-    currentPokemonIDList = evolutionData.species.url.split("/")[6];
-    evolutionList.push([currentPokemonIDList, evolutionData.species.name]);
-    getEvolutionArray(evolutionData.evolves_to[0]);
-    return evolutionList;
-  }
-}
-
-async function displayPokemon(pokemonData) {
-  mainContainer.innerHTML = "";
-  const data = pokemonData.sort(function (a, b) {
-    return a - b;
-  });
-
-  for (const pokemon of data) {
+  pokemonData.forEach((pokemon) => {
     const pokemonID = pokemon.url.split("/")[6];
     let cardElement = document.createElement("div");
     cardElement.className = "responsive";
     cardElement.innerHTML = `
-            <div class="card">
-              <input
-                type="checkbox"
-                id="${pokemonID}"
-                class="checkbox-heart"
-                name="favorite-checkbox"
-                value="favorite-button"
-              />
-              <label for="${pokemonID}" class="containerHeart">
-                <svg
-                  xmlns="http://www.w3.org/2000/svg"
-                  width="24"
-                  height="24"
-                  viewBox="0 0 24 24"
-                  fill="none"
-                  stroke="currentColor"
-                  stroke-width="2"
-                  stroke-linecap p="round"
-                  stroke-linejoin="round"
-                  class="feather feather-heart"
-                >
-                  <path
-                    d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z"
-                  ></path>
-                </svg>
-              </label>
-              <button   class="modal-btn" id="myBtn${pokemonID}">
-                <img
-                  src="https://raw.githubusercontent.com/pokeapi/sprites/master/sprites/pokemon/other/dream-world/${pokemonID}.svg"
-                  alt="Cinque Terre"
-                  class="modal-btn"   
-                  id="${pokemonID}"
-                />
-              </button>
-              <div class="desc" id="#${pokemonID}"><br>${pokemon.name}</div>
-            </div>
-         `;
+      <div class="card">
+        <input
+          type="checkbox"
+          id="${pokemonID}"
+          class="checkbox-heart"
+          name="favorite-checkbox"
+          value="favorite-button"
+        />
+        <label for="${pokemonID}" class="containerHeart">
+          <svg
+            xmlns="http://www.w3.org/2000/svg"
+            width="24"
+            height="24"
+            viewBox="0 0 24 24"
+            fill="none"
+            stroke="currentColor"
+            stroke-width="2"
+            stroke-linecap="round"
+            stroke-linejoin="round"
+            class="feather feather-heart"
+          >
+            <path
+              d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z"
+            ></path>
+          </svg>
+        </label>
+        <button class="modal-btn" id="myBtn${pokemonID}">
+          <img
+            src="https://raw.githubusercontent.com/pokeapi/sprites/master/sprites/pokemon/other/dream-world/${pokemonID}.svg"
+            alt="${pokemon.name}"
+            class="modal-btn"   
+            id="${pokemonID}"
+          />
+        </button>
+        <div class="desc" id="#${pokemonID}"><br>${pokemon.name}</div>
+      </div>
+    `;
     mainContainer.appendChild(cardElement);
-  }
-  handlePokemon(pokemonData);
+  });
 }
 
-async function handlePokemon(pokemonList) {
-  let filteredPokemon;
+async function handlePokemon(pokemonList, evoChain) {
   document.body.addEventListener("click", async (event) => {
     if (event.target.classList.contains("modal-btn")) {
-      filteredPokemon = pokemonList.filter((pokemon) => {
-        const pokemonID = pokemon.url.split("/")[6];
-        return pokemonID == event.target.id;
-      });
+      const pokemonID = pokemonList.url.split("/")[6];
+      if (pokemonID == event.target.id) {
+        if (pokemonList) {
+          const pokemonAbilitiesData = pokemonList.details;
+          const speciesName = pokemonList.speciesName;
+          let secondAbility = "";
+          if (pokemonAbilitiesData.abilities[1] != undefined) {
+            secondAbility =
+              ", " + pokemonAbilitiesData.abilities[1].ability.name;
+          }
 
-      let PokemonIDFilter = filteredPokemon[0].url.split("/")[6];
-      let pokemonAbilitiesData = await fetchPokemonAbilities(
-        filteredPokemon[0].url
-      );
-
-      const speciesName = await fetchPokemonEvolution(
-        pokemonAbilitiesData.Spices.url
-      );
-
-      let secondAbility = "";
-      if (pokemonAbilitiesData.abilities[1] != undefined) {
-        secondAbility = ", " + pokemonAbilitiesData.abilities[1].ability.name;
+          showModal(
+            pokemonList.url.split("/")[6],
+            pokemonList.name,
+            speciesName,
+            pokemonAbilitiesData.height,
+            pokemonAbilitiesData.abilities[0].ability.name,
+            secondAbility,
+            pokemonAbilitiesData.weight
+          );
+          showEvolutionModal(evoChain[event.target.id - 1]);
+          hideFavoritesModal();
+        }
       }
-
-      showModal(
-        PokemonIDFilter,
-        filteredPokemon[0].name,
-        speciesName,
-        pokemonAbilitiesData.height,
-        pokemonAbilitiesData.abilities[0].ability.name,
-        secondAbility,
-        pokemonAbilitiesData.weight
-      );
-      hideFavoritesModal();
     }
   });
 }
@@ -250,7 +254,6 @@ function showModal(
               </ul>
             </div>
 
-
   `;
   modalContainer.appendChild(modalCardElement);
   modal.style.display = "block";
@@ -258,19 +261,20 @@ function showModal(
 
 function showEvolutionModal(pokemonArray) {
   evolutionImage.innerHTML = "";
+
   pokemonArray.forEach((element) => {
     let evolutionImageElement = document.createElement("div");
     evolutionImageElement.className = "container-evo";
     evolutionImageElement.innerHTML = `
-                          <img
-                            src="https://raw.githubusercontent.com/pokeapi/sprites/master/sprites/pokemon/other/dream-world/${element[0]}.svg"
-                            alt="Avatar"
-                            class="image"
-                          />
-                          <div class="middle">
-                            <div class="text">${element[1]}</div>
-                          </div>
-             `;
+                              <img
+                                src="https://raw.githubusercontent.com/pokeapi/sprites/master/sprites/pokemon/other/dream-world/${element[0]}.svg"
+                                alt="Avatar"
+                                class="image"
+                              />
+                              <div class="middle">
+                                <div class="text">${element[1]}</div>
+                              </div>
+                 `;
     evolutionImage.appendChild(evolutionImageElement);
   });
 }
@@ -455,7 +459,6 @@ function displayFavoritePokemon(pokemonArray) {
   updateFavoriteCheckboxes(PokemonFavorite);
   handleFavoriteCheckboxClick(pokemonArray);
 }
-
 function handleSearch() {
   if (!pokemonList || pokemonList.length === 0) {
     console.error("pokemonList is undefined or empty:", pokemonList);
@@ -464,8 +467,8 @@ function handleSearch() {
 
   const searchTerm = searchInput.value.toLowerCase();
   let filteredPokemon = [];
-  var main = document.getElementById("main");
-  var style = "repeat(auto-fit, minmax(300px, 1fr))"; // Default style
+  const main = document.getElementById("main");
+  let style = "repeat(auto-fit, minmax(300px, 1fr))"; 
 
   if (searchTerm !== "") {
     if (numberFilter.checked) {
@@ -477,23 +480,22 @@ function handleSearch() {
       filteredPokemon = pokemonList.filter((pokemon) =>
         pokemon.name.toLowerCase().startsWith(searchTerm)
       );
-      var style = "repeat(auto-fit, minmax(300px, 0fr))"; // Default style
+      style = "repeat(auto-fit, minmax(300px, 0fr))"; 
     } else {
       filteredPokemon = pokemonList;
     }
 
-    // If no exact match found, show nothing
     if (filteredPokemon.length === 0) {
       notFoundMessage.style.display = "flex";
     } else {
       notFoundMessage.style.display = "none";
     }
   } else {
-    // If search term is empty, show all Pokémon
     filteredPokemon = pokemonList;
     notFoundMessage.style.display = "none";
   }
 
+  mainContainer.innerHTML = ""; // Clear previous results
   displayPokemon(filteredPokemon);
   main.style.gridTemplateColumns = style;
 }

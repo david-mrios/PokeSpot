@@ -325,9 +325,6 @@ body {
   margin: 0 0 0 0;
   border-radius: 50%;
   box-shadow: 12px 8px 20px #1a0d19;
-  /* nose si usarlo */
-  /* padding: 10px 10px 10px 100px; */
-
   z-index: 10;
   mix-blend-mode: overlay;
 }
