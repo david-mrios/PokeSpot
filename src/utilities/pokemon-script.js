@@ -1,4 +1,4 @@
-const MAX_POKEMON_COUNT = 10;
+const MAX_POKEMON_COUNT = 600;
 const listDisplay = document.querySelector(".list-display");
 const mainContainer = document.querySelector(".main");
 const modalContainer = document.querySelector(".data-modal");
@@ -365,89 +365,95 @@ function checkFavorites() {
   }
 }
 
-function displayFavoritePokemon(pokemonArray) {
-  favoriteContainer.innerHTML = "";
-  let PokemonFavorite = [];
-  pokemonArray.forEach((pokemon) => {
-    const pokemonID = pokemon.url.split("/")[6];
-    if (localStorage.getItem("Pokemon")) {
-      PokemonFavorite = JSON.parse(localStorage.getItem("Pokemon"));
-      for (let i = 0; i < PokemonFavorite.length; i++) {
-        if (PokemonFavorite[i] == pokemonID) {
-          let favoriteCardElement = document.createElement("div");
-          favoriteCardElement.className = "responsive-favorite";
-          favoriteCardElement.innerHTML = `
-                     <div class="card-favorite">
-                              <input
-                                type="checkbox"
-                                id="${pokemonID}"
-                                class="checkbox-heart"
-                                name="favorite-checkbox"
-                                value="favorite-button"
-                              />
-                              <label for="${pokemonID}" class="containerHeart">
-                                <svg
-                                  xmlns="http://www.w3.org/2000/svg"
-                                  width="24"
-                                  height="24"
-                                  viewBox="0 0 24 24"
-                                  fill="none"
-                                  stroke="currentColor"
-                                  stroke-width="2"
-                                  stroke-linecap
-                                  p="round"
-                                  stroke-linejoin="round"
-                                  class="feather feather-heart"
-                                >
-                                  <path
-                                    d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z"
-                                  ></path>
-                                </svg>
-                              </label>
-                              <button class="modal-btn" id="myBtn${pokemonID}">
-                                <img
-                                  src="https://raw.githubusercontent.com/pokeapi/sprites/master/sprites/pokemon/other/dream-world/${pokemonID}.svg"
-                                  alt="Cinque Terre"
-                                  class="modal-btn"
-                                  id="${pokemonID}"
-                                />
-                              </button>
-                              <div class="desc-favorite" id="#${pokemonID}">
-                                <br />${pokemon.name}
-                              </div>
-                            </div>
-                   `;
-          favoriteContainer.appendChild(favoriteCardElement);
-          const checkForElement = () => {
-            const checkbox = document.querySelectorAll(".checkbox-heart");
-            if (checkbox) {
-              checkbox.forEach((element) => {
-                if (localStorage.getItem("Pokemon")) {
-                  PokemonFavorite = JSON.parse(localStorage.getItem("Pokemon"));
-                  for (let i = 0; i < PokemonFavorite.length; i++) {
-                    if (PokemonFavorite[i] == element.id) {
-                      element.checked = true;
-                    }
-                  }
-                }
-              });
-              clearInterval(intervalId);
-            }
-          };
+function isFavoritePokemon(pokemonID, favorites) {
+  return favorites.includes(pokemonID);
+}
 
-          const intervalId = setInterval(checkForElement, 100);
+function createFavoriteCardElement(pokemon, pokemonID) {
+  let favoriteCardElement = document.createElement("div");
+  favoriteCardElement.className = "responsive-favorite";
+  favoriteCardElement.innerHTML = `
+    <div class="card-favorite">
+      <input
+        type="checkbox"
+        id="${pokemonID}"
+        class="checkbox-heart"
+        name="favorite-checkbox"
+        value="favorite-button"
+      />
+      <label for="${pokemonID}" class="containerHeart">
+        <svg
+          xmlns="http://www.w3.org/2000/svg"
+          width="24"
+          height="24"
+          viewBox="0 0 24 24"
+          fill="none"
+          stroke="currentColor"
+          stroke-width="2"
+          stroke-linecap="round"
+          stroke-linejoin="round"
+          class="feather feather-heart"
+        >
+          <path
+            d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z"
+          ></path>
+        </svg>
+      </label>
+      <button class="modal-btn" id="myBtn${pokemonID}">
+        <img
+          src="https://raw.githubusercontent.com/pokeapi/sprites/master/sprites/pokemon/other/dream-world/${pokemonID}.svg"
+          alt="Cinque Terre"
+          class="modal-btn"
+          id="${pokemonID}"
+        />
+      </button>
+      <div class="desc-favorite" id="#${pokemonID}">
+        <br />${pokemon.name}
+      </div>
+    </div>
+  `;
+  return favoriteCardElement;
+}
 
-          document.body.addEventListener("click", async (event) => {
-            if (event.target.classList.contains("checkbox-heart")) {
-              if (!event.target.checked) {
-                displayFavoritePokemon(pokemonList);
-              }
-            }
-          });
+function updateFavoriteCheckboxes(favorites) {
+  const checkForElement = () => {
+    const checkbox = document.querySelectorAll(".checkbox-heart");
+    if (checkbox) {
+      checkbox.forEach((element) => {
+        if (isFavoritePokemon(element.id, favorites)) {
+          element.checked = true;
         }
+      });
+      clearInterval(intervalId);
+    }
+  };
+  const intervalId = setInterval(checkForElement, 100);
+}
+
+function handleFavoriteCheckboxClick(pokemonList) {
+  document.body.addEventListener("click", async (event) => {
+    if (event.target.classList.contains("checkbox-heart")) {
+      if (!event.target.checked) {
+        displayFavoritePokemon(pokemonList);
       }
     }
   });
+}
+
+function displayFavoritePokemon(pokemonArray) {
+  favoriteContainer.innerHTML = "";
+  let PokemonFavorite = JSON.parse(localStorage.getItem("Pokemon")) || [];
+
+  pokemonArray.forEach((pokemon) => {
+    const pokemonID = pokemon.url.split("/")[6];
+    if (isFavoritePokemon(pokemonID, PokemonFavorite)) {
+      let favoriteCardElement = createFavoriteCardElement(pokemon, pokemonID);
+      favoriteContainer.appendChild(favoriteCardElement);
+    }
+  });
+
+  updateFavoriteCheckboxes(PokemonFavorite);
+  handleFavoriteCheckboxClick(pokemonArray);
 }
 
 function handleSearch() {

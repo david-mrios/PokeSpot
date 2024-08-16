@@ -576,7 +576,7 @@ div.card-favorite img {
 }
 
 #not-found {
-  color: #3a2939;
+  color: red;
   font: small-caps bold 50px/1 sans-serif;
 }
 
