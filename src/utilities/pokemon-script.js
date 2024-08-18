@@ -1,4 +1,4 @@
-const MAX_POKEMON_COUNT = 649;
+const MAX_POKEMON_COUNT = 200;
 const listDisplay = document.querySelector(".list-display");
 const mainContainer = document.querySelector(".main");
 const modalContainer = document.querySelector(".data-modal");
@@ -35,6 +35,18 @@ async function fetchPokemonData() {
     const data = await response.json();
     pokemonList = data.results;
     let pokemonEvo = [];
+
+
+    const timeoutPromise = new Promise((resolve) => {
+      setTimeout(() => {
+        resolve();
+      }, 5000);
+    });
+
+    timeoutPromise.then(() => {
+      document.getElementById("loader").style.display = "none";
+      document.getElementById("cards").style.display = "block";
+    });
 
     mainContainer.innerHTML = "";
     let PokemonFavorite = JSON.parse(localStorage.getItem("Pokemon")) || [];
@@ -468,7 +480,7 @@ function handleSearch() {
   const searchTerm = searchInput.value.toLowerCase();
   let filteredPokemon = [];
   const main = document.getElementById("main");
-  let style = "repeat(auto-fit, minmax(300px, 1fr))"; 
+  let style = "repeat(auto-fit, minmax(300px, 1fr))";
 
   if (searchTerm !== "") {
     if (numberFilter.checked) {
@@ -480,7 +492,7 @@ function handleSearch() {
       filteredPokemon = pokemonList.filter((pokemon) =>
         pokemon.name.toLowerCase().startsWith(searchTerm)
       );
-      style = "repeat(auto-fit, minmax(300px, 0fr))"; 
+      style = "repeat(auto-fit, minmax(300px, 0fr))";
     } else {
       filteredPokemon = pokemonList;
     }
