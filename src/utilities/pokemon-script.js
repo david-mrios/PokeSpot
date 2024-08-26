@@ -15,19 +15,34 @@ var modal = document.getElementById("myModal");
 var modal_Favorites = document.getElementById("myModal-favorites");
 const details = document.querySelectorAll("details");
 
+const loaderContainer = document.getElementById("loader-container");
+
+function showLoader() {
+  loaderContainer.style.display = "flex";
+  loaderContainer.classList.add('loader-visible');
+}
+
+function hideLoader() {
+  loaderContainer.style.display = "none";
+  loaderContainer.classList.remove('loader-visible');
+}
+
 const evolutionList = [];
 let currentPokemonIDList;
 let pokemonList = [];
+let pokemonListFavorite = [];
 let currentlyOpenDetail = null;
 
 fetchPokemonData();
 showModalWithFavorites();
 checkFavorites();
-searchInput.addEventListener("keyup", handleSearch);
+searchInput.addEventListener("keyup", handleSearch); // enter debouce 1000/ +3 caracteres
 notFoundMessage.style.display = "none";
 
 async function fetchPokemonData() {
   try {
+    showLoader();
+
     const response = await fetch(
       `https://pokeapi.co/api/v2/pokemon?limit=${MAX_POKEMON_COUNT}&offset=0`
     );
@@ -36,35 +51,34 @@ async function fetchPokemonData() {
     pokemonList = data.results;
     let pokemonEvo = [];
 
-
-    const timeoutPromise = new Promise((resolve) => {
-      setTimeout(() => {
-        resolve();
-      }, 5000);
-    });
-
-    timeoutPromise.then(() => {
-      document.getElementById("loader").style.display = "none";
-      document.getElementById("cards").style.display = "block";
-    });
-
-    mainContainer.innerHTML = "";
     let PokemonFavorite = JSON.parse(localStorage.getItem("Pokemon")) || [];
-    updateFavoriteCheckboxes(PokemonFavorite);
-    for (const pokemon of pokemonList) {
-      displayPokemon(pokemon);
-      const pokemonID = pokemon.url.split("/")[6];
-      const pokemonDetails = await fetchPokemonAbilities(pokemon.url);
-      pokemon.details = pokemonDetails;
-      pokemon.speciesName = await fetchPokemonEvolution(
-        pokemonDetails.Spices.url
+
+    // Simular un retraso de 2 segundos
+    await new Promise(resolve => setTimeout(resolve, 2000));
+
+    displayPokemon(pokemonList, PokemonFavorite);
+  } catch (error) {
+    console.error("error:", error);
+  } finally {
+    hideLoader();
+  }
+}
+async function fetchPokemonDataFavorite() {
+  try {
+    let PokemonFavorite = JSON.parse(localStorage.getItem("Pokemon")) || [];
+    pokemonListFavorite = [];
+
+    for (let pokemonID of PokemonFavorite) {
+      let response = await fetch(
+        `https://pokeapi.co/api/v2/pokemon/${pokemonID}/`
       );
-      const evolutionChain = await getEvolutionChain(pokemonID);
-      pokemonEvo.push(evolutionChain);
-      handlePokemon(pokemon, pokemonEvo);
+      const data = await response.json();
+      pokemonListFavorite.push(data);
     }
 
-    displayFavoritePokemon(pokemonList);
+
+    displayFavoritePokemon(pokemonListFavorite);
+
   } catch (error) {
     console.error("error:", error);
   }
@@ -138,24 +152,22 @@ async function getEvolutionChain(pokemonID) {
 
   return evolutionChain;
 }
-function displayPokemon(pokemonData) {
-  if (!Array.isArray(pokemonData)) {
-    pokemonData = [pokemonData];
-  }
-
+function displayPokemon(pokemonData, pokemonFavorite) {
+  mainContainer.innerHTML = "";
   pokemonData.forEach((pokemon) => {
     const pokemonID = pokemon.url.split("/")[6];
     let cardElement = document.createElement("div");
-    cardElement.className = "responsive";
+    cardElement.className = "card";
     cardElement.innerHTML = `
-      <div class="card">
+      
         <input
           type="checkbox"
           id="${pokemonID}"
           class="checkbox-heart"
           name="favorite-checkbox"
           value="favorite-button"
-        />
+          ${pokemonFavorite.includes(pokemonID) ? "checked" : ""}
+        />  
         <label for="${pokemonID}" class="containerHeart">
           <svg
             xmlns="http://www.w3.org/2000/svg"
@@ -174,51 +186,47 @@ function displayPokemon(pokemonData) {
             ></path>
           </svg>
         </label>
-        <button class="modal-btn" id="myBtn${pokemonID}">
           <img
             src="https://raw.githubusercontent.com/pokeapi/sprites/master/sprites/pokemon/other/dream-world/${pokemonID}.svg"
             alt="${pokemon.name}"
             class="modal-btn"   
             id="${pokemonID}"
           />
-        </button>
         <div class="desc" id="#${pokemonID}"><br>${pokemon.name}</div>
-      </div>
     `;
     mainContainer.appendChild(cardElement);
   });
 }
 
-async function handlePokemon(pokemonList, evoChain) {
-  document.body.addEventListener("click", async (event) => {
-    if (event.target.classList.contains("modal-btn")) {
-      const pokemonID = pokemonList.url.split("/")[6];
-      if (pokemonID == event.target.id) {
-        if (pokemonList) {
-          const pokemonAbilitiesData = pokemonList.details;
-          const speciesName = pokemonList.speciesName;
-          let secondAbility = "";
-          if (pokemonAbilitiesData.abilities[1] != undefined) {
-            secondAbility =
-              ", " + pokemonAbilitiesData.abilities[1].ability.name;
-          }
-
-          showModal(
-            pokemonList.url.split("/")[6],
-            pokemonList.name,
-            speciesName,
-            pokemonAbilitiesData.height,
-            pokemonAbilitiesData.abilities[0].ability.name,
-            secondAbility,
-            pokemonAbilitiesData.weight
-          );
-          showEvolutionModal(evoChain[event.target.id - 1]);
-          hideFavoritesModal();
-        }
+document.body.addEventListener("click", async (event) => {
+  if (event.target.classList.contains("card") || event.target.classList.contains("modal-btn")) {
+    const card = event.target.classList.contains("card") ? event.target : event.target.closest(".card");
+    const pokemonID = card.querySelector(".checkbox-heart").id;
+    showLoader();
+    try {
+      const pokemonCurrently = pokemonList[pokemonID - 1];
+      const pokemonDetails = await fetchPokemonAbilities(pokemonCurrently.url);
+      const pokemonSpecies = await fetchPokemonEvolution(pokemonDetails.Spices.url);
+      const evoChain = await getEvolutionChain(pokemonID);
+      let secondAbility = "";
+      if (pokemonDetails.abilities[1] != undefined) {
+        secondAbility = ", " + pokemonDetails.abilities[1].ability.name;
       }
+
+      // Simular un retraso de 2 segundos
+      await new Promise(resolve => setTimeout(resolve, 2000));
+
+      showModal(pokemonID, pokemonCurrently.name, pokemonSpecies, pokemonDetails.height, pokemonDetails.abilities[0].ability.name, secondAbility, pokemonDetails.weight);
+      showEvolutionModal(evoChain);
+      hideFavoritesModal();
+    } catch (error) {
+      console.error("Error al cargar los datos del Pokémon:", error);
+    } finally {
+      hideLoader();
     }
-  });
-}
+
+  }
+});
 
 function showModal(
   id,
@@ -308,10 +316,12 @@ function login() {
   document.location.href = "/src/index.html";
 }
 
+
 function favorites() {
   showModalFavorites();
-  displayFavoritePokemon(pokemonList);
+  fetchPokemonDataFavorite();
 }
+
 
 function showModalFavorites() {
   const modal = document.getElementById("myModal-favorites");
@@ -333,56 +343,49 @@ const closeButtonFavorites =
   document.getElementsByClassName("close_favorite")[0];
 closeButtonFavorites.onclick = closeFavoritesModal;
 
-function showModalWithFavorites() {
-  document.body.addEventListener("click", async (event) => {
-    checkFavorites();
-    if (event.target.classList.contains("checkbox-heart")) {
-      const checkboxHeart = document.getElementsByClassName("checkbox-heart");
-      var quantity = checkboxHeart.length;
-      var PokemonFavorite = [];
-      for (var i = 0; i < quantity; i++) {
-        var id = checkboxHeart[i].getAttribute("id");
+function debounce(func, wait) {
+  let timeout;
+  return function executedFunction(...args) {
+    const later = () => {
+      clearTimeout(timeout);
+      func(...args);
+    };
+    clearTimeout(timeout);
+    timeout = setTimeout(later, wait);
+  };
+}
 
-        if (id == event.target.id && event.target.checked) {
-          if (localStorage.getItem("Pokemon")) {
-            PokemonFavorite = JSON.parse(localStorage.getItem("Pokemon"));
-            PokemonFavorite.push(id);
-            localStorage.setItem("Pokemon", JSON.stringify(PokemonFavorite));
-          } else {
-            PokemonFavorite[0] = id;
-            localStorage.setItem("Pokemon", JSON.stringify(PokemonFavorite));
-          }
-        }
-        if (id == event.target.id && !event.target.checked) {
-          PokemonFavorite = JSON.parse(localStorage.getItem("Pokemon"));
-          for (let i = 0; i < PokemonFavorite.length; i++) {
-            if (PokemonFavorite[i] == id) {
-              delete PokemonFavorite[i];
-            }
-          }
-          localStorage.setItem("Pokemon", JSON.stringify(PokemonFavorite));
-        }
-      }
+function showModalWithFavorites() {
+  const favoritesSet = new Set(JSON.parse(localStorage.getItem("Pokemon")) || []);
+
+  const debouncedUpdateFavorites = debounce((id, isChecked) => {
+    if (isChecked) {
+      favoritesSet.add(id);
+    } else {
+      favoritesSet.delete(id);
+    }
+    localStorage.setItem("Pokemon", JSON.stringify([...favoritesSet]));
+    fetchPokemonDataFavorite();
+  }, 300);
+
+  document.addEventListener("click", (event) => {
+    if (event.target.classList.contains("checkbox-heart")) {
+      const id = event.target.getAttribute("id");
+      debouncedUpdateFavorites(id, event.target.checked);
     }
   });
 }
 
 function checkFavorites() {
   if (localStorage.getItem("Pokemon")) {
-    var favorites = JSON.parse(localStorage.getItem("Pokemon"));
-    let checked = [];
-    for (let i = 0; i < favorites.length; i++) {
-      if (favorites[i] != null) {
-        checked.push(favorites[i]);
-        localStorage.removeItem("Pokemon");
-      }
-    }
+    let favorites = JSON.parse(localStorage.getItem("Pokemon"));
+    let checked = favorites.filter(favorite => favorite != null);
     localStorage.setItem("Pokemon", JSON.stringify(checked));
   }
 }
 
 function isFavoritePokemon(pokemonID, favorites) {
-  return favorites.includes(pokemonID);
+  return favorites.has(pokemonID);
 }
 
 function createFavoriteCardElement(pokemon, pokemonID) {
@@ -391,13 +394,13 @@ function createFavoriteCardElement(pokemon, pokemonID) {
   favoriteCardElement.innerHTML = `
     <div class="card-favorite">
       <input
-        type="checkbox"
+        type="checkbox"|
         id="${pokemonID}"
         class="checkbox-heart"
         name="favorite-checkbox"
         value="favorite-button"
       />
-      <label for="${pokemonID}" class="containerHeart">
+      <label for="${pokemonID}" class="containerHeartFav">
         <svg
           xmlns="http://www.w3.org/2000/svg"
           width="24"
@@ -432,27 +435,9 @@ function createFavoriteCardElement(pokemon, pokemonID) {
 }
 
 function updateFavoriteCheckboxes(favorites) {
-  const checkForElement = () => {
-    const checkbox = document.querySelectorAll(".checkbox-heart");
-    if (checkbox) {
-      checkbox.forEach((element) => {
-        if (isFavoritePokemon(element.id, favorites)) {
-          element.checked = true;
-        }
-      });
-      clearInterval(intervalId);
-    }
-  };
-  const intervalId = setInterval(checkForElement, 100);
-}
-
-function handleFavoriteCheckboxClick(pokemonList) {
-  document.body.addEventListener("click", async (event) => {
-    if (event.target.classList.contains("checkbox-heart")) {
-      if (!event.target.checked) {
-        displayFavoritePokemon(pokemonList);
-      }
-    }
+  const checkboxes = document.querySelectorAll(".checkbox-heart");
+  checkboxes.forEach((element) => {
+    element.checked = favorites.includes(element.id);
   });
 }
 
@@ -460,16 +445,16 @@ function displayFavoritePokemon(pokemonArray) {
   favoriteContainer.innerHTML = "";
   let PokemonFavorite = JSON.parse(localStorage.getItem("Pokemon")) || [];
 
-  pokemonArray.forEach((pokemon) => {
-    const pokemonID = pokemon.url.split("/")[6];
-    if (isFavoritePokemon(pokemonID, PokemonFavorite)) {
-      let favoriteCardElement = createFavoriteCardElement(pokemon, pokemonID);
-      favoriteContainer.appendChild(favoriteCardElement);
-    }
-  });
 
+  pokemonArray.forEach((pokemon) => {
+    const pokemonID = pokemon.id;
+    let favoriteCardElement = createFavoriteCardElement(pokemon, pokemonID);
+    favoriteContainer.appendChild(favoriteCardElement);
+
+  });
+  console.log(PokemonFavorite);
   updateFavoriteCheckboxes(PokemonFavorite);
-  handleFavoriteCheckboxClick(pokemonArray);
+
 }
 function handleSearch() {
   if (!pokemonList || pokemonList.length === 0) {
@@ -479,8 +464,7 @@ function handleSearch() {
 
   const searchTerm = searchInput.value.toLowerCase();
   let filteredPokemon = [];
-  const main = document.getElementById("main");
-  let style = "repeat(auto-fit, minmax(300px, 1fr))";
+  let PokemonFavorite = JSON.parse(localStorage.getItem("Pokemon")) || [];
 
   if (searchTerm !== "") {
     if (numberFilter.checked) {
@@ -492,7 +476,6 @@ function handleSearch() {
       filteredPokemon = pokemonList.filter((pokemon) =>
         pokemon.name.toLowerCase().startsWith(searchTerm)
       );
-      style = "repeat(auto-fit, minmax(300px, 0fr))";
     } else {
       filteredPokemon = pokemonList;
     }
@@ -508,8 +491,7 @@ function handleSearch() {
   }
 
   mainContainer.innerHTML = ""; // Clear previous results
-  displayPokemon(filteredPokemon);
-  main.style.gridTemplateColumns = style;
+  displayPokemon(filteredPokemon, PokemonFavorite);
 }
 
 details.forEach((detail) => {
@@ -560,3 +542,5 @@ window.onclick = function (event) {
     modal_Favorites.style.display = "none";
   }
 };
+
+
