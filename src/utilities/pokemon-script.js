@@ -339,7 +339,7 @@ const closeButton = document.getElementsByClassName("close")[0];
 closeButton.onclick = closeModal;
 
 window.login = function () {
-  document.location.href = "./index.html";
+  document.location.href = "/index.html";
 }
 
 // Función para mostrar favoritos
@@ -535,7 +535,7 @@ function setTargetDetail(targetDetail) {
 
 // Función para navegar a la página de configuración
 window.settings = function() {
-  document.location.href = "./pages/User-Profile/profile.html";
+  document.location.href = "/pages/User-Profile/profile.html";
 }
 
 // Manejo de clics afuera del elemento y cerrar los modales o summaries
