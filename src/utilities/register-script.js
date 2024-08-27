@@ -54,7 +54,7 @@ function validateSignUpForm(e) {
   userData.push(fullName, email, password);
   localStorage.setItem("Login", JSON.stringify(userData));
 
-  window.location.href = "./pages/Cards/card.html";
+  redirectToCards();
 }
 
 function validateEmail(email) {
@@ -94,7 +94,7 @@ function validateLoginForm(e) {
   loginMsg.style.display = "none";
   document.querySelector("[name=Pass-Login]").value = "";
   document.querySelector("[name=Email-Login]").value = "";
-  window.location.href = "./pages/Cards/card.html";
+  redirectToCards();
 }
 
 function clearDiv() {
@@ -102,4 +102,9 @@ function clearDiv() {
   signUpMsg.style.display = "none";
   const loginMsg = document.querySelector(".msg-login");
   loginMsg.style.display = "none";
+}
+
+function redirectToCards() {
+  const baseUrl = window.location.origin;
+  window.location.href = `/pages/Cards/card.html`;
 }
