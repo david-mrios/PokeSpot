@@ -25,7 +25,6 @@ let currentlyOpenDetail = null;
 // funciones iniciales
 fetchPokemonData();
 showModalWithFavorites();
-checkFavorites();
 fetchPokemonDataFavorite();
 
 // Funciones para mostrar y ocultar el loader
@@ -113,8 +112,6 @@ async function fetchPokemonEvolution(url) {
     const response = await fetch(url);
 
     const data = await response.json();
-    let pokemonListEvo = data.evolution_chain;
-
     let speciesGenera = data.genera;
     return getSpeciesName(speciesGenera);
   } catch (error) {
@@ -220,7 +217,8 @@ document.body.addEventListener("click", async (event) => {
 
     // Obtener los datos del Pokémon 
     try {
-      const pokemonCurrently = pokemonList[pokemonID - 1];
+      const pokemonCurrently = pokemonList[pokemonID - 1];  
+      console.log(pokemonCurrently);
       const pokemonDetails = await fetchPokemonAbilities(pokemonCurrently.url);
       const pokemonSpecies = await fetchPokemonEvolution(
         pokemonDetails.Spices.url
@@ -357,12 +355,12 @@ function showModalFavorites() {
 }
 
 function closeFavoritesModal() {
-  var modal = document.getElementById("myModal-favorites");
+  let modal = document.getElementById("myModal-favorites");
   modal.style.display = "none";
 }
 
 function hideFavoritesModal() {
-  var modal = document.getElementById("myModal-favorites");
+  let modal = document.getElementById("myModal-favorites");
   modal.style.zIndex = 0;
   modal.style.opacity = 0;
 }
@@ -387,12 +385,12 @@ function debounce(func, wait) {
 
 // Función para manejar la actualización de favoritos
 function showModalWithFavorites() {
-  // Set p
+  // Set de valores únicos
   const favoritesSet = new Set(
     JSON.parse(localStorage.getItem("Pokemon")) || []
   );
 
-  const debouncedUpdateFavorites = debounce((id, isChecked) => {
+  return debounce((id, isChecked) => {
     if (isChecked) {
       favoritesSet.add(id);
     } else {
@@ -401,35 +399,25 @@ function showModalWithFavorites() {
     localStorage.setItem("Pokemon", JSON.stringify([...favoritesSet]));
     fetchPokemonDataFavorite();
   }, 300);
-
-  document.addEventListener("click", (event) => {
-    if (event.target.classList.contains("checkbox-heart")) {
-      const id = event.target.getAttribute("id");
-      debouncedUpdateFavorites(id, event.target.checked);
-    }
-  });
 }
 
-// Función para verificar y limpiar favoritos
-function checkFavorites() {
-  if (localStorage.getItem("Pokemon")) {
-    let favorites = JSON.parse(localStorage.getItem("Pokemon"));
-    let checked = favorites.filter((favorite) => favorite != null);
-    localStorage.setItem("Pokemon", JSON.stringify(checked));
+// Crear una instancia de la función debounced
+const debouncedUpdateFavorites = showModalWithFavorites();
+
+// Agregar el event listener fuera de la función
+document.addEventListener("click", (event) => {
+  if (event.target.classList.contains("checkbox-heart")) {
+    const id = event.target.getAttribute("id");
+    debouncedUpdateFavorites(id, event.target.checked);
   }
-}
-
-// Funciones auxiliares para manejar favoritos
-function isFavoritePokemon(pokemonID, favorites) {
-  return favorites.has(pokemonID);
-}
+});
 
 function createFavoriteCardElement(pokemon, pokemonID) {
   let favoriteCardElement = document.createElement("div");
   favoriteCardElement.className = "card-favorite";
   favoriteCardElement.innerHTML = `
       <input
-        type="checkbox"|
+        type="checkbox"
         id="${pokemonID}"
         class="checkbox-heart"
         name="favorite-checkbox"
@@ -468,6 +456,7 @@ function createFavoriteCardElement(pokemon, pokemonID) {
   return favoriteCardElement;
 }
 
+// Actualizar los checkboxes de favoritos
 function updateFavoriteCheckboxes(favorites) {
   const checkboxes = document.querySelectorAll(".checkbox-heart");
   checkboxes.forEach((element) => {
@@ -489,11 +478,6 @@ function displayFavoritePokemon(pokemonArray) {
 
 // Función para manejar la búsqueda de Pokémon
 function handleSearch() {
-  if (!pokemonList || pokemonList.length === 0) {
-    console.error("pokemonList is undefined or empty:", pokemonList);
-    return;
-  }
-
   const searchTerm = searchInput.value.toLowerCase();
   let filteredPokemon = [];
   let PokemonFavorite = JSON.parse(localStorage.getItem("Pokemon")) || [];
@@ -535,12 +519,14 @@ details.forEach((detail) => {
   });
 });
 
+// Funcion solo visible en mobile
 function setTargetDetail(targetDetail) {
   if (currentlyOpenDetail === targetDetail) {
     targetDetail.open = false;
     currentlyOpenDetail = null;
   } else {
     if (currentlyOpenDetail !== null) {
+
       currentlyOpenDetail.open = false;
     }
     currentlyOpenDetail = targetDetail;
@@ -552,7 +538,7 @@ window.settings = function() {
   document.location.href = "/src/pages/User-Profile/profile.html";
 }
 
-// Manejo de clics en la ventana
+// Manejo de clics afuera del elemento y cerrar los modales o summaries
 window.onclick = function (event) {
   if (event.target == modal) {
     modal.style.display = "none";
@@ -564,7 +550,7 @@ window.onclick = function (event) {
 
   if (summary && !event.target.checked) {
     if (event.target.tagName !== "LABEL") {
-      summary.open = false;
+      summary.open = false; 
     }
   }
   if (summary2 && !event.target.checked) {

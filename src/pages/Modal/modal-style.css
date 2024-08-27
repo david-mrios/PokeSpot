@@ -194,6 +194,7 @@
   text-transform: uppercase;
   display: inline;
   color: orange;
+  text-align: center;
 }
 
 .div-data {
@@ -437,7 +438,7 @@ div.desc-modal-evo {
 }
 @media (max-width: 924px) {
   .data-class {
-    padding: 0 0 0 110px;
+    padding: 0 0 0 127px;
     font: normal bold 1.1em "Fira Sans", sans-serif;
     text-transform: uppercase;
     display: inline;
@@ -585,7 +586,7 @@ div.card-favorite img {
 
 @media (max-width: 560px) {
   .data-class {
-    padding: 0 0 0 90px;
+    padding: 0 0 0 0;
     font: normal bold 1.1em "Fira Sans", sans-serif;
     text-transform: uppercase;
     display: inline;
@@ -604,11 +605,11 @@ div.card-favorite img {
 
   .column-modal-img {
     display: flex;
-    position: static;
     flex-wrap: wrap;
     align-items: center;
     gap: 8px;
     flex: 3;
+    padding: 0;
     margin: 0 0;
   }
 
@@ -631,11 +632,20 @@ div.card-favorite img {
     width: 90%;
   }
 
+  
+
   .data-class {
-    padding: 0 0 0 0;
+    padding:  0 0 0 10px;
     font: normal bold 1.1em "Fira Sans", sans-serif;
     text-transform: uppercase;
     display: inline;
     color: orange;
+  }
+}
+
+
+@media (max-width: 426px) {
+  .data-class{
+    padding: 0 0 0 70px;
   }
 }
