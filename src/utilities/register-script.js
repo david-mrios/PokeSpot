@@ -54,7 +54,7 @@ function validateSignUpForm(e) {
   userData.push(fullName, email, password);
   localStorage.setItem("Login", JSON.stringify(userData));
 
-  window.location.href = "/src/pages/Cards/card.html";
+  window.location.href = "./pages/Cards/card.html";
 }
 
 function validateEmail(email) {
@@ -94,7 +94,7 @@ function validateLoginForm(e) {
   loginMsg.style.display = "none";
   document.querySelector("[name=Pass-Login]").value = "";
   document.querySelector("[name=Email-Login]").value = "";
-  window.location.href = "/src/pages/Cards/card.html";
+  window.location.href = "./pages/Cards/card.html";
 }
 
 function clearDiv() {
