@@ -1,0 +1,13 @@
+export const MAX_POKEMON_COUNT = 200;
+export const listDisplay = document.querySelector(".list-display");
+export const mainContainer = document.querySelector(".main");
+export const modalContainer = document.querySelector(".data-modal");
+export const evolutionImage = document.querySelector(".img-evo");
+export const favoriteContainer = document.querySelector(".wrapped-favorite");
+export const searchInput = document.querySelector("#input");
+export const numberFilter = document.querySelector("#number");
+export const nameFilter = document.querySelector("#name");
+export const notFoundMessage = document.querySelector("#not-found");
+export const details = document.querySelectorAll("details");
+export const loaderContainer = document.getElementById("loader-container");
+export const modal = document.getElementById("myModal");

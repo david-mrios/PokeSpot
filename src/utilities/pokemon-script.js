@@ -1,44 +1,49 @@
-const MAX_POKEMON_COUNT = 200;
-const listDisplay = document.querySelector(".list-display");
-const mainContainer = document.querySelector(".main");
-const modalContainer = document.querySelector(".data-modal");
-const evolutionImage = document.querySelector(".img-evo");
-const favoriteContainer = document.querySelector(".wrapped-favorite");
-const searchInput = document.querySelector("#input");
-const numberFilter = document.querySelector("#number");
-const nameFilter = document.querySelector("#name");
-const notFoundMessage = document.querySelector("#not-found");
-var summary = document.getElementById("details-s");
-var summary2 = document.getElementById("details-2");
-var radio = document.getElementById("name");
-var modal = document.getElementById("myModal");
-var modal_Favorites = document.getElementById("myModal-favorites");
-const details = document.querySelectorAll("details");
+// Importación de constantes y elementos del DOM desde const.js
+import {
+  MAX_POKEMON_COUNT,
+  mainContainer,
+  modalContainer,
+  evolutionImage,
+  favoriteContainer,
+  searchInput,
+  numberFilter,
+  nameFilter,
+  notFoundMessage,
+  details,
+  loaderContainer,
+  modal,
+} from './const.js';
 
-const loaderContainer = document.getElementById("loader-container");
-
-function showLoader() {
-  loaderContainer.style.display = "flex";
-  loaderContainer.classList.add('loader-visible');
-}
-
-function hideLoader() {
-  loaderContainer.style.display = "none";
-  loaderContainer.classList.remove('loader-visible');
-}
-
-const evolutionList = [];
-let currentPokemonIDList;
+// Inicialización de variables globales
+let summary = document.getElementById("details-s");
+let summary2 = document.getElementById("details-2");
+let modal_Favorites = document.getElementById("myModal-favorites");
 let pokemonList = [];
 let pokemonListFavorite = [];
 let currentlyOpenDetail = null;
 
+// funciones iniciales
 fetchPokemonData();
 showModalWithFavorites();
 checkFavorites();
-searchInput.addEventListener("keyup", handleSearch); // enter debouce 1000/ +3 caracteres
+fetchPokemonDataFavorite();
+
+// Funciones para mostrar y ocultar el loader
+function showLoader() {
+  loaderContainer.style.display = "flex";
+  loaderContainer.classList.add("loader-visible");
+}
+
+function hideLoader() {
+  loaderContainer.style.display = "none";
+  loaderContainer.classList.remove("loader-visible");
+}
+
+// Evento para manejar la búsqueda de Pokémon
+searchInput.addEventListener("keyup", handleSearch);
 notFoundMessage.style.display = "none";
 
+// Función para obtener datos de Pokémon de la API
 async function fetchPokemonData() {
   try {
     showLoader();
@@ -46,15 +51,12 @@ async function fetchPokemonData() {
     const response = await fetch(
       `https://pokeapi.co/api/v2/pokemon?limit=${MAX_POKEMON_COUNT}&offset=0`
     );
-
     const data = await response.json();
     pokemonList = data.results;
-    let pokemonEvo = [];
-
     let PokemonFavorite = JSON.parse(localStorage.getItem("Pokemon")) || [];
 
-    // Simular un retraso de 2 segundos
-    await new Promise(resolve => setTimeout(resolve, 2000));
+    // Simular un retraso de 2 segundos si se resuelve
+    await new Promise((resolve) => setTimeout(resolve, 1000));
 
     displayPokemon(pokemonList, PokemonFavorite);
   } catch (error) {
@@ -63,6 +65,8 @@ async function fetchPokemonData() {
     hideLoader();
   }
 }
+
+// Función para obtener datos de Pokémon favoritos
 async function fetchPokemonDataFavorite() {
   try {
     let PokemonFavorite = JSON.parse(localStorage.getItem("Pokemon")) || [];
@@ -76,14 +80,13 @@ async function fetchPokemonDataFavorite() {
       pokemonListFavorite.push(data);
     }
 
-
     displayFavoritePokemon(pokemonListFavorite);
-
   } catch (error) {
     console.error("error:", error);
   }
 }
 
+// Función para obtener habilidades de un Pokémon
 async function fetchPokemonAbilities(url) {
   try {
     const response = await fetch(url);
@@ -104,6 +107,7 @@ async function fetchPokemonAbilities(url) {
   }
 }
 
+// Función para obtener evolución de un Pokémon
 async function fetchPokemonEvolution(url) {
   try {
     const response = await fetch(url);
@@ -118,6 +122,7 @@ async function fetchPokemonEvolution(url) {
   }
 }
 
+// Función para obtener el nombre de la especie en español
 function getSpeciesName(genera) {
   let speciesName;
 
@@ -129,6 +134,7 @@ function getSpeciesName(genera) {
   return speciesName;
 }
 
+// Función para obtener la cadena de evolución de un Pokémon
 async function getEvolutionChain(pokemonID) {
   // Fetch evolution chain from the API
   let response = await fetch(
@@ -147,11 +153,14 @@ async function getEvolutionChain(pokemonID) {
     let pokemonId = currentStage.species.url.split("/")[6];
     let pokemonName = currentStage.species.name;
     evolutionChain.push([pokemonId, pokemonName]);
+    // Habrá un momento en que currentStage arrojara un undefined y estará vacio
     currentStage = currentStage.evolves_to[0];
   } while (currentStage);
 
   return evolutionChain;
 }
+
+// Función para mostrar los Pokémon en la página principal
 function displayPokemon(pokemonData, pokemonFavorite) {
   mainContainer.innerHTML = "";
   pokemonData.forEach((pokemon) => {
@@ -159,7 +168,6 @@ function displayPokemon(pokemonData, pokemonFavorite) {
     let cardElement = document.createElement("div");
     cardElement.className = "card";
     cardElement.innerHTML = `
-      
         <input
           type="checkbox"
           id="${pokemonID}"
@@ -198,15 +206,25 @@ function displayPokemon(pokemonData, pokemonFavorite) {
   });
 }
 
+// Evento para mostrar detalles de un Pokémon al hacer clic
 document.body.addEventListener("click", async (event) => {
-  if (event.target.classList.contains("card") || event.target.classList.contains("modal-btn")) {
-    const card = event.target.classList.contains("card") ? event.target : event.target.closest(".card");
+  if (
+    event.target.classList.contains("card") ||
+    event.target.classList.contains("modal-btn") ||
+    event.target.classList.contains("card-favorite")
+  ) {
+    const card = event.target.closest(".card, .card-favorite");
     const pokemonID = card.querySelector(".checkbox-heart").id;
+
     showLoader();
+
+    // Obtener los datos del Pokémon 
     try {
       const pokemonCurrently = pokemonList[pokemonID - 1];
       const pokemonDetails = await fetchPokemonAbilities(pokemonCurrently.url);
-      const pokemonSpecies = await fetchPokemonEvolution(pokemonDetails.Spices.url);
+      const pokemonSpecies = await fetchPokemonEvolution(
+        pokemonDetails.Spices.url
+      );
       const evoChain = await getEvolutionChain(pokemonID);
       let secondAbility = "";
       if (pokemonDetails.abilities[1] != undefined) {
@@ -214,9 +232,17 @@ document.body.addEventListener("click", async (event) => {
       }
 
       // Simular un retraso de 2 segundos
-      await new Promise(resolve => setTimeout(resolve, 2000));
+      await new Promise((resolve) => setTimeout(resolve, 2000));
 
-      showModal(pokemonID, pokemonCurrently.name, pokemonSpecies, pokemonDetails.height, pokemonDetails.abilities[0].ability.name, secondAbility, pokemonDetails.weight);
+      showModal(
+        pokemonID,
+        pokemonCurrently.name,
+        pokemonSpecies,
+        pokemonDetails.height,
+        pokemonDetails.abilities[0].ability.name,
+        secondAbility,
+        pokemonDetails.weight
+      );
       showEvolutionModal(evoChain);
       hideFavoritesModal();
     } catch (error) {
@@ -224,10 +250,10 @@ document.body.addEventListener("click", async (event) => {
     } finally {
       hideLoader();
     }
-
   }
 });
 
+// Función para mostrar el modal con detalles del Pokémon
 function showModal(
   id,
   pokemonName,
@@ -237,7 +263,6 @@ function showModal(
   abilities2,
   weight
 ) {
-  const modal = document.getElementById("myModal");
   modalContainer.innerHTML = "";
   let modalCardElement = document.createElement("div");
   modalCardElement.className = "row";
@@ -279,6 +304,7 @@ function showModal(
   modal.style.display = "block";
 }
 
+// Función para mostrar la evolución del Pokémon en el modal
 function showEvolutionModal(pokemonArray) {
   evolutionImage.innerHTML = "";
 
@@ -299,11 +325,13 @@ function showEvolutionModal(pokemonArray) {
   });
 }
 
+// Funciones para cerrar modales
 function closeModal() {
   var modal = document.getElementById("myModal");
   var modalFavorites = document.getElementById("myModal-favorites");
   modal.style.display = "none";
 
+  // Si el modal de favoritos está cerrado, abrirlo si antes estaba abierto
   if (modalFavorites.style.opacity == 0) {
     modalFavorites.style.opacity = 1;
   }
@@ -312,17 +340,17 @@ function closeModal() {
 const closeButton = document.getElementsByClassName("close")[0];
 closeButton.onclick = closeModal;
 
-function login() {
+window.login = function () {
   document.location.href = "/src/index.html";
 }
 
-
-function favorites() {
+// Función para mostrar favoritos
+window.favorites= function () {
   showModalFavorites();
   fetchPokemonDataFavorite();
 }
 
-
+// Funciones para manejar el modal de favoritos
 function showModalFavorites() {
   const modal = document.getElementById("myModal-favorites");
   modal.style.display = "block";
@@ -343,6 +371,8 @@ const closeButtonFavorites =
   document.getElementsByClassName("close_favorite")[0];
 closeButtonFavorites.onclick = closeFavoritesModal;
 
+// Función de debounce para optimizar actualizaciones
+// este si no mas lo copie XD
 function debounce(func, wait) {
   let timeout;
   return function executedFunction(...args) {
@@ -355,8 +385,12 @@ function debounce(func, wait) {
   };
 }
 
+// Función para manejar la actualización de favoritos
 function showModalWithFavorites() {
-  const favoritesSet = new Set(JSON.parse(localStorage.getItem("Pokemon")) || []);
+  // Set p
+  const favoritesSet = new Set(
+    JSON.parse(localStorage.getItem("Pokemon")) || []
+  );
 
   const debouncedUpdateFavorites = debounce((id, isChecked) => {
     if (isChecked) {
@@ -376,23 +410,24 @@ function showModalWithFavorites() {
   });
 }
 
+// Función para verificar y limpiar favoritos
 function checkFavorites() {
   if (localStorage.getItem("Pokemon")) {
     let favorites = JSON.parse(localStorage.getItem("Pokemon"));
-    let checked = favorites.filter(favorite => favorite != null);
+    let checked = favorites.filter((favorite) => favorite != null);
     localStorage.setItem("Pokemon", JSON.stringify(checked));
   }
 }
 
+// Funciones auxiliares para manejar favoritos
 function isFavoritePokemon(pokemonID, favorites) {
   return favorites.has(pokemonID);
 }
 
 function createFavoriteCardElement(pokemon, pokemonID) {
   let favoriteCardElement = document.createElement("div");
-  favoriteCardElement.className = "responsive-favorite";
+  favoriteCardElement.className = "card-favorite";
   favoriteCardElement.innerHTML = `
-    <div class="card-favorite">
       <input
         type="checkbox"|
         id="${pokemonID}"
@@ -429,7 +464,6 @@ function createFavoriteCardElement(pokemon, pokemonID) {
       <div class="desc-favorite" id="#${pokemonID}">
         <br />${pokemon.name}
       </div>
-    </div>
   `;
   return favoriteCardElement;
 }
@@ -445,17 +479,15 @@ function displayFavoritePokemon(pokemonArray) {
   favoriteContainer.innerHTML = "";
   let PokemonFavorite = JSON.parse(localStorage.getItem("Pokemon")) || [];
 
-
   pokemonArray.forEach((pokemon) => {
     const pokemonID = pokemon.id;
     let favoriteCardElement = createFavoriteCardElement(pokemon, pokemonID);
     favoriteContainer.appendChild(favoriteCardElement);
-
   });
-  console.log(PokemonFavorite);
   updateFavoriteCheckboxes(PokemonFavorite);
-
 }
+
+// Función para manejar la búsqueda de Pokémon
 function handleSearch() {
   if (!pokemonList || pokemonList.length === 0) {
     console.error("pokemonList is undefined or empty:", pokemonList);
@@ -494,6 +526,7 @@ function handleSearch() {
   displayPokemon(filteredPokemon, PokemonFavorite);
 }
 
+// Manejo de detalles abiertos
 details.forEach((detail) => {
   detail.addEventListener("toggle", () => {
     if (detail.open) {
@@ -514,10 +547,12 @@ function setTargetDetail(targetDetail) {
   }
 }
 
-function settings() {
+// Función para navegar a la página de configuración
+window.settings = function() {
   document.location.href = "/src/pages/User-Profile/profile.html";
 }
 
+// Manejo de clics en la ventana
 window.onclick = function (event) {
   if (event.target == modal) {
     modal.style.display = "none";
@@ -542,5 +577,3 @@ window.onclick = function (event) {
     modal_Favorites.style.display = "none";
   }
 };
-
-
