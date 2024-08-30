@@ -27,19 +27,19 @@ function loadExistingData() {
 function updateData(e) {
   e.preventDefault();
 
-  const fullName = document.getElementById("fullName").value;
-  const nickname = document.getElementById("nickname").value;
-  const email = document.getElementById("email").value;
+  const fullName = document.getElementById("fullName").value.trim();
+  const nickname = document.getElementById("nickname").value.trim();
+  const email = document.getElementById("email").value.trim();
   const dob = document.getElementById("dob").value;
   const gender = document.querySelector('input[name="gender"]:checked')?.value;
 
   if (fullName === "" || email === "") {
-    alert("Nam2e and Email are required fields.");
+    alert("El nombre y el correo electrónico son campos obligatorios.");
     return;
   }
 
   if (!validateEmail(email)) {
-    alert("Please enter a valid email address.");
+    alert("Por favor, introduce una dirección de correo electrónico válida.");
     return;
   }
 
@@ -56,7 +56,6 @@ function updateData(e) {
 }
 
 function validateEmail(email) {
-  var re =
-    /^(([^<>()\[\]\\.,;:\s@']+(\.[^<>()\[\]\\.,;:\s@']+)*)|('.+'))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
-  return re.test(String(email).toLowerCase());
+  const re = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+  return re.test(email);
 }
