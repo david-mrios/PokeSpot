@@ -30,7 +30,14 @@ function validateSignUpForm(e) {
   var fullName = document.querySelector("[name=FullName]").value;
   var email = document.querySelector("[name=Email]").value;
   var password = document.querySelector("[name=Pass]").value;
-  var userData = [];
+
+  // Comprobar si ya existe un usuario con este correo electrónico
+  const existingUserData = JSON.parse(localStorage.getItem("Login"));
+  if (existingUserData && existingUserData[1] === email) {
+    signUpMsg.style.display = "inline";
+    signUpMsg.innerText = "Ya existe una cuenta con este correo electrónico";
+    return;
+  }
 
   if (fullName === "") {
     signUpMsg.style.display = "inline";
@@ -51,6 +58,7 @@ function validateSignUpForm(e) {
   }
 
   signUpMsg.style.display = "none";
+  var userData = [];
   userData.push(fullName, email, password);
   localStorage.setItem("Login", JSON.stringify(userData));
 

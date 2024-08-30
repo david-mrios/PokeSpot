@@ -44,6 +44,20 @@ function updateData(e) {
   }
 
   const savedData = JSON.parse(localStorage.getItem("Login")) || [];
+  
+  // Verificar si los datos son idénticos a los existentes
+  if (
+    savedData[0] === fullName &&
+    savedData[1] === email &&
+    savedData[3] === nickname &&
+    savedData[4] === dob &&
+    savedData[5] === gender
+  ) {
+    alert("No se han realizado cambios en los datos.");
+    return;
+  }
+
+  // Si hay cambios, actualizar los datos
   savedData[0] = fullName;
   savedData[1] = email;
   savedData[3] = nickname;
@@ -52,7 +66,7 @@ function updateData(e) {
 
   localStorage.setItem("Login", JSON.stringify(savedData));
 
-  alert("Data has been updated successfully.");
+  alert("Los datos se han actualizado correctamente.");
 }
 
 function validateEmail(email) {
